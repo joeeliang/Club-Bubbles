@@ -5,14 +5,16 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
+import ClubProposal from "@/Pages/ClubProposal.jsx";
 import Browse from './Pages/Browse.jsx';
 import Join from './Pages/Join.jsx';
 import Login from './Pages/Login.jsx';
+import Signup from './Pages/Signup.jsx';
 
 function App() {
     return (
         <Router>
-            <div className="tw-bg-gradient-to-r tw-from-blue-950 tw-to-blue-200 tw-min-h-screen tw-w-screen">
+            <div className="tw-bg-gradient-to-r tw-from-blue-950 tw-to-blue-200 tw-min-h-screen tw-w-screen tw-scrollbar-hidden">
                 <NavbarComponent />
 
                 <Routes>
@@ -20,6 +22,8 @@ function App() {
                     <Route path="/browse" element={<Browse />} />
                     <Route path="/join" element={<Join />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
+                    <Route path="/proposal" element={<ClubProposal />} />
                 </Routes>
             </div>
         </Router>
