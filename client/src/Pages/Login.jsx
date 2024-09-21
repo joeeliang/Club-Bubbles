@@ -41,7 +41,7 @@ const Login = () => {
                     </button>
                 </form>
                 <p className="tw-mt-4 tw-text-center tw-text-gray-300">
-                    Not an organizer? <a href="/join" className="tw-text-blue-400 hover:tw-underline">Join here</a>
+                    Don't have an account? <a href="/join" className="tw-text-blue-400 hover:tw-underline">Sign up here.</a>
                 </p>
             </div>
         </div>
