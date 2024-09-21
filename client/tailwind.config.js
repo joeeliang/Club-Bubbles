@@ -28,11 +28,16 @@ module.exports = {
       },
       animation: {
         marquee: 'marquee 25s linear infinite',
+        grid: "grid 15s linear infinite",
       },
       keyframes: {
         marquee: {
           '0%': { transform: 'translateX(100%)' },
           '100%': { transform: 'translateX(-100%)' },
+        },
+        grid: {
+          "0%": { transform: "translateY(-50%)" },
+          "100%": { transform: "translateY(0)" },
         },
       },
       colors: {
@@ -79,6 +84,5 @@ module.exports = {
   },
   plugins: [
     require("tailwindcss-animate"),
-    require('tailwind-scrollbar'),
   ],
 };
