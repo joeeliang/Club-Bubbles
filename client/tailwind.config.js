@@ -20,19 +20,27 @@ module.exports = {
       },
     },
     extend: {
-      scrollbar: {
-        DEFAULT: {
-          track: 'bg-transparent',
-          thumb: 'bg-gray-600 rounded-lg',
-        },
-      },
       animation: {
         marquee: 'marquee 25s linear infinite',
+        grid: "grid 15s linear infinite",
+        ripple: "ripple var(--duration,2s) ease calc(var(--i, 0)*.2s) infinite",
       },
       keyframes: {
         marquee: {
           '0%': { transform: 'translateX(100%)' },
           '100%': { transform: 'translateX(-100%)' },
+        },
+        grid: {
+          "0%": { transform: "translateY(-50%)" },
+          "100%": { transform: "translateY(0)" },
+        },
+        ripple: {
+          "0%, 100%": {
+            transform: "translate(-50%, -50%) scale(1)",
+          },
+          "50%": {
+            transform: "translate(-50%, -50%) scale(0.9)",
+          },
         },
       },
       colors: {
@@ -79,6 +87,5 @@ module.exports = {
   },
   plugins: [
     require("tailwindcss-animate"),
-    require('tailwind-scrollbar'),
   ],
 };

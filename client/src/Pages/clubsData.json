@@ -1,7 +1,0 @@
-[
-    { "id": 1, "name": "Coding Club", "description": "A club for coding enthusiasts.", "severity": 3 },
-    { "id": 2, "name": "Art Club", "description": "Explore your artistic side.", "severity": 2 },
-    { "id": 3, "name": "Music Club", "description": "For music lovers and musicians.", "severity": 4 },
-    { "id": 4, "name": "Book Club", "description": "Read and discuss great books.", "severity": 1 },
-    { "id": 5, "name": "Sports Club", "description": "For sports and fitness activities.", "severity": 10 }
-]
