@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import BlurFade from "@/components/magicui/blur-fade";
-import TypingAnimation from "@/components/magicui/typing-animation";
 
 const clubsData = [
     { id: 1, name: "Coding Club", description: "A club for coding enthusiasts." },
@@ -34,9 +33,12 @@ const Browse = () => {
 
     return (
         <>
+            <BlurFade delay={0.25 * 0.05} inView>
             <h1 className="tw-text-4xl tw-font-bold tw-text-center tw-text-gray-800 tw-my-8">
                 Browse Clubs
             </h1>
+            </BlurFade>
+            <BlurFade delay={0.15} inView>
             <div className="tw-flex tw-justify-center tw-mb-6 tw-text-white">
                 <input
                     type="text"
@@ -46,6 +48,7 @@ const Browse = () => {
                     placeholder="Search for clubs..."
                 />
             </div>
+            </BlurFade>
             <div className="tw-mb-6"></div>
             {/* Margin between search bar and clubs */}
             <div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 tw-gap-4">
