@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import BlurFade from "@/components/magicui/blur-fade";
+import TypingAnimation from "@/components/magicui/typing-animation";
 
 const clubsData = [
     { id: 1, name: "Coding Club", description: "A club for coding enthusiasts." },
@@ -44,17 +46,21 @@ const Browse = () => {
                     placeholder="Search for clubs..."
                 />
             </div>
-            <div className="tw-mb-6"></div> {/* Margin between search bar and clubs */}
+            <div className="tw-mb-6"></div>
+            {/* Margin between search bar and clubs */}
             <div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 tw-gap-4">
                 {filteredClubs.length > 0 ? (
                     filteredClubs.map((club, index) => (
+                        <BlurFade key={club.id} delay={0.25 + club.id * 0.05} inView>
                         <div
                             key={club.id}
                             className={`${gradients[index % gradients.length]} tw-shadow-lg tw-rounded-lg tw-p-3 tw-m-3 tw-transition-transform hover:tw-transform hover:tw-scale-105`}
                         >
                             <h2 className="tw-text-lg tw-font-semibold">{club.name}</h2>
                             <p className="tw-text-gray-600">{club.description}</p>
+                            
                         </div>
+                    </BlurFade>
                     ))
                 ) : (
                     <p className="tw-text-gray-500 tw-text-center">No clubs found.</p>
