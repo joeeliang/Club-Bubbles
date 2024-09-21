@@ -1,6 +1,7 @@
 import os
 from cerebras.cloud.sdk import Cerebras
 from fastapi import FastAPI
+import re
 from pydantic import BaseModel
 
 app = FastAPI()
@@ -68,5 +69,5 @@ def get_authenticity_score(data: TextData):
     score = ""
     for chunk in stream:
         score += chunk.choices[0].delta.content or ""
-    
-    return score.strip()
+    integers = re.findall('\d+', score)
+    return integers[0]
