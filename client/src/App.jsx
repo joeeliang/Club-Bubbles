@@ -26,8 +26,6 @@ function App() {
                     <Route path="/browse" element={<Browse/>}/>
                 <Route path="/join" element={<Join/>}/>
                 <Route path="/login" element={<Login/>}/>
-                    <Route path="/signup" element={<Signup/>}/>
-                    <Route path="/proposal" element={<ClubProposal/>}/>
                 </Routes>
             </div>
         </Router>

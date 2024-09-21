@@ -1,0 +1,142 @@
+[
+    {
+      "id": 1,
+      "name": "Coding Club",
+      "description": "A club for coding enthusiasts.",
+      "severity": 3,
+      "category": "Academic"
+    },
+    {
+      "id": 2,
+      "name": "Art Club",
+      "description": "Explore your artistic side.",
+      "severity": 2,
+      "category": "Creative"
+    },
+    {
+      "id": 3,
+      "name": "Music Club",
+      "description": "For music lovers and musicians.",
+      "severity": 4,
+      "category": "Creative"
+    },
+    {
+      "id": 4,
+      "name": "Book Club",
+      "description": "Read and discuss great books.",
+      "severity": 1,
+      "category": "Academic"
+    },
+    {
+      "id": 5,
+      "name": "Sports Club",
+      "description": "For sports and fitness activities.",
+      "severity": 10,
+      "category": "Physical"
+    },
+    {
+      "id": 6,
+      "name": "Drama Club",
+      "description": "For theater enthusiasts.",
+      "severity": 5,
+      "category": "Creative"
+    },
+    {
+      "id": 7,
+      "name": "Robotics Club",
+      "description": "For robotics enthusiasts.",
+      "severity": 8,
+      "category": "Academic"
+    },
+    {
+      "id": 8,
+      "name": "Gaming Club",
+      "description": "For gamers and game developers.",
+      "severity": 6,
+      "category": "Academic"
+    },
+    {
+      "id": 9,
+      "name": "Debate Club",
+      "description": "For students who enjoy debating and public speaking.",
+      "severity": 7,
+      "category": "Academic"
+    },
+    {
+      "id": 10,
+      "name": "Environmental Club",
+      "description": "For students who care about the environment.",
+      "severity": 9,
+      "category": "Physical"
+    },
+    {
+      "id": 11,
+      "name": "Photography Club",
+      "description": "For photography enthusiasts.",
+      "severity": 3,
+      "category": "Creative"
+    },
+    {
+      "id": 12,
+      "name": "Writing Club",
+      "description": "For students who enjoy writing and creative writing.",
+      "severity": 2,
+      "category": "Creative"
+    },
+    {
+      "id": 13,
+      "name": "Film Club",
+      "description": "For students who enjoy watching and discussing movies.",
+      "severity": 4,
+      "category": "Creative"
+    },
+    {
+      "id": 14,
+      "name": "Language Club",
+      "description": "For students who are interested in languages.",
+      "severity": 1,
+      "category": "Academic"
+    },
+    {
+      "id": 15,
+      "name": "Culinary Club",
+      "description": "For students who enjoy cooking and baking.",
+      "severity": 5,
+      "category": "Physical"
+    },
+    {
+      "id": 16,
+      "name": "Outdoor Club",
+      "description": "For students who enjoy outdoor activities.",
+      "severity": 10,
+      "category": "Physical"
+    },
+    {
+      "id": 17,
+      "name": "Volunteer Club",
+      "description": "For students who want to give back to the community.",
+      "severity": 9,
+      "category": "Physical"
+    },
+    {
+      "id": 18,
+      "name": "Dance Club",
+      "description": "For students who enjoy dancing.",
+      "severity": 6,
+      "category": "Creative"
+    },
+    {
+      "id": 19,
+      "name": "Chess Club",
+      "description": "For students who enjoy strategy games.",
+      "severity": 7,
+      "category": "Academic"
+    },
+    {
+      "id": 20,
+      "name": "Science Club",
+      "description": "For students who are interested in science and technology.",
+      "severity": 8,
+      "category": "Academic"
+    }
+  ]
