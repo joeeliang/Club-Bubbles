@@ -61,4 +61,10 @@ The [Club Name] aims to provide a platform for students to engage in intellectua
 Note: This is just a sample proposal and you should adjust it according to your club's specific needs and goals.
 '''
 
-print(requests.get("http://127.0.0.1:8000/", json={"text":content}).json())
+response = requests.post("http://127.0.0.1:8000/", json={"text": content})
+
+# Print the response from the FastAPI backend
+if response.status_code == 200:
+    print(response.json())
+else:
+    print(f"Error: {response.status_code} - {response.text}")
