@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import '../index.css'
 
-const Login = () => {
+export default function Login({ setToken }) {
+    const [username, setUserName] = useState();
+    const [password, setPassword] = useState();
     return (
         <div className="tw-flex tw-items-center tw-justify-center tw-h-screen tw-bg-gradient-to-r tw-from-blue-950 tw-to-blue-200">
             <div className="tw-bg-blue-900 tw-shadow-lg tw-rounded-lg tw-p-8 tw-max-w-sm tw-w-full">
@@ -48,4 +51,6 @@ const Login = () => {
     );
 };
 
-export default Login;
+Login.propTypes = {
+    setToken: PropTypes.func.isRequired
+}
