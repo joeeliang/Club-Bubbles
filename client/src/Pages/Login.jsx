@@ -1,11 +1,16 @@
 import React, { useEffect, useState, useRef } from 'react';
 import FlickeringGrid from "../components/magicui/flickering-grid";
 import BlurFade from "@/components/magicui/blur-fade";
+import PropTypes from 'prop-types';
 import '../index.css';
 
 const Login = () => {
     const [isVisible, setIsVisible] = useState(false);
     const ref = useRef(null);
+  const [username, setUserName] = useState();
+    const [password, setPassword] = useState();
+    const handleSubmit = async e => {
+        e.preventDefault();
 
     useEffect(() => {
         // Disable scrolling
@@ -49,7 +54,7 @@ const Login = () => {
                         <h2 className="tw-text-2xl tw-font-bold tw-text-center tw-mb-6 tw-text-white">
                             Login to Your Account
                         </h2>
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             <div className="tw-mb-4">
                                 <label className="tw-block tw-text-gray-300 tw-mb-2" htmlFor="email">
                                     Email
@@ -84,11 +89,5 @@ const Login = () => {
                         <p className="tw-mt-4 tw-text-center tw-text-gray-300">
                             Don't have an account? <a href="/Signup" className="tw-text-blue-400 hover:tw-underline">Sign up here.</a>
                         </p>
-                    </div>
-                </BlurFade>
-            </div>
-        </div>
-    );
-};
 
-export default Login;
+export default Login

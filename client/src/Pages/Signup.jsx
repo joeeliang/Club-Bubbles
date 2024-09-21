@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+
 import 'bootstrap/dist/css/bootstrap.css';
 import '../index.css';
 import BlurFade from "@/components/magicui/blur-fade";
@@ -32,6 +33,9 @@ function Signup() {
         };
     }, []);
 
+    const [name, setName] = useState();
+    const [email, setEmail] = useState();
+    const [school, setSchool] = useState();
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -62,9 +66,10 @@ function Signup() {
         setConfirmPassword(value);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async e => {
         e.preventDefault();
         if (password === confirmPassword && Object.values(passwordRequirements).every(Boolean)) {
+
             console.log("Signup successful!");
         }
     };

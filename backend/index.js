@@ -1,4 +1,5 @@
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId, FindOperators } = require("mongodb");
+const { UUID } = require('bson');
 const express = require('express');
 // Replace the uri string with your connection string.
 const app = express();
@@ -8,28 +9,19 @@ const port = 3000;
 
 // async function run() 
 // {
-//   try
-//   {
-//     await client.connect();
+//   try {
 //     const database = client.db('infinTreadData');
-//     const collections = await database.collections();
-//     collections.forEach(async (c) => {
-//       const name = c.collectionName;
-//       await spawn('mongoexport', [
-//         '--db',
-//           DB_NAME,
-//         '--collection',
-//           name,
-//         '--jsonArray',
-//         '--pretty',
-//         `--out=./${OUTPUT_DIR}/${name}.json`,
-//       ]);
-//     });
-//   }
-//   finally 
-//   {
-//     await client.close();
-//     console.log(`DB Data for ${DB_NAME} has been written to ./${OUTPUT_DIR}/`);
+//     const users = database.collection('users');
+    
+//     const newUser = {email: "johnnyjoe@gmail.com", password: "Joeyjohn@2123", grade: 11};
+//     newUser._id = new ObjectId();
+//     users.insertOne(newUser);
+//     // res.send(newUser);
+//   } catch (error) {
+//     console.error("error making user: ", error);
+//     // res.status(500).json({error: 'Internal Server Error'});
+//   } finally {
+//     // await client.close();
 //   }
   
 // }
@@ -38,6 +30,7 @@ const port = 3000;
 app.get('/api/club', async (req, res) => {
   try {
     await client.connect();
+
     const database = client.db('infinTreadData');
     const clubs = database.collection('clubs');
     // Query for a movie that has the title 'Back to the Future'
@@ -56,9 +49,73 @@ app.get('/api/club', async (req, res) => {
     res.status(500).json({error: 'Internal Server Error'});
   } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
   }
 });
+
+app.get('/api/clubs', async (req, res) => {
+  try {
+    await client.connect();
+
+    const database = client.db('infinTreadData');
+    const clubs = database.collection('clubs');
+    
+    const clubsData = [];
+
+    for await (const club of clubs.find({}))
+    {
+      clubsData.push(club);
+    }
+
+    if (clubs)
+    {
+      res.json(clubsData);
+      console.log(clubsData);
+    }
+    else
+    {
+      res.status(404).json({error: "Clubs not returning"});
+    }
+  } catch (error) {
+    console.error("error fetching clubs: ", error);
+    res.status(500).json({error: 'Internal Server Error'});
+  } finally {
+    // await client.close();
+  }
+})
+
+app.post('/api/makeUser', async (req, res) => {
+  try {
+    const database = client.db('infinTreadData');
+    const users = database.collection('users');
+    
+    const newUser = req.body;
+    newUser._id = new ObjectId(new UUID().toString());
+
+    res.send(newUser);
+  } catch (error) {
+    console.error("error making user: ", error);
+    res.status(500).json({error: 'Internal Server Error'});
+  } finally {
+    // await client.close();
+  }
+})
+
+app.post('/api/makeClub', async (req, res) => {
+  try {
+    const database = client.db('infinTreadData');
+    const users = database.collection('users');
+    
+    const newUser = req.body;
+    newUser._id = new ObjectId();
+
+    res.send(newUser);
+  } catch (error) {
+    console.error("error making user: ", error);
+    res.status(500).json({error: 'Internal Server Error'});
+  } finally {
+    // await client.close();
+  }
+})
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
