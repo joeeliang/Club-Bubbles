@@ -1,10 +1,19 @@
-import os
-from cerebras.cloud.sdk import Cerebras
 from fastapi import FastAPI
-import re
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+import re
+from cerebras.cloud.sdk import Cerebras
 
 app = FastAPI()
+
+# Add CORS middleware to allow requests from your frontend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],  # Your frontend address
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allows all headers
+)
 
 class TextData(BaseModel):
     text: str
@@ -12,14 +21,14 @@ class TextData(BaseModel):
 def get_similarity_score(content):
     '''Given a club proposal, it returns how similar the club is, with 0 being the least similar and 10 the most similar'''
     client = Cerebras(
-       api_key="csk-yfvtfjd6tkrprhdy9334mt3mmxfvr6f96tw8xevekjfx3hdv"
+        api_key="csk-yfvtfjd6tkrprhdy9334mt3mmxfvr6f96tw8xevekjfx3hdv"
     )
 
     stream = client.chat.completions.create(
         messages=[
             {
                 "role": "system",
-                "content": "You are a similarity detector for school club proposals. Based the score on the purpose of the club, its motives, it is similar to existing clubs. You will first given the new club proposal. Then you will be provided the existing clubs list and their descriptions. The score you give ranges from 0 to 10, with 0 being the least similar and 10 being the most similar. Return only the score as the output, and nothing else."
+                "content": "You are a similarity detector for school club proposals..."
             },
             {
                 "role": "user",
@@ -36,14 +45,14 @@ def get_similarity_score(content):
     score = ""
     for chunk in stream:
         score += chunk.choices[0].delta.content or ""
-    
+
     return score.strip()
 
-@app.get("/")
+@app.post("/")
 def get_authenticity_score(data: TextData):
     '''Given a club proposal, it returns how authentic the club is, with 0 being the least authentic and 10 the most authentic'''
     client = Cerebras(
-       api_key="csk-yfvtfjd6tkrprhdy9334mt3mmxfvr6f96tw8xevekjfx3hdv"
+        api_key="csk-yfvtfjd6tkrprhdy9334mt3mmxfvr6f96tw8xevekjfx3hdv"
     )
 
     content = data.text
@@ -52,7 +61,7 @@ def get_authenticity_score(data: TextData):
         messages=[
             {
                 "role": "system",
-                "content": "You are an authenticity detector for school club proposals. Base the score on the purpose of the club, its motives, and how much it really benefits the community. The score given ranges from 0 to 10, with 0 being the least authentic and 10 being the most authentic. Return only the score as the output, and nothing else."
+                "content": "You are an authenticity detector for school club proposals..."
             },
             {
                 "role": "user",
@@ -69,5 +78,6 @@ def get_authenticity_score(data: TextData):
     score = ""
     for chunk in stream:
         score += chunk.choices[0].delta.content or ""
-    integers = re.findall('\d+', score)
-    return integers[0]
+    integers = re.findall(r'\d+', score)
+    return {"authenticity_score": integers[0]}
+

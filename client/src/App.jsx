@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
+import ClubProposal from "@/Pages/ClubProposal.jsx";
 import Browse from './Pages/Browse.jsx';
 import Join from './Pages/Join.jsx';
 import Login from './Pages/Login.jsx';
@@ -22,6 +23,7 @@ function App() {
                     <Route path="/join" element={<Join />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
+                    <Route path="/propsal" element={<ClubProposal />} />
                 </Routes>
             </div>
         </Router>
