@@ -4,10 +4,10 @@ const uri = "mongodb+srv://NitinS:PennHack2024@clubcluster.f8brr.mongodb.net/?re
 const client = new MongoClient(uri);
 async function run() {
   try {
-    const database = client.db('sample_mflix');
-    const movies = database.collection('movies');
+    const database = client.db('infinTreadData');
+    const movies = database.collection('clubs');
     // Query for a movie that has the title 'Back to the Future'
-    const query = { title: 'Back to the Future' };
+    const query = { name: 'Computer Science Club' };
     const movie = await movies.findOne(query);
     console.log(movie);
   } finally {
