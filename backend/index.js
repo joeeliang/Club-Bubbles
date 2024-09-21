@@ -1,4 +1,4 @@
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId, FindOperators } = require("mongodb");
 const express = require('express');
 // Replace the uri string with your connection string.
 const app = express();
@@ -10,7 +10,7 @@ const port = 3000;
 // {
 //   try
 //   {
-//     await client.connect();
+//    
 //     const database = client.db('infinTreadData');
 //     const collections = await database.collections();
 //     collections.forEach(async (c) => {
@@ -38,6 +38,7 @@ const port = 3000;
 app.get('/api/club', async (req, res) => {
   try {
     await client.connect();
+
     const database = client.db('infinTreadData');
     const clubs = database.collection('clubs');
     // Query for a movie that has the title 'Back to the Future'
@@ -56,9 +57,68 @@ app.get('/api/club', async (req, res) => {
     res.status(500).json({error: 'Internal Server Error'});
   } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
   }
 });
+
+app.get('/api/clubs', async (req, res) => {
+  try {
+    await client.connect();
+
+    const database = client.db('infinTreadData');
+    const clubs = database.collection('clubs');
+    
+    const clubsData = [];
+
+    for await (const club of clubs.find({}))
+    {
+      clubsData.push(club);
+    }
+
+    if (clubs)
+    {
+      res.json(clubsData);
+      console.log(clubsData);
+    }
+    else
+    {
+      res.status(404).json({error: "Clubs not returning"});
+    }
+  } catch (error) {
+    console.error("error fetching clubs: ", error);
+    res.status(500).json({error: 'Internal Server Error'});
+  } finally {
+    // await client.close();
+  }
+})
+
+app.get('/api/clubs', async (req, res) => {
+  try {
+    const database = client.db('infinTreadData');
+    const clubs = database.collection('clubs');
+    
+    const clubsData = [];
+
+    for await (const club of clubs.find({}))
+    {
+      clubsData.push(club);
+    }
+
+    if (clubs)
+    {
+      res.json(clubsData);
+      console.log(clubsData);
+    }
+    else
+    {
+      res.status(404).json({error: "Clubs not returning"});
+    }
+  } catch (error) {
+    console.error("error fetching clubs: ", error);
+    res.status(500).json({error: 'Internal Server Error'});
+  } finally {
+    // await client.close();
+  }
+})
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
