@@ -91,7 +91,7 @@ app.get('/api/clubs', async (req, res) => {
   }
 })
 
-app.get('/api/clubs', async (req, res) => {
+app.get('/api/clubx', async (req, res) => {
   try {
     const database = client.db('infinTreadData');
     const clubs = database.collection('clubs');

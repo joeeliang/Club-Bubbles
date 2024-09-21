@@ -42,7 +42,7 @@ const colorMap = {
 
 const Browse = () => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [filteredClubs, setFilteredClubs] = useState(clubsData);
+    const [filteredClubs, setFilteredClubs] = useState('');
     const [clubDatabase, setClubs] = useState([]);
 
     const handleSearch = (e) => {
@@ -57,10 +57,12 @@ const Browse = () => {
 
     useEffect(() => {
         fetch('/api/clubs')
-            .then((response) => response.json)
+            .then((response) => response.json())
             .then((data) => setClubs(data))
             .catch((error) => console.error('error fetching: ', error ));
+        console.log("WE ARE DOING SOMETHING");
     }, [])
+
     return (
         <>
             <BlurFade delay={0.25 * 0.05} inView>
@@ -82,7 +84,7 @@ const Browse = () => {
             <div className="tw-mb-6"></div>
             {/* Margin between search bar and clubs */}
             <div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 tw-gap-4">
-                {filteredClubs.length > 0? (
+                {filteredClubs.length > 0 ? (
                     filteredClubs.map((club, index) => (
                         <BlurFade key={club._id} delay={0.25 + club._id * 0.05} inView>
                             <div
