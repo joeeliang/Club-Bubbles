@@ -14,6 +14,7 @@ import './index.css';
 import Browse from './Pages/Browse.jsx';
 import Join from './Pages/Join.jsx';
 import Login from './Pages/Login.jsx';
+import ClubProposal from "./Pages/ClubProposal.jsx";
 
 function App() {
     return (
@@ -26,13 +27,14 @@ function App() {
                     <Route path="/browse" element={<Browse/>}/>
                 <Route path="/join" element={<Join/>}/>
                 <Route path="/login" element={<Login/>}/>
+                <Route path="/proposal" element={<ClubProposal/>}/>
                 </Routes>
             </div>
         </Router>
     );
 }
 
-function PageWrapper({ content }) {
+function PageWrapper() {
     const location = useLocation();
 
     return (
@@ -54,7 +56,7 @@ function PageWrapper({ content }) {
             {location.pathname === '/browse' && (
                 <Ripple />
             )}
-            {content}
+            
         </>
     );
 }

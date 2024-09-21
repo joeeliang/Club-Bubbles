@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BlurFade from "@/components/magicui/blur-fade";
 import SeverityIndicator from '@/components/severity';
+// import { response } from 'express';
 
 const clubsData = [
-    { id: 1, name: "Coding Club", description: "A club for coding enthusiasts.", category: "Stem", severity: 3 },
+    { id: 1, name: "Coding Club", description: "A club for coding enthusiasts.", category: "STEM", severity: 3 },
     { id: 2, name: "Art Club", description: "Explore your artistic side.", category: "Humanities", severity: 2 },
     { id: 3, name: "Music Club", description: "For music lovers and musicians.", category: "Humanities", severity: 4 },
     { id: 4, name: "Book Club", description: "Read and discuss great books.", category: "Humanities", severity: 1 },
@@ -34,7 +35,7 @@ const gradients = [
 ];
 
 const colorMap = {
-    "Stem": "tw-bg-gradient-to-r tw-from-blue-400 tw-to-blue-600",
+    "STEM": "tw-bg-gradient-to-r tw-from-blue-400 tw-to-blue-600",
     "Humanities": "tw-bg-gradient-to-r tw-from-purple-400 tw-to-purple-600",
     "Athletics": "tw-bg-gradient-to-r tw-from-red-400 tw-to-red-600",
   };
@@ -42,17 +43,24 @@ const colorMap = {
 const Browse = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredClubs, setFilteredClubs] = useState(clubsData);
+    const [clubDatabase, setClubs] = useState([]);
 
     const handleSearch = (e) => {
         const term = e.target.value;
         setSearchTerm(term);
         setFilteredClubs(
-            clubsData.filter(club =>
+            clubDatabase.filter(club =>
                 club.name.toLowerCase().includes(term.toLowerCase())
             )
         );
     };
 
+    useEffect(() => {
+        fetch('/api/clubs')
+            .then((response) => response.json)
+            .then((data) => setClubs(data))
+            .catch((error) => console.error('error fetching: ', error ));
+    }, [])
     return (
         <>
             <BlurFade delay={0.25 * 0.05} inView>
@@ -76,14 +84,14 @@ const Browse = () => {
             <div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 tw-gap-4">
                 {filteredClubs.length > 0? (
                     filteredClubs.map((club, index) => (
-                        <BlurFade key={club.id} delay={0.25 + club.id * 0.05} inView>
+                        <BlurFade key={club._id} delay={0.25 + club._id * 0.05} inView>
                             <div
                                 key={club.id}
                                 className={`${colorMap[club.category]} tw-shadow-lg tw-rounded-lg tw-p-3 tw-m-3 tw-transition-transform hover:tw-transform hover:tw-scale-105`}
                             >
                                 <h2 className="tw-text-lg tw-font-semibold">{club.name}</h2>
                                 <p className="tw-text-gray-600">{club.description}</p>
-                                <SeverityIndicator value={club.severity} />
+                                <SeverityIndicator value={club.authenticity} />
                             </div>
                         </BlurFade>
                     ))
