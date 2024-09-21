@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Karmo - Responsive Creative HTML Template</title>
+	<!-- META TAGS -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+	<meta name="author" content="Tanislav Robert">
+	<meta name="description" content="KARMO is a creative and modern template for digital agencies">
+
+	<!-- STYLES -->
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/css/flexslider.css">
+	<link rel="stylesheet" href="assets/css/animsition.min.css">
+	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="assets/css/owl.carousel.css">
+	<link rel="stylesheet" href="assets/css/owl.theme.css">
+
+	<!-- Fontawesome -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+</head>
+
+<body class="animsition">
+	<!-- Border -->
+	<span class="frame-line top-frame visible-lg"></span>
+	<span class="frame-line right-frame visible-lg"></span>
+	<span class="frame-line bottom-frame visible-lg"></span>
+	<span class="frame-line left-frame visible-lg"></span>
+	<!-- HEADER  -->
+	<header class="main-header">
+		<div class="container-fluid">
+				<!-- box header -->
+				<div class="box-header">
+						<div class="box-logo">
+								<a href="index.html"><img src="assets/img/logo.png" width="80" alt="Logo"></a>
+						</div>
+						<!-- box-nav -->
+						<a class="box-primary-nav-trigger" href="#0">
+								<span class="box-menu-icon"></span>
+						</a>
+						<!-- box-primary-nav-trigger -->
+				</div>
+				<!-- end box header -->
+
+				<!-- nav -->
+				<nav>
+						<ul class="box-primary-nav">
+								<li class="box-label">KARMO</li>
+
+								<li><a href="index.html">Home</a> <i class="lnr lnr-home"></i></li>
+								<li><a href="services.html">services</a></li>
+								<li><a href="single-project.html">single project</a></li>
+								<li><a href="contact.html">contact</a></li>
+
+								<li class="box-label">SOCIAL</li>
+
+								<li class="box-social"><a href="#0"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+								<li class="box-social"><a href="#0"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
+								<li class="box-social"><a href="#0"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+								<li class="box-social"><a href="#0"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+						</ul>
+				</nav>
+				<!-- end nav -->
+
+				<!-- box-intro -->
+				<section class="box-intro bg-film">
+						<div class="table-cell">
+
+								<h3 class="box-headline letters rotate-2">
+										<span class="box-words-wrapper">
+												<b class="is-visible">DIVE &nbsp;&amp;&nbsp; CONNECT.</b>
+												<b>&nbsp;DEPTH &nbsp;&amp;&nbsp; DISCOVERY.</b>
+										</span>
+								</h3>
+								<h1>CLUB BUBBLES</h1>
+
+						</div>
+
+						<div class="mouse">
+								<div class="scroll"></div>
+						</div>
+				</section>
+				<!-- end box-intro -->
+		</div>
+	</header>
+
+	<section id="about" class="about mt-150 mb-50">
+		<div class="container">
+			<div class="row center">
+				<div class="col-md-8 col-md-offset-2">
+					<img src="assets/img/about.png" alt="Khaki HTML Template" width="300">
+					<div class="km-space"></div>
+					<h5 class="lead">This is our most powerful template, that provide functionality to create corporate, app showcase, gaming, music, barber, etc websites.</h5>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- SCRIPTS -->
+	<script type="text/javascript" src="assets/js/jquery-2.2.3.min.js"></script>
+	<script type="text/javascript" src="assets/js/animated-headline.js"></script>
+	<script type="text/javascript" src="assets/js/menu.js"></script>
+	<script type="text/javascript" src="assets/js/modernizr.js"></script>
+	<script type="text/javascript" src="assets/js/isotope.pkgd.min.js"></script>
+	<script type="text/javascript" src="assets/js/jquery.flexslider-min.js"></script>
+	<script type="text/javascript" src="assets/js/jquery.animsition.min.js"></script>
+	<script type="text/javascript" src="assets/js/init.js"></script>
+	<script type="text/javascript" src="assets/js/main.js"></script>
+	<script type="text/javascript" src="assets/js/smooth-scroll.js"></script>
+	<script type="text/javascript" src="assets/js/numscroller.js"></script>
+	<script type="text/javascript" src="assets/js/wow.min.js"></script>
+	<script type="text/javascript" src="assets/js/owl.carousel.min.js"></script>
+
+	<script type="text/javascript">
+		$(window).load(function() {
+			new WOW().init();
+
+			// initialise flexslider
+			$('.flexslider').flexslider({
+				animation: "fade",
+				directionNav: true,
+				controlNav: false,
+				keyboardNav: true,
+				slideToStart: 0,
+				animationLoop: true,
+				pauseOnHover: false,
+				slideshowSpeed: 4000,
+			});
+
+			smoothScroll.init();
+
+			// initialize isotope
+			var $container = $('.portfolio_container');
+			$container.isotope({
+				filter: '*',
+			});
+
+			$('.portfolio_filter a').click(function(){
+				$('.portfolio_filter .active').removeClass('active');
+				$(this).addClass('active');
+
+				var selector = $(this).attr('data-filter');
+				$container.isotope({
+					filter: selector,
+					animationOptions: {
+						duration: 500,
+						animationEngine : "jquery"
+					}
+				});
+				return false;
+			});
+		});
+	</script>
+</body>
+</html>
