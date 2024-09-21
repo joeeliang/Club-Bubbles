@@ -43,34 +43,34 @@ const reviews = [
 const firstRow = reviews.slice(0, reviews.length / 2);
 const secondRow = reviews.slice(reviews.length / 2);
 
-const ReviewCard = ({ img="", name="", username="", body="" }) => {
+const ReviewCard = ({ img = "", name = "", username = "", body = "" }) => {
     return (
         <figure
             className={cn(
-                "relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4",
+                "tw-relative tw-w-64 tw-cursor-pointer tw-overflow-hidden tw-rounded-xl tw-border tw-p-4",
                 // light styles
-                "border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]",
+                "tw-border-gray-950/[.1] tw-bg-gray-950/[.01] tw-hover:bg-gray-950/[.05]",
                 // dark styles
-                "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]"
+                "tw-dark:border-gray-50/[.1] tw-dark:bg-gray-50/[.10] tw-dark:hover:bg-gray-50/[.15]"
             )}
         >
-            <div className="flex flex-row items-center gap-2">
-                <img className="rounded-full" width="32" height="32" alt="" src={img} />
-                <div className="flex flex-col">
-                    <figcaption className="text-sm font-medium dark:text-white">
+            <div className="tw-flex tw-flex-row tw-items-center tw-gap-2">
+                <img className="tw-rounded-full" width="32" height="32" alt="" src={img} />
+                <div className="tw-flex tw-flex-col">
+                    <figcaption className="tw-text-sm tw-font-medium tw-dark:text-white">
                         {name}
                     </figcaption>
-                    <p className="text-xs font-medium dark:text-white/40">{username}</p>
+                    <p className="tw-text-xs tw-font-medium tw-dark:text-white/40">{username}</p>
                 </div>
             </div>
-            <blockquote className="mt-2 text-sm">{body}</blockquote>
+            <blockquote className="tw-mt-2 tw-text-sm">{body}</blockquote>
         </figure>
     );
 };
 
 export function MarqueeDemo() {
     return (
-        <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl">
+        <div className="tw-relative tw-flex tw-h-[500px] tw-w-full tw-flex-col tw-items-center tw-justify-center tw-overflow-hidden tw-rounded-lg tw-border tw-bg-background tw-md:shadow-xl">
             <Marquee pauseOnHover className="[--duration:20s]">
                 {firstRow.map((review) => (
                     <ReviewCard key={review.username} {...review} />
@@ -81,8 +81,8 @@ export function MarqueeDemo() {
                     <ReviewCard key={review.username} {...review} />
                 ))}
             </Marquee>
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-white dark:from-background"></div>
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-white dark:from-background"></div>
+            <div className="tw-pointer-events-none tw-absolute tw-inset-y-0 tw-left-0 tw-w-1/3 tw-bg-gradient-to-r tw-from-white tw-dark:from-background"></div>
+            <div className="tw-pointer-events-none tw-absolute tw-inset-y-0 tw-right-0 tw-w-1/3 tw-bg-gradient-to-l tw-from-white tw-dark:from-background"></div>
         </div>
     );
 }
