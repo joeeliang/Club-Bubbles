@@ -1,0 +1,44 @@
+{
+    "clubs": [
+      {
+        "name": "Robotics Club",
+        "description": "Join the Robotics Club to design, build, and program robots to compete in regional and national competitions. Members will learn programming languages like Java and C++, as well as mechanical engineering principles. We'll also have fun building and racing robots, and exploring the intersection of technology and art."
+      },
+      {
+        "name": "Gaming Club",
+        "description": "The Gaming Club is a chill space for students to play video games, participate in tournaments, and discuss the latest gaming trends. We'll have a library of games to play, from classic consoles to the latest PC titles. Members can also participate in game development projects and learn about the gaming industry."
+      },
+      {
+        "name": "Environmental Club",
+        "description": "The Environmental Club is dedicated to reducing our school's carbon footprint and promoting sustainability. We'll organize beach cleanups, participate in recycling programs, and educate students about eco-friendly practices. Members will also have the opportunity to participate in environmental activism and advocacy efforts in the community."
+      },
+      {
+        "name": "Debate Team",
+        "description": "The Debate Team is a competitive team that participates in local and national debate tournaments. Members will learn research skills, argumentation techniques, and public speaking skills. We'll also have fun debating on a wide range of topics, from politics to social justice issues."
+      },
+      {
+        "name": "Art Club",
+        "description": "The Art Club is a space for students to express themselves creatively through various forms of art, including painting, drawing, sculpture, and photography. Members will have access to art supplies and equipment, and will participate in group projects and exhibitions."
+      },
+      {
+        "name": "Drama Club",
+        "description": "The Drama Club is a performing arts group that produces plays, musicals, and other theatrical productions. Members will have the opportunity to act, direct, and design sets and costumes. We'll also have fun rehearsing and performing in front of an audience."
+      },
+      {
+        "name": "Book Club",
+        "description": "The Book Club is a reading group that meets regularly to discuss books and share recommendations. Members will have the opportunity to read a wide range of genres and authors, and will participate in lively discussions and debates."
+      },
+      {
+        "name": "Culinary Club",
+        "description": "The Culinary Club is a cooking club that meets regularly to prepare and share meals. Members will learn about different cuisines and cooking techniques, and will have fun experimenting with new recipes and ingredients."
+      },
+      {
+        "name": "Photography Club",
+        "description": "The Photography Club is a group of students who share a passion for photography. Members will have access to cameras and equipment, and will participate in photo shoots and exhibitions. We'll also have fun learning about different photography techniques and styles."
+      },
+      {
+        "name": "Anime Club",
+        "description": "The Anime Club is a group of students who share a love for Japanese animation and culture. Members will watch and discuss anime shows, participate in cosplay events, and learn about Japanese history and customs."
+      }
+    ]
+  }
