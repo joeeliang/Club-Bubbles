@@ -1,6 +1,6 @@
 import Card from 'react-bootstrap/Card';
 import 'bootstrap/dist/css/bootstrap.css';
-import axios from 'axios';
+// import axios from 'axios';
 
 function Cards ({ title="", priceRange="", details="", imgSrc=""}) {
     const handleButtonPress = async () => {
