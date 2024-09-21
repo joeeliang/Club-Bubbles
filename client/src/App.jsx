@@ -11,11 +11,9 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
-import ClubProposal from "@/Pages/ClubProposal.jsx";
 import Browse from './Pages/Browse.jsx';
 import Join from './Pages/Join.jsx';
 import Login from './Pages/Login.jsx';
-import Signup from './Pages/Signup.jsx';
 
 function App() {
     return (
