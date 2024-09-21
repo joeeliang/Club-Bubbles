@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import BlurFade from "@/components/magicui/blur-fade";
 import SeverityIndicator from '@/components/severity';
+import Ripple from "../components/magicui/ripple.jsx";
 
 const clubsData = [
     { id: 1, name: "Coding Club", description: "A club for coding enthusiasts.", severity: 3 },
@@ -34,6 +35,7 @@ const Browse = () => {
 
     return (
         <>
+            <Ripple/>
             <BlurFade delay={0.25 * 0.05} inView>
                 <h1 className="tw-text-4xl tw-font-bold tw-text-center tw-text-gray-800 tw-my-8">
                     Browse Clubs
