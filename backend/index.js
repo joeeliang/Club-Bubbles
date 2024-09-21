@@ -6,8 +6,38 @@ const uri = "mongodb+srv://NitinS:PennHack2024@clubcluster.f8brr.mongodb.net/?re
 const client = new MongoClient(uri);
 const port = 3000;
 
+// async function run() 
+// {
+//   try
+//   {
+//     await client.connect();
+//     const database = client.db('infinTreadData');
+//     const collections = await database.collections();
+//     collections.forEach(async (c) => {
+//       const name = c.collectionName;
+//       await spawn('mongoexport', [
+//         '--db',
+//           DB_NAME,
+//         '--collection',
+//           name,
+//         '--jsonArray',
+//         '--pretty',
+//         `--out=./${OUTPUT_DIR}/${name}.json`,
+//       ]);
+//     });
+//   }
+//   finally 
+//   {
+//     await client.close();
+//     console.log(`DB Data for ${DB_NAME} has been written to ./${OUTPUT_DIR}/`);
+//   }
+  
+// }
+// run().catch(console.dir);
+
 app.get('/api/club', async (req, res) => {
   try {
+    await client.connect();
     const database = client.db('infinTreadData');
     const clubs = database.collection('clubs');
     // Query for a movie that has the title 'Back to the Future'
@@ -21,7 +51,7 @@ app.get('/api/club', async (req, res) => {
     {
       res.status(404).json({error: 'Club not found'});
     }
-  } catch {
+  } catch (error) {
     console.error('Error fetching club: ', error);
     res.status(500).json({error: 'Internal Server Error'});
   } finally {
@@ -32,4 +62,5 @@ app.get('/api/club', async (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
+  // console.log(`Server connected: ${database.namespace}`);
 })

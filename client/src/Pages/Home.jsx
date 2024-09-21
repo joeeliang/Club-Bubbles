@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 export function Home() {
     const [club, setClub] = useState(null);
+    const [connected, setConnection] = useState(null);
     
     useEffect(() => {
         fetch('/api/club')
