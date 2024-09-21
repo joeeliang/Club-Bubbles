@@ -23,7 +23,6 @@ export function Home() {
             ) : (
                 <p>Loading club info...</p>
             )
-
             }
             <a href="/#page2">GOTONEXTPAGE</a>
         </>
