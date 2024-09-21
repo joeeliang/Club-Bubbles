@@ -23,7 +23,7 @@ function App() {
                     <Route path="/join" element={<Join />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
-                    <Route path="/propsal" element={<ClubProposal />} />
+                    <Route path="/proposal" element={<ClubProposal />} />
                 </Routes>
             </div>
         </Router>
