@@ -26,8 +26,8 @@ export default function Marquee({
           <div
             key={i}
             className={cn("tw-flex tw-shrink-0 tw-justify-around [gap:tw-var(--gap)]", {
-              "animate-marquee flex-row": !vertical,
-              "animate-marquee-vertical flex-col": vertical,
+              "tw-animate-marquee flex-row": !vertical,
+              "tw-animate-marquee-vertical flex-col": vertical,
               "group-hover:[animation-play-state:paused]": pauseOnHover,
               "[animation-direction:reverse]": reverse,
             })}>
