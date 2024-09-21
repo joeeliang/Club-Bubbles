@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import '../index.css'
 
-export default function Login({ setToken }) {
+export default function Login() {
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
+    const handleSubmit = async e => {
+        e.preventDefault();
+    };
     return (
         <div className="tw-flex tw-items-center tw-justify-center tw-h-screen tw-bg-gradient-to-r tw-from-blue-950 tw-to-blue-200">
             <div className="tw-bg-blue-900 tw-shadow-lg tw-rounded-lg tw-p-8 tw-max-w-sm tw-w-full">
                 <h2 className="tw-text-2xl tw-font-bold tw-text-center tw-mb-6 tw-text-white">
                     Login to Your Account
                 </h2>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className="tw-mb-4">
                         <label className="tw-block tw-text-gray-300 tw-mb-2" htmlFor="email">
                             Email
@@ -51,6 +54,4 @@ export default function Login({ setToken }) {
     );
 };
 
-Login.propTypes = {
-    setToken: PropTypes.func.isRequired
-}
+

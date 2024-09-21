@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+
 import 'bootstrap/dist/css/bootstrap.css';
 import '../index.css';
 
 function Signup() {
+    const [name, setName] = useState();
+    const [email, setEmail] = useState();
+    const [school, setSchool] = useState();
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -33,9 +37,10 @@ function Signup() {
         setConfirmPassword(value);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async e => {
         e.preventDefault();
         if (password === confirmPassword && Object.values(passwordRequirements).every(Boolean)) {
+
             console.log("Signup successful!");
         }
     };
@@ -61,7 +66,7 @@ function Signup() {
                     </div>
                     <div className="tw-mb-4">
                         <label className="tw-block tw-text-gray-300 tw-mb-2" htmlFor="email">
-                            School Email
+                            Email
                         </label>
                         <input
                             type="email"
@@ -71,7 +76,7 @@ function Signup() {
                             required
                         />
                     </div>
-                    <div className="tw-mb-6">
+                    <div className="tw-mb-4">
                         <label className="tw-block tw-text-gray-300 tw-mb-2" htmlFor="password">
                             Password
                         </label>
@@ -82,6 +87,18 @@ function Signup() {
                             placeholder="********"
                             value={password}
                             onChange={handlePasswordChange}
+                            required
+                        />
+                    </div>
+                    <div className="tw-mb-6">
+                        <label className="tw-block tw-text-gray-300 tw-mb-2" htmlFor="school">
+                            School Code
+                        </label>
+                        <input
+                            type="text"
+                            id="school"
+                            className="tw-w-full tw-p-3 tw-border tw-border-gray-300 tw-rounded-lg focus:tw-border-blue-500 focus:outline-none"
+                            placeholder="Your Provided School Code"
                             required
                         />
                     </div>
