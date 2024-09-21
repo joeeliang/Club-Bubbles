@@ -20,6 +20,12 @@ module.exports = {
       },
     },
     extend: {
+      scrollbar: {
+        DEFAULT: {
+          track: 'bg-transparent',
+          thumb: 'bg-gray-600 rounded-lg',
+        },
+      },
       animation: {
         marquee: 'marquee 25s linear infinite',
       },
@@ -71,5 +77,8 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
-}
+  plugins: [
+    require("tailwindcss-animate"),
+    require('tailwind-scrollbar'),
+  ],
+};

@@ -3,12 +3,12 @@ import React, { useEffect, useState } from 'react';
 export function Home() {
     const [club, setClub] = useState(null);
     const [connected, setConnection] = useState(null);
-    
+
     useEffect(() => {
         fetch('/api/club')
-        .then((response) => response.json())
-        .then((data) => setClub(data))
-        .catch((error) => console.error('Error fetching club:', error));
+            .then((response) => response.json())
+            .then((data) => setClub(data))
+            .catch((error) => console.error('Error fetching club:', error));
     }, [])
     return (
         <>
@@ -23,7 +23,6 @@ export function Home() {
             ) : (
                 <p>Loading club info...</p>
             )
-                
             }
             <a href="/#page2">GOTONEXTPAGE</a>
         </>

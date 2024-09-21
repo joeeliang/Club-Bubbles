@@ -67,3 +67,7 @@
     @apply tw-bg-background tw-text-foreground;
   }
 }
+
+.tw-scrollbar-hidden {
+  overflow: hidden;
+}
