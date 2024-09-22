@@ -103,28 +103,19 @@ const Browse = () => {
             </BlurFade>
             <div className="tw-mb-6"></div>
             {/* Margin between search bar and clubs */}
-            <div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 tw-gap-4"style={{padding:'10%'}}>
+            <div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 tw-gap-4"style={{padding:'3% 10%'}}>
                 {filteredClubs.length > 0 ? (
                     filteredClubs.map((club, index) => (
                         <BlurFade key={club._id} delay={0.25 + club._id * 0.05} inView>
+                            
                             <div
                                 key={club.id}
                                 className={`tw-bg-white tw-shadow-lg tw-rounded-lg tw-p-3 tw-m-3 tw-transition-transform hover:tw-transform hover:tw-scale-105`}
                                 style={{padding:'10%'}}
                             >
-                                <h2 className="tw-text-3xl tw-font-semibold">{club.name}</h2>
-                                <p className="tw-text-gray-600">{club.description}</p>
-                                <SeverityIndicator value={club.authenticity} />
-                            <ShinyButton
-                                    type="submit"
-                                    className="w-1/2 rounded-10 bg-white border-4"
-                                    style={{
-                                      borderRadius: '40px',
-                                      borderColor: `${colorMap[club.category]}`
-                                    }}
-                                >
-                                    {`${club.category}`}
-                            </ShinyButton>
+                                <h2 className="tw-text-3xl tw-font-semibold tw-mb-1">{club.name}</h2>
+                                <p className="tw-text tw-mb-3">{club.category}</p>
+                                <p className="tw-text-gray-600 tw-mb-7">{club.description}</p>
                             </div>
                         </BlurFade>
                     ))
