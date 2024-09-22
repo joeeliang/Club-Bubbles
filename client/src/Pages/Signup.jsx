@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import TypingAnimation from "@/components/magicui/typing-animation";

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useContext } from 'react';
+import { useEffect, useState, useRef, useContext } from 'react';
 
 import FlickeringGrid from "../components/magicui/flickering-grid";
 import BlurFade from "@/components/magicui/blur-fade";
@@ -136,7 +136,7 @@ const Login = () => {
                         )}
 
                         <p className="tw-mt-4 tw-text-center tw-text-gray-300">
-                            Don't have an account? <a href="/Signup" className="tw-text-blue-400 hover:tw-underline">Sign up here.</a>
+                            Don&apos;t have an account? <a href="/Signup" className="tw-text-blue-400 hover:tw-underline">Sign up here.</a>
                         </p>
                     </div>
                 </BlurFade>

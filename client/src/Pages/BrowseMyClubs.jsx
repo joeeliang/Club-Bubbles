@@ -2,36 +2,12 @@ import { cn } from "@/lib/utils";
 import SparklesText from "@/components/magicui/sparkles-text";
 import AnimatedGridPattern from "@/components/magicui/animated-grid-pattern";import { useState, useEffect, useContext } from 'react';
 import BlurFade from "@/components/magicui/blur-fade";
-import SeverityIndicator from '@/components/severity';
 import ShinyButton from "@/components/magicui/shiny-button";
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { UserContext } from './userContext'; // Correct import
-import { data } from 'autoprefixer';
 // import { response } from 'express';
 
-const clubsData = [
-    { id: 1, name: "Coding Club", description: "A club for coding enthusiasts.", category: "STEM", severity: 3 },
-    { id: 2, name: "Art Club", description: "Explore your artistic side.", category: "Humanities", severity: 2 },
-    { id: 3, name: "Music Club", description: "For music lovers and musicians.", category: "Humanities", severity: 4 },
-    { id: 4, name: "Book Club", description: "Read and discuss great books.", category: "Humanities", severity: 1 },
-    { id: 5, name: "Sports Club", description: "For sports and fitness activities.", category: "Athletics", severity: 10 },
-    { id: 6, name: "Robotics Club", description: "Design and build robots.", category: "Stem", severity: 5 },
-    { id: 7, name: "Debate Club", description: "Develop your public speaking skills.", category: "Humanities", severity: 6 },
-    { id: 8, name: "Drama Club", description: "Act, direct, and produce plays.", category: "Humanities", severity: 7 },
-    { id: 9, name: "Photography Club", description: "Capture life's moments through photography.", category: "Humanities", severity: 8 },
-    { id: 10, name: "Gaming Club", description: "Compete and socialize through gaming.", category: "Athletics", severity: 9 },
-    { id: 11, name: "Environmental Club", description: "Promote sustainability and conservation.", category: "Stem", severity: 11 },
-    { id: 12, name: "Language Club", description: "Explore languages and cultures.", category: "Humanities", severity: 12 },
-    { id: 13, name: "Business Club", description: "Develop entrepreneurial skills.", category: "Stem", severity: 13 },
-    { id: 14, name: "Culinary Club", description: "Explore the world of cooking.", category: "Humanities", severity: 14 },
-    { id: 15, name: "Fashion Club", description: "Design and create fashion.", category: "Humanities", severity: 15 },
-    { id: 16, name: "Film Club", description: "Watch and discuss movies.", category: "Humanities", severity: 16 },
-    { id: 17, name: "Theater Club", description: "Act, direct, and produce plays.", category: "Humanities", severity: 17 },
-    { id: 18, name: "Volunteer Club", description: "Give back to the community.", category: "Humanities", severity: 18 },
-    { id: 19, name: "Outdoor Club", description: "Explore nature and the outdoors.", category: "Athletics", severity: 19 },
-    { id: 20, name: "Wellness Club", description: "Promote physical and mental well-being.", category: "Athletics", severity: 20 },
-  ];
 
 
 // const gradients = [
@@ -87,7 +63,35 @@ const BrowseMy = () => {
            .catch((error) => console.error('error fetching: ', error ));
         console.log("WE ARE DOING SOMETHING");
         }
-    }, [])
+    })
+
+    const handleUnJoin = (clubID) => {
+        if (user)
+        {
+            try
+            {
+                fetch('/api/userToClub', {
+                    method: "POST",
+                    headers:
+                    {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({user: user.id, club: clubID})
+                });
+                
+                fetch('/api/clubToUser', {
+                    method: "POST",
+                    headers:
+                    {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({user: user.id, club: clubID})
+                });
+            } catch (error) {
+                console.log("Database failure: " + error);
+            }
+        }
+    }
 
     const handleClubClick = (club) => {
         setSelectedClub(club);  // Set the clicked club
@@ -180,7 +184,7 @@ const BrowseMy = () => {
                     <Modal.Footer className="tw-flex tw-justify-between">
                         <ShinyButton
                             type="button"
-                            onClick={() => handleJoin(selectedClub._id)}  // Example action for the button
+                            onClick={() => handleUnJoin(selectedClub._id)}  // Example action for the button
                         >
                             Unjoin
                         </ShinyButton>

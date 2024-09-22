@@ -1,8 +1,8 @@
 import Card from 'react-bootstrap/Card';
 import 'bootstrap/dist/css/bootstrap.css';
-// import axios from 'axios';
+import axios from 'axios';
 
-function Cards ({ title="", priceRange="", details="", imgSrc=""}) {
+function Cards () {
     const handleButtonPress = async () => {
         try {
             const response = await axios.post('http://localhost:8000/call_python_function');
@@ -19,7 +19,7 @@ function Cards ({ title="", priceRange="", details="", imgSrc=""}) {
                 <Card.Title>Danger Card Title</Card.Title>
                 <Card.Text>
                     Some quick example text to build on the card title and make up the
-                    bulk of the card's content.
+                    bulk of the card&apos;s content.
                 </Card.Text>
                 <button onClick={handleButtonPress}>Call Python function</button>
             </Card.Body>
