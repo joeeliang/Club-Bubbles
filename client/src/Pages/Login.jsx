@@ -5,12 +5,16 @@ import PropTypes from 'prop-types';
 import '../index.css';
 
 const Login = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     const [isVisible, setIsVisible] = useState(false);
     const ref = useRef(null);
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
     const handleSubmit = async e => {
         e.preventDefault();
+    }
 
         useEffect(() => {
             // Disable scrolling
@@ -98,6 +102,6 @@ const Login = () => {
                 </div>
             </div>
         )
-    }
+    
 }
-export default Login
+export default Login;
