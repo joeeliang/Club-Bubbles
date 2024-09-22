@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import '../index.css';
 import BlurFade from "@/components/magicui/blur-fade";
 import FlickeringGrid from "@/components/magicui/flickering-grid.jsx";
+import ShinyButton from "@/components/magicui/shiny-button.jsx";
 
 function Signup() {
     const navigate = useNavigate();
@@ -129,7 +130,7 @@ function Signup() {
     };
 
     return (
-        <div className="tw-flex tw-items-center tw-justify-center tw-min-h-screen tw-bg-gradient-to-r tw-from-blue-950 tw-to-blue-200 tw-py-8">
+        <div className="tw-flex tw-items-center tw-justify-center tw-bg-gradient-to-r tw-from-dark-blue tw-to-aqua tw-min-h-screen tw-w-screen tw-py-8">
             <FlickeringGrid
                 className="tw-z-0 tw-absolute tw-inset-0 tw-h-screen tw-w-screen"
                 squareSize={3}
@@ -137,10 +138,10 @@ function Signup() {
                 color="#6B7280"
                 maxOpacity={0.5}
                 flickerChance={0.1}
-                height={914}
+                height={60}
                 width={2000}
             />
-            <div ref={formRef} className="tw-z-10 tw-bg-blue-900 tw-shadow-lg tw-rounded-lg tw-p-8 tw-max-w-sm tw-w-full">
+            <div ref={formRef} className="tw-z-10 tw-bg-gradient-to-r tw-from-dark-blue tw-to-marine tw-shadow-lg tw-rounded-lg tw-p-8 tw-max-w-sm tw-w-full">
                 <BlurFade inView={isVisible}>
                     <div>
                         <TypingAnimation
@@ -158,6 +159,7 @@ function Signup() {
                                     id="name"
                                     className="tw-w-full tw-p-3 tw-border tw-border-gray-300 tw-rounded-lg focus:tw-border-blue-500 focus:outline-none"
                                     placeholder="Your Name"
+                                    onChange={(e) => setName(e.target.value)}
                                     required
                                 />
                             </div>
@@ -170,6 +172,7 @@ function Signup() {
                                     id="email"
                                     className="tw-w-full tw-p-3 tw-border tw-border-gray-300 tw-rounded-lg focus:tw-border-blue-500 focus:outline-none"
                                     placeholder="you@example.com"
+                                    onChange={(e) => setEmail(e.target.value)}
                                     required
                                 />
                             </div>
@@ -201,6 +204,19 @@ function Signup() {
                                     required
                                 />
                             </div>
+                            <div className="tw-mb-6">
+                                <label className="tw-block tw-text-gray-300 tw-mb-2" htmlFor="school">
+                                    School Code
+                                </label>
+                                <input
+                                    type="text"
+                                    id="school"
+                                    className="tw-w-full tw-p-3 tw-border tw-border-gray-300 tw-rounded-lg focus:tw-border-blue-500 focus:outline-none"
+                                    placeholder="Provided School Code"
+                                    onChange={(e) => setSchool(e.target.value)}
+                                    required
+                                />
+                            </div>
                             <div className="tw-flex tw-items-center tw-mb-4">
                                 <input
                                     type="checkbox"
@@ -228,12 +244,12 @@ function Signup() {
                                 </p>
                             </div>
 
-                            <button
+                            <ShinyButton
                                 type="submit"
-                                className="tw-w-full tw-bg-blue-600 tw-text-white tw-font-semibold tw-p-3 tw-rounded-lg hover:tw-bg-blue-700 focus:outline-none focus:tw-ring-2 focus:tw-ring-blue-500 focus:tw-ring-opacity-50"
+                                className="tw-w-full tw-p-3 tw-rounded-lg tw-bg-zinc-300 tw-border-2 tw-border-zinc-600"
                             >
-                                Create
-                            </button>
+                                Create Account
+                            </ShinyButton>
                         </form>
                         <p className="tw-mt-4 tw-text-center tw-text-gray-300">
                             Already have an account? <a href="/login" className="tw-text-blue-400 hover:tw-underline">Log in here.</a>

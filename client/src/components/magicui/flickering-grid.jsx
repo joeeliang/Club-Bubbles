@@ -1,11 +1,12 @@
 "use client";;
-import React, {
+import {
   useCallback,
   useEffect,
   useMemo,
   useRef,
   useState,
 } from "react";
+import PropTypes from "prop-types";
 
 const FlickeringGrid = ({
   squareSize = 4,
@@ -154,6 +155,16 @@ const FlickeringGrid = ({
       width={width}
       height={height} />)
   );
+};
+FlickeringGrid.propTypes = {
+  squareSize: PropTypes.number,
+  gridGap: PropTypes.number,
+  flickerChance: PropTypes.number,
+  color: PropTypes.string,
+  width: PropTypes.number,
+  height: PropTypes.number,
+  className: PropTypes.string,
+  maxOpacity: PropTypes.number,
 };
 
 export default FlickeringGrid;

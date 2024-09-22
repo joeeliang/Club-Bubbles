@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import BlurFade from "@/components/magicui/blur-fade";
 import FlickeringGrid from "../components/magicui/flickering-grid";
 import LetterPullup from "@/components/magicui/letter-pullup";
@@ -68,7 +68,7 @@ const ClubProposal = () => {
     };
 
     return (
-        <div className="tw-overflow-hidden tw-bg-cover tw-bg-fixed tw-bg-center tw-flex tw-items-center tw-justify-center tw-h-screen tw-bg-gradient-to-r tw-from-blue-950 tw-to-blue-200">
+        <div className="tw-overflow-hidden tw-bg-cover tw-bg-fixed tw-bg-center tw-flex tw-items-center tw-justify-center tw-bg-gradient-to-r tw-from-dark-blue tw-to-aqua tw-min-h-screen tw-w-screen tw-scrollbar-hidden">
             <FlickeringGrid
                 className="tw-z-0 tw-absolute tw-inset-0 tw-h-screen tw-w-screen"
                 squareSize={3}
@@ -79,7 +79,7 @@ const ClubProposal = () => {
                 height={1000}
                 width={2000}
             />
-            <div ref={formRef} className="tw-bg-blue-900 tw-shadow-lg tw-rounded-lg tw-p-8 tw-max-w-lg tw-w-full tw-z-10">
+            <div ref={formRef} className="tw-bg-gradient-to-r tw-from-dark-blue tw-to-marine tw-shadow-lg tw-rounded-lg tw-p-8 tw-max-w-lg tw-w-full tw-z-10">
                 <BlurFade inView={isVisible}>
                     <div>
                         <LetterPullup words={"Submit Your Club Proposal"} delay={0.05} className="tw-text-2xl tw-font-bold tw-text-center tw-text-white tw-mb-6"/>

@@ -86,7 +86,7 @@ const Browse = () => {
         <>
             <Ripple/>
             <BlurFade delay={0.25 * 0.05} inView>
-                <h1 className="tw-text-4xl tw-font-bold tw-text-center tw-text-gray-800 tw-my-8">
+                <h1 className="tw-text-4xl tw-font-bold tw-text-center tw-text-zinc-300 tw-my-8">
                     Browse Clubs
                 </h1>
             </BlurFade>

@@ -147,7 +147,7 @@ app.post('/api/makeUser', async (req, res) => {
     console.error("error making user: ", error);
     res.status(500).json({error: 'Internal Server Error'});
   } finally {
-    await client.close();
+    // await client.close();
   }
 })
 
