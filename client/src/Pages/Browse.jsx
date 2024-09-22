@@ -40,9 +40,9 @@ export const clubsData = [
   ];
 
 const colorMap = {
-    "STEM": "rgb(0, 0, 255)", // blue
-    "Humanities": "rgb(128, 0, 128)", // purple
-    "Athletics": "rgb(255, 0, 0)" // red
+    "STEM": "rgb(52, 235, 219)", // Cyan
+    "Humanities": "rgb(52, 235, 122)", // Lime
+    "Athletics": "rgb(235, 70, 52)" // red
   };
 
 const Browse = () => {

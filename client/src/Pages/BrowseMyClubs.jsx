@@ -33,6 +33,7 @@ const clubsData = [
     { id: 20, name: "Wellness Club", description: "Promote physical and mental well-being.", category: "Athletics", severity: 20 },
   ];
 
+
 // const gradients = [
 //     "tw-bg-gradient-to-r tw-from-blue-400 tw-to-blue-600",
 //     "tw-bg-gradient-to-r tw-from-purple-400 tw-to-purple-600",
@@ -41,11 +42,13 @@ const clubsData = [
 //     "tw-bg-gradient-to-r tw-from-red-400 tw-to-red-600",
 // ];
 
+
 const colorMap = {
-    "STEM": "tw-bg-gradient-to-r tw-from-blue-400 tw-to-blue-600",
-    "Humanities": "tw-bg-gradient-to-r tw-from-purple-400 tw-to-purple-600",
-    "Athletics": "tw-bg-gradient-to-r tw-from-red-400 tw-to-red-600",
-  };
+    "STEM": "rgb(52, 235, 219)", // Cyan
+    "Humanities": "rgb(52, 235, 122)", // Lime
+    "Athletics": "rgb(235, 70, 52)" // red
+};
+
 
 const BrowseMy = () => {
     const { user } = useContext(UserContext);
