@@ -153,15 +153,15 @@ app.post('/api/makeUser', async (req, res) => {
 
 app.post('/api/login', async (req, res) => {
   try {
+    await client.connect();
     const database = client.db('infinTreadData');
     const users = database.collection('users');
     
     const user = req.body;
     const userQuery = { email: user.username, password: user.password };
     const userFound = await users.findOne(userQuery);
-    const userFoundId = userFound._id;
 
-    if (userFound) {
+    if (userFound !== null) {
       console.log('User found with _id:', userFound._id);
       res.status(200).json({ user: userFound._id});
     }

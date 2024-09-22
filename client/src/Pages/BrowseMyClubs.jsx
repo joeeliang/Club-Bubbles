@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import BlurFade from "@/components/magicui/blur-fade";
 import SeverityIndicator from '@/components/severity';
+import { UserContext } from './userContext'; // Correct import
 // import { response } from 'express';
 
 // const clubsData = [
@@ -41,6 +42,7 @@ const colorMap = {
   };
 
 const BrowseMy = () => {
+    const { user } = useContext(UserContext);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredClubs, setFilteredClubs] = useState('');
     const [clubDatabase, setClubs] = useState([]);
@@ -61,7 +63,7 @@ const BrowseMy = () => {
             headers: {
                 'Content-Type': 'application/json'                    
             },
-            body: JSON.stringify({_id: '66ee5462c160cac49cf111c7'})
+            body: JSON.stringify({_id: user})
         })
             .then((response) => response.json())
             .then((data) => setClubs(data))
