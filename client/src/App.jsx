@@ -1,7 +1,9 @@
 "use client";
 
+import { useEffect } from 'react';
 import { cn } from "@/lib/utils";
 import DotPattern from "@/components/magicui/dot-pattern";
+import { UserProvider } from './Pages/userContext'; // Add this line
 
 import NavbarComponent from './components/NavbarComponent.jsx';
 import { MarqueeEffect } from "./components/MarqueeEffect.jsx";
@@ -15,9 +17,9 @@ import Login from './Pages/Login.jsx';
 import ClubProposal from "@/Pages/ClubProposal.jsx";
 import BrowseMy from "./Pages/BrowseMyClubs.jsx";
 
-
-
 function App() {
+    
+
     return (
         <Router>
             <div className="tw-bg-gradient-to-r tw-from-dark-blue tw-to-aqua tw-min-h-screen tw-w-screen tw-scrollbar-hidden">
@@ -35,8 +37,14 @@ function App() {
     );
 }
 
+import PropTypes from 'prop-types';
+
 function PageWrapper({content}) {
     const location = useLocation();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, [location]);
 
     return (
         <>
@@ -59,5 +67,9 @@ function PageWrapper({content}) {
         </>
     );
 }
+
+PageWrapper.propTypes = {
+    content: PropTypes.node,
+};
 
 export default App;
