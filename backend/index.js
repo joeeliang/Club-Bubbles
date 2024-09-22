@@ -192,7 +192,7 @@ app.post('/api/userToClub', async (req, res) => {
         // Add user to club's members list
         const updateResult = await clubs.updateOne(
           { _id: ObjectId.createFromHexString(clubFound._id) },
-          { $addToSet: { members: userFound._id } } // Ensure no duplicates
+          { $set: { [`members.${user._id}`]: userFound.name } } // Ensure no duplicates
         );
 
         if (updateResult.modifiedCount > 0) {
@@ -265,6 +265,7 @@ app.post('/api/clubToUser', async (req, res) => {
     await client.connect();
     const database = client.db('infinTreadData');
     const users = database.collection('users');
+    const clubs = database.collection('clubs');
 
     const {user, club} = req.body;
 
@@ -274,10 +275,33 @@ app.post('/api/clubToUser', async (req, res) => {
 
     if (userFound != null)
     {
+      const clubFound = await clubs.findOne({_id: ObjectId.createFromHexString(club._id)})
+      if (clubFound)
+      {
+        const clubName = clubFound.name;
+        const result = await users.updateOne(userQuery, {
+          $set: { [`clubs.${club._id}`]: clubFound.name }
+        });
+
+        if (result.modifiedCount > 0) {
+          res.status(200).json({ message: 'User added to club successfully' });
+        } else {
+          res.status(400).json({ error: 'User already a member of the club or update failed' });
+        }
+      }
+      else
+      {
+        res.status(404).json({error: "club not found"});
+      }
       
     }
+    else
+    {
+      res.status(404).json({error: "user not found"});
+    }
   } catch (error) {
-
+    res.status(500).json({error: "internal database error"});
+    console.log("internal databse error");
   }
 })
 
