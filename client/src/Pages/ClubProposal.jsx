@@ -113,10 +113,9 @@ const ClubProposal = () => {
                 } else {
                     console.error('Error:', data);
                 }
-
                 const newClub = {
                     _id: "",
-                    clubName: clubName,
+                    name: clubName,
                     clubRoom: clubRoom,
                     proposal: proposalContent,
                     authenticityScore: authenticityScore,
@@ -153,8 +152,6 @@ const ClubProposal = () => {
         {
             alert("You are not logged in");
         }
-        
-        
     };
 
     return (

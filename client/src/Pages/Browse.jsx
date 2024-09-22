@@ -47,6 +47,7 @@ const Browse = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [clubDatabase, setClubs] = useState([]);
     const [filteredClubs, setFilteredClubs] = useState([]);
+    const [selectedClub, setSelectedClub] = useState(null);  // State to track selected club
 
     useEffect(() => {
         fetch('/api/clubs')
@@ -72,7 +73,6 @@ const Browse = () => {
 // const Browse = () => {
 //     const [searchTerm, setSearchTerm] = useState('');
 //     const [filteredClubs, setFilteredClubs] = useState(clubsData);
-//     const [selectedClub, setSelectedClub] = useState(null);  // State to track selected club
 //     const [showModal, setShowModal] = useState(false);       // Modal state
 
 //     useEffect(() => {
@@ -96,12 +96,12 @@ const Browse = () => {
 //         );
 //     };
 
-    // const handleClubClick = (club) => {
-    //     setSelectedClub(club);  // Set the clicked club
-    //     setShowModal(true);     // Show the modal
-    // };
+    const handleClubClick = (club) => {
+        setSelectedClub(club);  // Set the clicked club
+        setShowModal(true);     // Show the modal
+    };
 
-    // const handleClose = () => setShowModal(false);  // Close the modal
+    const handleClose = () => setShowModal(false);  // Close the modal
 
     return (
         <>
