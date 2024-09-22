@@ -75,6 +75,8 @@ const Browse = () => {
     };
     
     const handleJoin = (e) => {
+        if (user)
+        {
         try
         {
             const result = fetch('/api/userToClub', {
@@ -83,7 +85,7 @@ const Browse = () => {
                 {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({_id: user.id, club: e})
+                body: JSON.stringify({user: user.id, club: e})
             });
             
             const result2 = fetch('/api/clubToUser', {
@@ -92,10 +94,11 @@ const Browse = () => {
                 {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({_id: user.id, club: e})
+                body: JSON.stringify({user: user.id, club: e})
             });
         } catch (error) {
             console.log("Database failure: " + error);
+        }
         }
     }
 

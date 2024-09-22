@@ -131,7 +131,7 @@ const Login = () => {
                             <p className="tw-text-center tw-text-red-400 tw-mt-4">{loginError}</p>
                         )}
 
-                        {user && (
+                        {(user && user.email == username) && (
                             <p className="tw-text-center tw-text-green-400 tw-mt-4">Logged in successfully as {username}</p>
                         )}
 

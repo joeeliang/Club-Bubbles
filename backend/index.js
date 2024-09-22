@@ -181,8 +181,6 @@ app.post('/api/makeUser', async (req, res) => {
   } catch (error) {
     console.error("error making user: ", error);
     res.status(500).json({error: 'Internal Server Error'});
-  } finally {
-    // await client.close();
   }
 }),
 
@@ -244,18 +242,20 @@ app.post('/api/userToClub', async (req, res) => {
     const clubs = database.collection('clubs');
     
     const { user, club } = req.body;
-    const userQuery = { _id: ObjectId.createFromHexString(user._id)};
+    console.log(user);
+    const userQuery = { _id: ObjectId.createFromHexString(user)};
     const userFound = await users.findOne(userQuery);
 
     if (userFound !== null) {
-      const clubQuery = { _id: ObjectId.createFromHexString(club._id) };
+      console.log(club);
+      const clubQuery = { _id: ObjectId.createFromHexString(club) };
       const clubFound = await clubs.findOne(clubQuery);
 
       if (clubFound !== null) {
         // Add user to club's members list
         const updateResult = await clubs.updateOne(
-          { _id: ObjectId.createFromHexString(clubFound._id) },
-          { $set: { [`members.${user._id}`]: userFound.name } } // Ensure no duplicates
+          { _id: ObjectId.createFromHexString(club) },
+          { $set: { [`members.${user}`]: userFound.name } } // Ensure no duplicates
         );
 
         if (updateResult.modifiedCount > 0) {
@@ -332,18 +332,18 @@ app.post('/api/clubToUser', async (req, res) => {
 
     const {user, club} = req.body;
 
-    const userQuery = {_id: ObjectId.createFromHexString(user._id)};
+    const userQuery = {_id: ObjectId.createFromHexString(user)};
 
     const userFound = await users.findOne(userQuery);
 
     if (userFound != null)
     {
-      const clubFound = await clubs.findOne({_id: ObjectId.createFromHexString(club._id)})
+      const clubFound = await clubs.findOne({_id: ObjectId.createFromHexString(club)})
       if (clubFound)
       {
         const clubName = clubFound.name;
         const result = await users.updateOne(userQuery, {
-          $set: { [`clubs.${club._id}`]: clubFound.name }
+          $set: { [`clubs.${club}`]: clubFound.name }
         });
 
         if (result.modifiedCount > 0) {
@@ -355,6 +355,7 @@ app.post('/api/clubToUser', async (req, res) => {
       else
       {
         res.status(404).json({error: "club not found"});
+        console.log("Failure here")
       }
       
     }
