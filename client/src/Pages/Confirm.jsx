@@ -1,51 +1,12 @@
-import React, { useEffect, useState, useRef } from 'react';
-import BlurFade from "@/components/magicui/blur-fade";
-import FlickeringGrid from "../components/magicui/flickering-grid";
+import React, { useState } from 'react';
 
 const ClubProposal = () => {
-    const [isVisible, setIsVisible] = useState(false);
-    const formRef = useRef(null);
-
-    useEffect(() => {
-        // Disable scrolling
-        document.body.style.overflow = 'hidden';
-
-        // Intersection Observer for fade-in effect
-        const observer = new IntersectionObserver(([entry]) => {
-            if (entry.isIntersecting) {
-                setIsVisible(true);
-                observer.disconnect(); // Stop observing after it becomes visible
-            }
-        }, { threshold: 0.1 });
-
-        if (formRef.current) {
-            observer.observe(formRef.current);
-        }
-
-        // Cleanup function to reset the overflow property on unmount
-        return () => {
-            document.body.style.overflow = 'auto';
-        };
-    }, []);
-
     const [proposalContent, setProposalContent] = useState('');
     const [authenticityScore, setAuthenticityScore] = useState(null);
-    const [category, setCategory] = useState(null);
-    const [selectedCategory, setSelectedCategory] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-<<<<<<< HEAD
-    const categories = [
-        'Humanities',
-        'STEM',
-        'Entertainment',
-        'Arts',
-        'Athletics',
-    ];
-
-=======
->>>>>>> 7b09ab93e25287fc6771e460f8af5dbfbbd87f4b
+    // This function sends the proposal to the backend and retrieves the authenticity score.
     const sendProposal = async () => {
         setLoading(true);
         setError(null); // Reset error state before making request
@@ -86,16 +47,15 @@ const ClubProposal = () => {
             }
 
             const cate = await response.json();
-            setCategory(cate.category);
-            setSelectedCategory(cate.category); // Set default selected category
+            console.log(cate.category)
         } catch (error) {
-            setError("Failed to fetch category. Please try again.");
+            setError("Failed to fetch authenticity score. Please try again.");
             console.error("Error:", error);
         }
     };
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault(); // Prevent the form from reloading the page
         sendProposal();
     };
 
@@ -127,40 +87,19 @@ const ClubProposal = () => {
                     >
                         {loading ? 'Submitting...' : 'Submit Proposal'}
                     </button>
-
-                    {/* Display category dropdown */}
-                    {category && (
-                        <div className="tw-mt-4">
-                            <label className="tw-block tw-text-gray-300 tw-mb-2" htmlFor="category">
-                                Category
-                            </label>
-                            <select
-                                id="category"
-                                className="tw-w-full tw-p-3 tw-border tw-border-gray-300 tw-rounded-lg focus:tw-border-blue-500 focus:outline-none"
-                                value={selectedCategory}
-                                onChange={(e) => setSelectedCategory(e.target.value)}
-                            >
-                                {categories.map((category) => (
-                                    <option key={category} value={category}>
-                                        {category}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                    )}
-
-                    {/* Display authenticity score or error */}
-                    {authenticityScore !== null && (
-                        <p className="tw-mt-4 tw-text-center tw-text-green-500">
-                            Authenticity Score: {authenticityScore}
-                        </p>
-                    )}
-                    {error && (
-                        <p className="tw-mt-4 tw-text-center tw-text-red-500">
-                            {error}
-                        </p>
-                    )}
                 </form>
+
+                {/* Display authenticity score or error */}
+                {authenticityScore !== null && (
+                    <p className="tw-mt-4 tw-text-center tw-text-green-500">
+                        Fat: {authenticityScore}
+                    </p>
+                )}
+                {error && (
+                    <p className="tw-mt-4 tw-text-center tw-text-red-500">
+                        {error}
+                    </p>
+                )}
             </div>
         </div>
     );
