@@ -123,6 +123,7 @@ const Browse = () => {
                 </div>
             </BlurFade>
             <div className="tw-mb-6"></div>
+
             {/* Clubs Grid */}
             <div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 tw-gap-4" style={{ padding: '10%' }}>
                 {filteredClubs.length > 0 ? (

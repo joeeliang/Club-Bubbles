@@ -18,8 +18,6 @@ import ClubProposal from "@/Pages/ClubProposal.jsx";
 import BrowseMy from "./Pages/BrowseMyClubs.jsx";
 
 function App() {
-    
-
     return (
         <Router>
             <div className="tw-bg-gradient-to-r tw-from-dark-blue tw-to-aqua tw-min-h-screen tw-w-screen tw-scrollbar-hidden">
