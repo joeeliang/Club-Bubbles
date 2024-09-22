@@ -1,8 +1,9 @@
-import { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import FlickeringGrid from "../components/magicui/flickering-grid";
 import BlurFade from "@/components/magicui/blur-fade";
 import '../index.css';
 import GradualSpacing from "@/components/magicui/gradual-spacing";
+import ShinyButton from "@/components/magicui/shiny-button.jsx";
 
 const Login = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -43,7 +44,7 @@ const Login = () => {
 
     return (
         <div
-            className="tw-overflow-hidden tw-bg-cover tw-bg-fixed tw-bg-center tw-flex tw-items-center tw-justify-center tw-h-screen tw-bg-gradient-to-r tw-from-blue-950 tw-to-blue-200">
+            className="tw-overflow-hidden tw-bg-cover tw-bg-fixed tw-bg-center tw-flex tw-items-center tw-justify-center tw-bg-gradient-to-r tw-from-dark-blue tw-to-aqua tw-min-h-screen tw-w-screen tw-scrollbar-hidden">
             <FlickeringGrid
                 className="tw-z-5 tw-absolute tw-inset-0 tw-h-screen tw-w-screen"
                 squareSize={3}
@@ -55,7 +56,7 @@ const Login = () => {
                 width={2000}
             />
             <div ref={ref}
-                 className="tw-bg-blue-900 tw-shadow-lg tw-absolute tw-z-0 tw-rounded-xl tw-p-8 tw-max-w-sm tw-w-full tw-bg-opacity-80 tw-overflow-hidden">
+                 className="tw-bg-gradient-to-r tw-from-dark-blue tw-to-marine tw-shadow-lg tw-absolute tw-z-0 tw-rounded-xl tw-p-8 tw-max-w-sm tw-w-full tw-bg-opacity-80 tw-overflow-hidden">
                 <BlurFade inView={isVisible}>
                     <div>
                         <GradualSpacing
@@ -89,12 +90,12 @@ const Login = () => {
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
                             </div>
-                            <button
+                            <ShinyButton
                                 type="submit"
-                                className="tw-w-full tw-bg-blue-600 tw-text-white tw-font-semibold tw-p-3 tw-rounded-lg hover:tw-bg-blue-700 focus:outline-none focus:tw-ring-2 focus:tw-ring-blue-500 focus:tw-ring-opacity-50"
+                                className="tw-w-full tw-p-3 tw-rounded-lg tw-bg-zinc-300 tw-border-2 tw-border-zinc-600"
                             >
                                 Login
-                            </button>
+                            </ShinyButton>
                         </form>
                         <p className="tw-mt-4 tw-text-center tw-text-gray-300">
                             Don't have an account? <a href="/Signup" className="tw-text-blue-400 hover:tw-underline">Sign up here.</a>

@@ -22,7 +22,7 @@ const ReviewCard = ({ img = "", name = "", username = "", body = "", onClick }) 
     );
 };
 
-export function MarqueeDemo() {
+export function MarqueeEffect() {
     const reviews = [
         { id: 1, name: "Jack", username: "@jack", body: "I've never seen anything like this before. It's amazing. I love it.", img: "https://avatar.vercel.sh/jack" },
         { id: 2, name: "Jill", username: "@jill", body: "I don't know what to say. I'm speechless. This is amazing.", img: "https://avatar.vercel.sh/jill" },

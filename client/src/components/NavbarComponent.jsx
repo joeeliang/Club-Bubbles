@@ -1,17 +1,16 @@
 import { Container, Nav, Navbar } from 'react-bootstrap';
-import { Link } from 'react-router-dom'; // Use Link from react-router-dom for navigation
+import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 
 function NavbarComponent() {
     return (
-        <Navbar expand="lg" className="tw-z-10 tw-bg-gradient-to-r tw-from-blue-800 tw-to-blue-950 tw-shadow-lg" data-bs-theme="dark">
+        <Navbar expand="lg" className="tw-bg-transparent tw-shadow-2xl tw-z-20 tw-border-b-accent tw-border-b-2 tw-border-zinc-400" data-bs-theme="dark">
             <Container>
                 <Navbar.Brand as={Link} to="/">Club Club</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/browse">Browse</Nav.Link>
-                        <Nav.Link as={Link} to="/join">Join</Nav.Link>
                         <Nav.Link as={Link} to="/proposal">Proposal</Nav.Link>
                     </Nav>
                     <Nav className="ms-auto">
