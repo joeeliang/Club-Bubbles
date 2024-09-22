@@ -1,10 +1,16 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useContext } from 'react';
+
 import FlickeringGrid from "../components/magicui/flickering-grid";
 import BlurFade from "@/components/magicui/blur-fade";
 import '../index.css';
 import GradualSpacing from "@/components/magicui/gradual-spacing";
+import ShinyButton from "@/components/magicui/shiny-button.jsx";
+import { UserContext } from './userContext';
+// import { l } from 'vite/dist/node/types.d-aGj9QkWt';
+// import { User } from 'lucide-react';
 
 const Login = () => {
+    const { user, setUser } = useContext(UserContext);
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -43,12 +49,26 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         // Handle form submission logic here
+        const loggedInUser = { username, password };
+        const result = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(loggedInUser)
+        });
+        if (result.status === 200) {
+            const data = await result.json();
+            setUser(data.user);
+        }
+        // result.then((response) => response.json()).then((data) => setUser(data.user)).catch((error) => console.error('error fetching: ', error));
+        console.log("User:", user);
         console.log("Form submitted:", { username, password });
     };
 
     return (
         <div
-            className="tw-overflow-hidden tw-bg-cover tw-bg-fixed tw-bg-center tw-flex tw-items-center tw-justify-center tw-h-screen tw-bg-gradient-to-r tw-from-blue-950 tw-to-blue-200">
+            className="tw-overflow-hidden tw-bg-cover tw-bg-fixed tw-bg-center tw-flex tw-items-center tw-justify-center tw-bg-gradient-to-r tw-from-dark-blue tw-to-aqua tw-min-h-screen tw-w-screen tw-scrollbar-hidden">
             <FlickeringGrid
                 className="tw-z-5 tw-absolute tw-inset-0 tw-h-screen tw-w-screen"
                 squareSize={3}
@@ -60,7 +80,7 @@ const Login = () => {
                 width={2000}
             />
             <div ref={ref}
-                 className="tw-bg-blue-900 tw-shadow-lg tw-absolute tw-z-0 tw-rounded-xl tw-p-8 tw-max-w-sm tw-w-full tw-bg-opacity-80 tw-overflow-hidden">
+                 className="tw-bg-gradient-to-r tw-from-dark-blue tw-to-marine tw-shadow-lg tw-absolute tw-z-0 tw-rounded-xl tw-p-8 tw-max-w-sm tw-w-full tw-bg-opacity-80 tw-overflow-hidden">
                 <BlurFade inView={isVisible}>
                     <div>
                         <GradualSpacing
@@ -94,15 +114,16 @@ const Login = () => {
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
                             </div>
-                            <button
+                            <ShinyButton
                                 type="submit"
-                                className="tw-w-full tw-bg-blue-600 tw-text-white tw-font-semibold tw-p-3 tw-rounded-lg hover:tw-bg-blue-700 focus:outline-none focus:tw-ring-2 focus:tw-ring-blue-500 focus:tw-ring-opacity-50"
+                                className="tw-w-full tw-p-3 tw-rounded-lg tw-bg-zinc-300 tw-border-2 tw-border-zinc-600"
                             >
                                 Login
-                            </button>
+                            </ShinyButton>
                         </form>
+                        {user != null ? (<p className="tw-text-center tw-text-green-400 tw-mt-4">Logged in successfully as {username}</p>) : (<div></div>)}
                         <p className="tw-mt-4 tw-text-center tw-text-gray-300">
-                            Don't have an account? <a href="/Signup" className="tw-text-blue-400 hover:tw-underline">Sign up here.</a>
+                            Don&apos;t have an account? <a href="/Signup" className="tw-text-blue-400 hover:tw-underline">Sign up here.</a>
                         </p>
                     </div>
                 </BlurFade>

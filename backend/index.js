@@ -149,7 +149,7 @@ app.post('/api/makeUser', async (req, res) => {
   } finally {
     // await client.close();
   }
-})
+}),
 
 app.post('/api/makeClub', async (req, res) => { 
   try {
@@ -169,11 +169,39 @@ app.post('/api/makeClub', async (req, res) => {
     }
   } catch (error) {
     console.error("error making club: ", error);
+  } finally {
+    // await client.close();
+  }
+}),
+
+
+app.post('/api/login', async (req, res) => {
+  try {
+    const database = client.db('infinTreadData');
+    const users = database.collection('users');
+    
+    const user = req.body;
+    const userQuery = { email: user.username, password: user.password };
+    const userFound = await users.findOne(userQuery);
+    const userFoundId = userFound._id;
+
+    if (userFound) {
+      console.log('User found with _id:', userFound._id);
+      res.status(200).json({ user: userFound._id});
+    }
+    else
+    {
+      res.status(404).json({ error: 'User not found' });
+    }
+
+  } catch (error) {
+    console.error("error making user: ", error);
     res.status(500).json({error: 'Internal Server Error'});
   } finally {
     // await client.close();
   }
 }),
+
 
 // app.post('/api/makeClub', async (req, res) => {
 //   try {
