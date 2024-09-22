@@ -27,6 +27,8 @@ const port = 3000;
 // }
 // run().catch(console.dir);
 
+app.use(express.json());
+
 app.get('/api/club', async (req, res) => {
   try {
     await client.connect();
@@ -83,39 +85,48 @@ app.get('/api/clubs', async (req, res) => {
   }
 })
 
+
 app.post('/api/makeUser', async (req, res) => {
   try {
     const database = client.db('infinTreadData');
     const users = database.collection('users');
     
     const newUser = req.body;
-    newUser._id = new ObjectId(new UUID().toString());
-
-    res.send(newUser);
-  } catch (error) {
-    console.error("error making user: ", error);
-    res.status(500).json({error: 'Internal Server Error'});
-  } finally {
-    // await client.close();
-  }
-})
-
-app.post('/api/makeClub', async (req, res) => {
-  try {
-    const database = client.db('infinTreadData');
-    const users = database.collection('users');
     
-    const newUser = req.body;
     newUser._id = new ObjectId();
+    const result = await users.insertOne(newUser);
 
-    res.send(newUser);
+    if (result.acknowledged) {
+      console.log('User inserted with _id:', result.insertedId);
+      res.status(200).json({ message: 'User created successfully', user: newUser });
+    } else {
+      console.error('Failed to insert user');
+      res.status(500).json({ error: 'Failed to insert user' });
+    }
   } catch (error) {
     console.error("error making user: ", error);
     res.status(500).json({error: 'Internal Server Error'});
   } finally {
-    // await client.close();
+    await client.close();
   }
 })
+
+// app.post('/api/makeClub', async (req, res) => {
+//   try {
+//     const database = client.db('infinTreadData');
+//     const users = database.collection('users');
+    
+//     const newUser = req.body;
+//     newUser._id = new ObjectId();
+
+//     res.send(newUser);
+//   } catch (error) {
+//     console.error("error making user: ", error);
+//     res.status(500).json({error: 'Internal Server Error'});
+//   } finally {
+//     // await client.close();
+//   }
+// })
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

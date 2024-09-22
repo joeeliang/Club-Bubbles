@@ -1,6 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import BlurFade from "@/components/magicui/blur-fade";
+import FlickeringGrid from "../components/magicui/flickering-grid";
 
 const ClubProposal = () => {
+    const [isVisible, setIsVisible] = useState(false);
+    const formRef = useRef(null);
+
+    useEffect(() => {
+        // Disable scrolling
+        document.body.style.overflow = 'hidden';
+
+        // Intersection Observer for fade-in effect
+        const observer = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting) {
+                setIsVisible(true);
+                observer.disconnect(); // Stop observing after it becomes visible
+            }
+        }, { threshold: 0.1 });
+
+        if (formRef.current) {
+            observer.observe(formRef.current);
+        }
+
+        // Cleanup function to reset the overflow property on unmount
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, []);
+
     const [proposalContent, setProposalContent] = useState('');
     const [authenticityScore, setAuthenticityScore] = useState(null);
     const [category, setCategory] = useState(null);
@@ -8,6 +35,7 @@ const ClubProposal = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
+<<<<<<< HEAD
     const categories = [
         'Humanities',
         'STEM',
@@ -16,6 +44,8 @@ const ClubProposal = () => {
         'Athletics',
     ];
 
+=======
+>>>>>>> 7b09ab93e25287fc6771e460f8af5dbfbbd87f4b
     const sendProposal = async () => {
         setLoading(true);
         setError(null); // Reset error state before making request
@@ -65,7 +95,7 @@ const ClubProposal = () => {
     };
 
     const handleSubmit = (e) => {
-        e.preventDefault(); // Prevent the form from reloading the page
+        e.preventDefault();
         sendProposal();
     };
 

@@ -3,7 +3,6 @@
 import { cn } from "@/lib/utils";
 import DotPattern from "@/components/magicui/dot-pattern";
 
-import Ripple from "./components/magicui/ripple.jsx";
 import NavbarComponent from './components/NavbarComponent.jsx';
 import { MarqueeDemo } from "./components/MarqueeDemo.jsx";
 import GradualSpacing from "@/components/magicui/gradual-spacing";
@@ -14,8 +13,13 @@ import Signup from './Pages/Signup.jsx';
 import Browse from './Pages/Browse.jsx';
 import Join from './Pages/Join.jsx';
 import Login from './Pages/Login.jsx';
+
 import ClubProposal from "./Pages/ClubProposal.jsx";
 import Confirm from "./Pages/Confirm.jsx"
+
+import Signup from "@/Pages/Signup.jsx";
+import ClubProposal from "@/Pages/ClubProposal.jsx";
+
 
 function App() {
     return (
@@ -56,10 +60,8 @@ function PageWrapper() {
                 <MarqueeDemo />
                 </>
             )}
-            {location.pathname === '/browse' && (
-                <Ripple />
-            )}
-            
+            {content}
+
         </>
     );
 }
