@@ -3,8 +3,11 @@ import BlurFade from "@/components/magicui/blur-fade";
 import FlickeringGrid from "../components/magicui/flickering-grid";
 import LetterPullup from "@/components/magicui/letter-pullup";
 import ShinyButton from "@/components/magicui/shiny-button";
+import { useContext } from 'react';
+import { UserContext } from './userContext';
 
 const ClubProposal = () => {
+    const { user } = useContext(UserContext);
     const [isVisible, setIsVisible] = useState(false);
     const formRef = useRef(null);
 
@@ -70,33 +73,59 @@ const ClubProposal = () => {
     const handleSubmit = async e => {
         e.preventDefault();
         sendProposal();
-        
-        const newClub = {
-            _id: "",
-            clubName: clubName,
-            clubRoom: clubRoom,
-            proposal: proposalContent,
-            authenticityScore: authenticityScore,
-        };
         try {
-            const response = await fetch('/api/makeClub', {
-                method: 'POST',
+            const response = await fetch('/api/user', {
+                method: 'GET',
                 headers: {
-                'Content-Type': 'application/json',
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(newClub),
+                body: JSON.stringify({
+                    _id: user
+                }),
             });
-      
+
             const data = await response.json();
             if (response.ok) {
-              console.log('Club added:', data);
-              navigate('/login');
+                console.log('Club added:', data);
             } else {
-              console.error('Error:', data);
+                console.error('Error:', data);
+            }
+
+            const newClub = {
+                _id: "",
+                clubName: clubName,
+                clubRoom: clubRoom,
+                proposal: proposalContent,
+                authenticityScore: authenticityScore,
+                studentLeader: user,
+                members: {user: data.name},
+            };
+
+            try {
+                const response = await fetch('/api/makeClub', {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(newClub),
+                });
+          
+                const data = await response.json();
+                if (response.ok) {
+                  console.log('Club added:', data);
+                  navigate('/login');
+                } else {
+                  console.error('Error:', data);
+                }
+            } catch (error) {
+                console.error('Error sending user data:', error);
             }
         } catch (error) {
             console.error('Error sending user data:', error);
+            
         }
+        
+        
     };
 
     return (
