@@ -2,14 +2,12 @@ import Marquee from "@/components/magicui/marquee";
 import BlurFade from "@/components/magicui/blur-fade";
 import { useEffect, useState, useRef } from "react";
 
-const ReviewCard = ({ img, name, username, body, onClick }) => {
+const ReviewCard = ({ img = "", name = "", username = "", body = "", onClick }) => {
     return (
-        <figure
-            onClick={onClick}
-            className="tw-relative tw-w-64 tw-cursor-pointer tw-overflow-hidden tw-rounded-xl tw-border tw-p-4 tw-border-gray-950/[.1] 
-                tw-bg-gray-950/[.01] tw-hover:bg-gray-950/[.05] 
-                tw-dark:border-gray-50/[.1] tw-dark:bg-gray-50/[.10] tw-dark:hover:bg-gray-50/[.15] tw-mr-4 tw-bg-zinc-300
-                tw-bg-opacity-35">
+        <figure onClick={onClick} className="tw-relative tw-w-64 tw-cursor-pointer tw-overflow-hidden tw-rounded-xl tw-border tw-p-4 tw-border-gray-950/[.1] 
+            tw-bg-gray-950/[.01] tw-hover:bg-gray-950/[.05] 
+            tw-dark:border-gray-50/[.1] tw-dark:bg-gray-50/[.10] tw-dark:hover:bg-gray-50/[.15] tw-mr-4 tw-bg-zinc-300
+            tw-bg-opacity-35">
             <div className="tw-flex tw-flex-row tw-items-center tw-gap-2">
                 <img className="tw-rounded-full" width="32" height="32" alt="" src={img} />
                 <div className="tw-flex tw-flex-col">
@@ -98,10 +96,6 @@ export function MarqueeDemo() {
                 ))}
             </Marquee>
 
-            {/* Gradient Background */}
-            <div className="tw-pointer-events-none tw-absolute tw-inset-y-0 tw-left-0 tw-w-1/3 tw-bg-gradient-to-r tw-from-transparent tw-dark:from-background"></div>
-            <div className="tw-pointer-events-none tw-absolute tw-inset-y-0 tw-right-0 tw-w-1/3 tw-bg-gradient-to-l tw-from-transparent tw-dark:from-background"></div>
-
             {/* Modal for zoomed-in card */}
             {activeCard && (
                 <div className="tw-fixed tw-inset-0 tw-flex tw-items-center tw-justify-center tw-bg-black tw-bg-opacity-70">
@@ -119,6 +113,10 @@ export function MarqueeDemo() {
                     </div>
                 </div>
             )}
+
+            {/* Gradient Background */}
+            <div className="tw-pointer-events-none tw-absolute tw-inset-y-0 tw-left-0 tw-w-1/3 tw-bg-gradient-to-r tw-from-transparent tw-dark:from-background"></div>
+            <div className="tw-pointer-events-none tw-absolute tw-inset-y-0 tw-right-0 tw-w-1/3 tw-bg-gradient-to-l tw-from-transparent tw-dark:from-background"></div>
         </div>
     );
 }
