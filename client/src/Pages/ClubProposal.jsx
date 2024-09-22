@@ -117,7 +117,7 @@ const ClubProposal = () => {
                     _id: "",
                     name: clubName,
                     clubRoom: clubRoom,
-                    proposal: proposalContent,
+                    description: proposalContent,
                     authenticityScore: authenticityScore,
                     studentLeader: user,
                     category: category,
