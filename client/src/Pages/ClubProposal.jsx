@@ -71,58 +71,64 @@ const ClubProposal = () => {
     };
 
     const handleSubmit = async e => {
-        e.preventDefault();
-        sendProposal();
-        try {
-            const response = await fetch('/api/user', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    _id: user
-                }),
-            });
-
-            const data = await response.json();
-            if (response.ok) {
-                console.log('Club added:', data);
-            } else {
-                console.error('Error:', data);
-            }
-
-            const newClub = {
-                _id: "",
-                clubName: clubName,
-                clubRoom: clubRoom,
-                proposal: proposalContent,
-                authenticityScore: authenticityScore,
-                studentLeader: user,
-                members: {user: data.name},
-            };
-
+        if (user != null)
+        {
+            e.preventDefault();
+            sendProposal();
             try {
-                const response = await fetch('/api/makeClub', {
+                const response = await fetch('/api/user', {
                     method: 'POST',
                     headers: {
-                    'Content-Type': 'application/json',
+                        'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(newClub),
+                    body: JSON.stringify({
+                        _id: user
+                    }),
                 });
-          
+
                 const data = await response.json();
                 if (response.ok) {
-                  console.log('Club added:', data);
-                  navigate('/login');
+                    console.log('Club added:', data);
                 } else {
-                  console.error('Error:', data);
+                    console.error('Error:', data);
+                }
+
+                const newClub = {
+                    _id: "",
+                    clubName: clubName,
+                    clubRoom: clubRoom,
+                    proposal: proposalContent,
+                    authenticityScore: authenticityScore,
+                    studentLeader: user,
+                };
+                newClub.members[user] = data.name;
+
+                try {
+                    const response = await fetch('/api/makeClub', {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(newClub),
+                    });
+            
+                    const data = await response.json();
+                    if (response.ok) {
+                    console.log('Club added:', data);
+                    } else {
+                    console.error('Error:', data);
+                    }
+                } catch (error) {
+                    console.error('Error sending user data:', error);
                 }
             } catch (error) {
                 console.error('Error sending user data:', error);
+                
             }
-        } catch (error) {
-            console.error('Error sending user data:', error);
-            
+        }
+        else
+        {
+            console.log("You are not logged in")
         }
         
         
