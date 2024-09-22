@@ -1,4 +1,8 @@
-# Club Bubbles
+# Club Bubbles 
+![download__2_-removebg-preview](https://github.com/user-attachments/assets/69af1f87-9955-450d-a641-11aeb1c191d5)
+
+
+
 ### Connecting students and clubs through AI-Assisted management.
 
 Club Bubbles acts as an interface for creating, joining, and managing school clubs from a student perspective.
