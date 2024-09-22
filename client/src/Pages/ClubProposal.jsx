@@ -2,9 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import BlurFade from "@/components/magicui/blur-fade";
 import FlickeringGrid from "../components/magicui/flickering-grid";
 import LetterPullup from "@/components/magicui/letter-pullup";
-import { ArrowRightIcon } from "@radix-ui/react-icons";
-import { cn } from "@/lib/utils";
-import AnimatedShinyText from "@/components/magicui/animated-shiny-text";
+import ShinyButton from "@/components/magicui/shiny-button";
 
 const ClubProposal = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -34,19 +32,9 @@ const ClubProposal = () => {
 
     const [proposalContent, setProposalContent] = useState('');
     const [authenticityScore, setAuthenticityScore] = useState(null);
-    const [category, setCategory] = useState(null);
-    const [selectedCategory, setSelectedCategory] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-
-    const categories = [
-        'Humanities',
-        'STEM',
-        'Entertainment',
-        'Arts',
-        'Athletics',
-    ];
     const sendProposal = async () => {
         setLoading(true);
         setError(null); // Reset error state before making request
@@ -72,27 +60,6 @@ const ClubProposal = () => {
         } finally {
             setLoading(false);
         }
-
-        try {
-            const response = await fetch("http://127.0.0.1:8000/categorize", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ text: proposalContent }),
-            });
-
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-
-            const cate = await response.json();
-            setCategory(cate.category);
-            setSelectedCategory(cate.category); // Set default selected category
-        } catch (error) {
-            setError("Failed to fetch category. Please try again.");
-            console.error("Error:", error);
-        }
     };
 
     const handleSubmit = (e) => {
@@ -101,7 +68,6 @@ const ClubProposal = () => {
     };
 
     return (
-
         <div className="tw-overflow-hidden tw-bg-cover tw-bg-fixed tw-bg-center tw-flex tw-items-center tw-justify-center tw-h-screen tw-bg-gradient-to-r tw-from-blue-950 tw-to-blue-200">
             <FlickeringGrid
                 className="tw-z-0 tw-absolute tw-inset-0 tw-h-screen tw-w-screen"
@@ -132,28 +98,31 @@ const ClubProposal = () => {
                                     required
                                 />
                             </div>
-                            <div className="z-10 flex min-h-[16rem] items-center justify-center">
-                                <div
-                                    className={cn(
-                                        "group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800",
-                                    )}
-                                >
-                                    <AnimatedShinyText
-                                        className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
-                                        <span>✨ Introducing Magic UI</span>
-                                        <ArrowRightIcon
-                                            className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5"/>
-                                    </AnimatedShinyText>
-                                </div>
-                            </div>
-                            {loading ? 'Submitting...' : 'Submit Proposal'}
-                    </form>
+                            <ShinyButton
+                                type="submit"
+                                className="tw-w-full tw-p-3 tw-rounded-lg tw-bg-zinc-300 tw-border-2 tw-border-zinc-600"
+                                disabled={loading}
+                            >
+                                {loading ? 'Submitting...' : 'Submit Proposal'}
+                            </ShinyButton>
+                        </form>
+
+                        {/* Display authenticity score or error */}
+                        {authenticityScore !== null && (
+                            <p className="tw-mt-4 tw-text-center tw-text-green-500">
+                                Authenticity Score: {authenticityScore}
+                            </p>
+                        )}
+                        {error && (
+                            <p className="tw-mt-4 tw-text-center tw-text-red-500">
+                                {error}
+                            </p>
+                        )}
+                    </div>
+                </BlurFade>
             </div>
-        </BlurFade>
-</div>
-</div>
-)
-    ;
+        </div>
+    );
 };
 
 export default ClubProposal;
