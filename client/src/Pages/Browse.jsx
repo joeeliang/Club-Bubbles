@@ -14,7 +14,7 @@ const gradients = [
     "tw-bg-gradient-to-r tw-from-yellow-400 tw-to-yellow-600",
     "tw-bg-gradient-to-r tw-from-red-400 tw-to-red-600",
 ];
-const clubsData = [
+export const clubsData = [
     { id: 1, name: "Coding Club", description: "A club for coding enthusiasts who want to learn, share, and collaborate on coding projects. We'll explore various programming languages, frameworks, and technologies, and work on building real-world projects together.", category: "STEM", severity: 3 },
     { id: 2, name: "Art Club", description: "Explore your artistic side and express yourself through various forms of art, including painting, drawing, sculpture, photography, and more. We'll have regular workshops, critiques, and exhibitions to showcase our work.", category: "Humanities", severity: 2 },
     { id: 3, name: "Music Club", description: "For music lovers and musicians who want to share their passion for music. We'll have jam sessions, music theory classes, and performances, and collaborate on music projects and events.", category: "Humanities", severity: 4 },

@@ -1,13 +1,14 @@
 import Marquee from "@/components/magicui/marquee";
 import BlurFade from "@/components/magicui/blur-fade";
 import { useEffect, useState, useRef } from "react";
+import { clubsData } from '../Pages/Browse.jsx'; // Adjust the import path
 
 const ReviewCard = ({ img = "", name = "", username = "", body = "", onClick }) => {
     return (
         <figure onClick={onClick} className="tw-relative tw-w-64 tw-cursor-pointer tw-overflow-hidden tw-rounded-xl tw-border tw-p-4 tw-border-gray-950/[.1] 
             tw-bg-gray-950/[.01] tw-hover:bg-gray-950/[.05] 
             tw-dark:border-gray-50/[.1] tw-dark:bg-gray-50/[.10] tw-dark:hover:bg-gray-50/[.15] tw-mr-4 tw-bg-zinc-300
-            tw-bg-opacity-35">
+            tw-bg-opacity-45">
             <div className="tw-flex tw-flex-row tw-items-center tw-gap-2 tw-shadow-2xl">
                 <img className="tw-rounded-full" width="32" height="32" alt="" src={img} />
                 <div className="tw-flex tw-flex-col">
@@ -23,19 +24,11 @@ const ReviewCard = ({ img = "", name = "", username = "", body = "", onClick }) 
 };
 
 export function MarqueeEffect() {
-    const reviews = [
-        { id: 1, name: "Jack", username: "@jack", body: "I've never seen anything like this before. It's amazing. I love it.", img: "https://avatar.vercel.sh/jack" },
-        { id: 2, name: "Jill", username: "@jill", body: "I don't know what to say. I'm speechless. This is amazing.", img: "https://avatar.vercel.sh/jill" },
-        { id: 3, name: "John", username: "@john", body: "I'm at a loss for words. This is amazing. I love it.", img: "https://avatar.vercel.sh/john" },
-        { id: 4, name: "Jane", username: "@jane", body: "I'm at a loss for words. This is amazing.", img: "https://avatar.vercel.sh/jane" },
-        { id: 5, name: "Jenny", username: "@jenny", body: "I'm at a loss for words. This is amazing.", img: "https://avatar.vercel.sh/jenny" },
-        { id: 6, name: "James", username: "@james", body: "I'm at a loss for words. This is amazing.", img: "https://avatar.vercel.sh/james" },
-    ];
+    // Using clubsData directly
+    const firstRow = clubsData.slice(0, clubsData.length / 2);
+    const secondRow = clubsData.slice(clubsData.length / 2);
 
-    const firstRow = reviews.slice(0, reviews.length / 2);
-    const secondRow = reviews.slice(reviews.length / 2);
-
-    const [visibleCards, setVisibleCards] = useState(Array(reviews.length).fill(false));
+    const [visibleCards, setVisibleCards] = useState(Array(clubsData.length).fill(false));
     const [activeCard, setActiveCard] = useState(null);
     const refs = useRef([]);
 
@@ -64,8 +57,8 @@ export function MarqueeEffect() {
         };
     }, []);
 
-    const handleCardClick = (review) => {
-        setActiveCard(review);
+    const handleCardClick = (club) => {
+        setActiveCard(club);
     };
 
     const handleCloseModal = () => {
@@ -76,10 +69,16 @@ export function MarqueeEffect() {
         <div className="tw-relative tw-flex tw-h-[500px] tw-w-full tw-flex-col tw-items-center tw-justify-center tw-overflow-hidden tw-rounded-lg tw-border-transparent tw-bg-transparent tw-md:shadow-xl">
             {/* First Marquee Row */}
             <Marquee pauseOnHover className="[--duration:20s] tw-mb-4">
-                {firstRow.map((review, index) => (
-                    <div ref={el => refs.current[index] = el} data-index={index} key={review.id}>
-                        <BlurFade inView={visibleCards[index]} delay={0.1 + review.id * 0.05}>
-                            <ReviewCard {...review} onClick={() => handleCardClick(review)} />
+                {firstRow.map((club, index) => (
+                    <div ref={el => refs.current[index] = el} data-index={index} key={club.id}>
+                        <BlurFade inView={visibleCards[index]} delay={0.1 + club.id * 0.05}>
+                            <ReviewCard
+                                name={club.name}
+                                body={club.description}
+                                username={club.category}  // Using category in place of username
+                                img={`https://avatar.vercel.sh/${club.id}`}  // Placeholder avatar
+                                onClick={() => handleCardClick(club)}
+                            />
                         </BlurFade>
                     </div>
                 ))}
@@ -87,10 +86,16 @@ export function MarqueeEffect() {
 
             {/* Second Marquee Row */}
             <Marquee reverse pauseOnHover className="[--duration:20s] tw-mt-4">
-                {secondRow.map((review, index) => (
-                    <div ref={el => refs.current[index + firstRow.length] = el} data-index={index + firstRow.length} key={review.id}>
-                        <BlurFade inView={visibleCards[index]} delay={0.1 + review.id * 0.05}>
-                            <ReviewCard {...review} onClick={() => handleCardClick(review)} />
+                {secondRow.map((club, index) => (
+                    <div ref={el => refs.current[index + firstRow.length] = el} data-index={index + firstRow.length} key={club.id}>
+                        <BlurFade inView={visibleCards[index + firstRow.length]} delay={0.1 + club.id * 0.05}>
+                            <ReviewCard
+                                name={club.name}
+                                body={club.description}
+                                username={club.category}
+                                img={`https://avatar.vercel.sh/${club.id}`}  // Placeholder avatar
+                                onClick={() => handleCardClick(club)}
+                            />
                         </BlurFade>
                     </div>
                 ))}
@@ -106,10 +111,10 @@ export function MarqueeEffect() {
                         >
                             &times;
                         </button>
-                        <img className="tw-rounded-full tw-mb-4" width="128" height="128" alt="" src={activeCard.img} />
+                        <img className="tw-rounded-full tw-mb-4" width="128" height="128" alt="" src={`https://avatar.vercel.sh/${activeCard.id}`} />
                         <h2 className="tw-text-xl tw-font-bold">{activeCard.name}</h2>
-                        <p className="tw-text-sm tw-font-medium">{activeCard.username}</p>
-                        <blockquote className="tw-mt-2 tw-text-md">{activeCard.body}</blockquote>
+                        <p className="tw-text-sm tw-font-medium">{activeCard.category}</p>
+                        <blockquote className="tw-mt-2 tw-text-md">{activeCard.description}</blockquote>
                     </div>
                 </div>
             )}
