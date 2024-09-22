@@ -174,6 +174,26 @@ app.post('/api/makeClub', async (req, res) => {
   }
 }),
 
+app.post('/api/user', async (req, res) => { 
+  try {
+    await client.connect();
+    const database = client.db('infinTreadData');
+    const users = database.collection('users');
+    
+    const userID = req.body.userID;
+    const user = await users.findOne({_id: ObjectId.createFromHexString(userID)});
+
+    if (user != null) {
+      res.status(200).json({ name: user.name });
+    } else {
+      res.status(500).json({ error: 'failed to get user name' });
+    }
+  } catch (error) {
+    console.error("error making club: ", error);
+  } finally {
+    // await client.close();
+  }
+}),
 
     app.post('/api/login', async (req, res) => {
       try {
