@@ -13,7 +13,6 @@ import Signup from './Pages/Signup.jsx';
 import Browse from './Pages/Browse.jsx';
 import Join from './Pages/Join.jsx';
 import Login from './Pages/Login.jsx';
-import Signup from "@/Pages/Signup.jsx";
 import ClubProposal from "@/Pages/ClubProposal.jsx";
 
 
@@ -24,25 +23,24 @@ function App() {
                 <NavbarComponent/>
 
                 <Routes>
-                    <Route path="/" element={<Login />} />
-                    <Route path="/home" element={<PageWrapper/>}/>
+                    <Route path="/" element={<PageWrapper/>}/>
                     <Route path="/browse" element={<Browse/>}/>
-                <Route path="/join" element={<Join/>}/>
-                <Route path="/login" element={<Login/>}/>
-                <Route path="/Signup" element = {<Signup />} />
-                <Route path="/proposal" element={<ClubProposal/>}/>
+                    <Route path="/join" element={<Join/>}/>
+                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/signup" element = {<Signup />} />
+                    <Route path="/proposal" element={<ClubProposal/>}/>
                 </Routes>
             </div>
         </Router>
     );
 }
 
-function PageWrapper() {
+function PageWrapper({content}) {
     const location = useLocation();
 
     return (
         <>
-            {location.pathname === '/home' && (
+            {location.pathname === '/' && (
                 <>
                     <DotPattern
                         className={cn(

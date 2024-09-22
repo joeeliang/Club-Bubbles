@@ -1,6 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import BlurFade from "@/components/magicui/blur-fade";
 import FlickeringGrid from "../components/magicui/flickering-grid";
+import LetterPullup from "@/components/magicui/letter-pullup";
+import { ArrowRightIcon } from "@radix-ui/react-icons";
+import { cn } from "@/lib/utils";
+import AnimatedShinyText from "@/components/magicui/animated-shiny-text";
 
 const ClubProposal = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -80,9 +84,7 @@ const ClubProposal = () => {
             <div ref={formRef} className="tw-bg-blue-900 tw-shadow-lg tw-rounded-lg tw-p-8 tw-max-w-lg tw-w-full tw-z-10">
                 <BlurFade inView={isVisible}>
                     <div>
-                        <h2 className="tw-text-2xl tw-font-bold tw-text-center tw-text-white tw-mb-6">
-                            Submit Your Club Proposal
-                        </h2>
+                        <LetterPullup words={"Submit Your Club Proposal"} delay={0.05} className="tw-text-2xl tw-font-bold tw-text-center tw-text-white tw-mb-6"/>
                         <form onSubmit={handleSubmit}>
                             <div className="tw-mb-4">
                                 <label className="tw-block tw-text-gray-300 tw-mb-2" htmlFor="proposal">
@@ -98,31 +100,40 @@ const ClubProposal = () => {
                                     required
                                 />
                             </div>
-                            <button
-                                type="submit"
-                                className="tw-w-full tw-bg-blue-600 tw-text-white tw-font-semibold tw-p-3 tw-rounded-lg hover:tw-bg-blue-700 focus:outline-none focus:tw-ring-2 focus:tw-ring-blue-500 focus:tw-ring-opacity-50"
-                                disabled={loading}
-                            >
-                                {loading ? 'Submitting...' : 'Submit Proposal'}
-                            </button>
-                        </form>
+                            <div className="z-10 flex min-h-[16rem] items-center justify-center">
+                                <div
+                                    className={cn(
+                                        "group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800",
+                                    )}
+                                >
+                                    <AnimatedShinyText
+                                        className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
+                                        <span>✨ Introducing Magic UI</span>
+                                        <ArrowRightIcon
+                                            className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5"/>
+                                    </AnimatedShinyText>
+                                </div>
+                            </div>
+                            {loading ? 'Submitting...' : 'Submit Proposal'}
+                    </form>
 
-                        {/* Display authenticity score or error */}
-                        {authenticityScore !== null && (
-                            <p className="tw-mt-4 tw-text-center tw-text-green-500">
-                                Authenticity Score: {authenticityScore}
-                            </p>
-                        )}
-                        {error && (
-                            <p className="tw-mt-4 tw-text-center tw-text-red-500">
-                                {error}
-                            </p>
-                        )}
-                    </div>
-                </BlurFade>
+                    {/* Display authenticity score or error */}
+                    {authenticityScore !== null && (
+                        <p className="tw-mt-4 tw-text-center tw-text-green-500">
+                            Authenticity Score: {authenticityScore}
+                        </p>
+                    )}
+                    {error && (
+                        <p className="tw-mt-4 tw-text-center tw-text-red-500">
+                            {error}
+                        </p>
+                    )}
             </div>
-        </div>
-    );
+        </BlurFade>
+</div>
+</div>
+)
+    ;
 };
 
 export default ClubProposal;

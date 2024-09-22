@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.css';
+import TypingAnimation from "@/components/magicui/typing-animation";
 import '../index.css';
 import BlurFade from "@/components/magicui/blur-fade";
 import FlickeringGrid from "@/components/magicui/flickering-grid.jsx";
@@ -83,15 +84,17 @@ function Signup() {
                 color="#6B7280"
                 maxOpacity={0.5}
                 flickerChance={0.1}
-                height={870}
+                height={914}
                 width={2000}
             />
             <div ref={formRef} className="tw-z-10 tw-bg-blue-900 tw-shadow-lg tw-rounded-lg tw-p-8 tw-max-w-sm tw-w-full">
                 <BlurFade inView={isVisible}>
                     <div>
-                        <h2 className="tw-text-2xl tw-font-bold tw-text-center tw-text-white tw-mb-6">
-                            Create Your Account
-                        </h2>
+                        <TypingAnimation
+                            duration={50}
+                            className="tw-text-2xl tw-font-bold tw-text-center tw-text-white tw-mb-6"
+                            text="Create an Account"
+                        />
                         <form onSubmit={handleSubmit}>
                             <div className="tw-mb-4">
                                 <label className="tw-block tw-text-gray-300 tw-mb-2" htmlFor="name">
@@ -180,7 +183,7 @@ function Signup() {
                             </button>
                         </form>
                         <p className="tw-mt-4 tw-text-center tw-text-gray-300">
-                            Already have an account? <a href="/join" className="tw-text-blue-400 hover:tw-underline">Log in here.</a>
+                            Already have an account? <a href="/login" className="tw-text-blue-400 hover:tw-underline">Log in here.</a>
                         </p>
                     </div>
                 </BlurFade>
