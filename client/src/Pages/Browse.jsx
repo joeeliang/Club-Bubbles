@@ -40,9 +40,9 @@ export const clubsData = [
   ];
 
 const colorMap = {
-    "STEM": "rgb(0, 0, 255)", // blue
-    "Humanities": "rgb(128, 0, 128)", // purple
-    "Athletics": "rgb(255, 0, 0)" // red
+    "STEM": "rgb(52, 235, 219)", // Cyan
+    "Humanities": "rgb(52, 235, 122)", // Lime
+    "Athletics": "rgb(235, 70, 52)" // red
   };
 
 const Browse = () => {
@@ -196,7 +196,7 @@ const Browse = () => {
                         <p><strong>Category:</strong> {selectedClub.category}</p>
                         <p><strong>Description:</strong> {selectedClub.description}</p>
                         {/* Display the severity rating (authenticity) only in the modal */}
-                        <p><strong>Authenticity:</strong> {selectedClub.authenticity}</p>
+                        <p><strong>Authenticity:</strong> {selectedClub.authenticityScore}</p>
                     </Modal.Body>
                     <Modal.Footer className="tw-flex tw-justify-between">
                         <ShinyButton
