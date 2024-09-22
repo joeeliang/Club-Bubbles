@@ -1,24 +1,15 @@
-import { useEffect, useState, useRef, useContext } from 'react';
-
+import React, { useEffect, useState, useRef } from 'react';
 import FlickeringGrid from "../components/magicui/flickering-grid";
 import BlurFade from "@/components/magicui/blur-fade";
 import '../index.css';
 import GradualSpacing from "@/components/magicui/gradual-spacing";
 import ShinyButton from "@/components/magicui/shiny-button.jsx";
-import { UserContext } from './userContext';
-
 
 const Login = () => {
-    const { setUser } = useContext(UserContext);
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
     const [isVisible, setIsVisible] = useState(false);
     const ref = useRef(null);
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
-
-
 
     // useEffect should be outside of handleSubmit
     useEffect(() => {
