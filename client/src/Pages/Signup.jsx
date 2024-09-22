@@ -1,8 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+
 import 'bootstrap/dist/css/bootstrap.css';
+import { useNavigate } from 'react-router-dom';
 import '../index.css';
+import BlurFade from "@/components/magicui/blur-fade";
+import FlickeringGrid from "@/components/magicui/flickering-grid.jsx";
 
 function Signup() {
+    const navigate = useNavigate();
+    const [isVisible, setIsVisible] = useState(false);
+    const formRef = useRef(null);
+
+    useEffect(() => {
+        // Disable horizontal scrolling
+        document.body.style.overflowX = 'hidden';
+        document.body.style.overflowY = 'auto'; // Allow vertical scrolling
+
+        // Intersection Observer for fade-in effect
+        const observer = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting) {
+                setIsVisible(true);
+                observer.disconnect(); // Stop observing after it becomes visible
+            }
+        }, { threshold: 0.1 }); // Adjust threshold as needed
+
+        if (formRef.current) {
+            observer.observe(formRef.current);
+        }
+
+        // Cleanup function to reset the overflow properties on unmount
+        return () => {
+            document.body.style.overflowX = 'auto';
+            document.body.style.overflowY = 'auto';
+        };
+    }, []);
+
     const [name, setName] = useState();
     const [email, setEmail] = useState();
     const [school, setSchool] = useState();
@@ -37,10 +69,37 @@ function Signup() {
     };
 
     const handleSubmit = async e => {
+        
         e.preventDefault();
         if (password === confirmPassword && Object.values(passwordRequirements).every(Boolean)) {
-
-            console.log("Signup successful!");
+            const newUser = {
+                _id: "",
+                name: name,
+                email: email,
+                school: school,
+                password: password,
+                clubs: {}
+            };
+            try {
+                const response = await fetch('/api/makeUser', {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(newUser),
+                });
+          
+                const data = await response.json();
+                if (response.ok) {
+                  console.log('User added:', data);
+                  navigate('/login');
+                } else {
+                  console.error('Error:', data);
+                }
+            } catch (error) {
+                console.error('Error sending user data:', error);
+            }
+            
         }
     };
 
@@ -126,32 +185,34 @@ function Signup() {
                         <label htmlFor="showPasswordCheckbox" className="tw-text-gray-300">Show Password</label>
                     </div>
 
-                    {/* Password Requirement Prompts */}
-                    <div className="tw-text-sm">
-                        <p className={`tw-mb-1 ${passwordRequirements.length ? 'tw-text-green-500' : 'tw-text-red-500'}`}>
-                            {passwordRequirements.length ? '✓ Minimum 8 characters' : '✗ Minimum 8 characters'}
-                        </p>
-                        <p className={`tw-mb-1 ${passwordRequirements.uppercase ? 'tw-text-green-500' : 'tw-text-red-500'}`}>
-                            {passwordRequirements.uppercase ? '✓ At least 1 uppercase letter' : '✗ At least 1 uppercase letter'}
-                        </p>
-                        <p className={`tw-mb-1 ${passwordRequirements.lowercase ? 'tw-text-green-500' : 'tw-text-red-500'}`}>
-                            {passwordRequirements.lowercase ? '✓ At least 1 lowercase letter' : '✗ At least 1 lowercase letter'}
-                        </p>
-                        <p className={`tw-mb-1 ${passwordRequirements.number ? 'tw-text-green-500' : 'tw-text-red-500'}`}>
-                            {passwordRequirements.number ? '✓ At least 1 number' : '✗ At least 1 number'}
+                            {/* Password Requirement Prompts */}
+                            <div className="tw-text-sm">
+                                <p className={`tw-mb-1 ${passwordRequirements.length ? 'tw-text-green-500' : 'tw-text-red-500'}`}>
+                                    {passwordRequirements.length ? '✓ Minimum 8 characters' : '✗ Minimum 8 characters'}
+                                </p>
+                                <p className={`tw-mb-1 ${passwordRequirements.uppercase ? 'tw-text-green-500' : 'tw-text-red-500'}`}>
+                                    {passwordRequirements.uppercase ? '✓ At least 1 uppercase letter' : '✗ At least 1 uppercase letter'}
+                                </p>
+                                <p className={`tw-mb-1 ${passwordRequirements.lowercase ? 'tw-text-green-500' : 'tw-text-red-500'}`}>
+                                    {passwordRequirements.lowercase ? '✓ At least 1 lowercase letter' : '✗ At least 1 lowercase letter'}
+                                </p>
+                                <p className={`tw-mb-1 ${passwordRequirements.number ? 'tw-text-green-500' : 'tw-text-red-500'}`}>
+                                    {passwordRequirements.number ? '✓ At least 1 number' : '✗ At least 1 number'}
+                                </p>
+                            </div>
+
+                            <button
+                                type="submit"
+                                className="tw-w-full tw-bg-blue-600 tw-text-white tw-font-semibold tw-p-3 tw-rounded-lg hover:tw-bg-blue-700 focus:outline-none focus:tw-ring-2 focus:tw-ring-blue-500 focus:tw-ring-opacity-50"
+                            >
+                                Create
+                            </button>
+                        </form>
+                        <p className="tw-mt-4 tw-text-center tw-text-gray-300">
+                            Already have an account? <a href="/join" className="tw-text-blue-400 hover:tw-underline">Log in here.</a>
                         </p>
                     </div>
-
-                    <button
-                        type="submit"
-                        className="tw-w-full tw-bg-blue-600 tw-text-white tw-font-semibold tw-p-3 tw-rounded-lg hover:tw-bg-blue-700 focus:outline-none focus:tw-ring-2 focus:tw-ring-blue-500 focus:tw-ring-opacity-50"
-                    >
-                        Create
-                    </button>
-                </form>
-                <p className="tw-mt-4 tw-text-center tw-text-gray-300">
-                    Already have an account? <a href="/join" className="tw-text-blue-400 hover:tw-underline">Log in here.</a>
-                </p>
+                </BlurFade>
             </div>
         </div>
     );

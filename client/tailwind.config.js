@@ -24,6 +24,7 @@ module.exports = {
         marquee: 'marquee 25s linear infinite',
         grid: "grid 15s linear infinite",
         ripple: "ripple var(--duration,2s) ease calc(var(--i, 0)*.2s) infinite",
+        "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
       },
       keyframes: {
         marquee: {
@@ -40,6 +41,22 @@ module.exports = {
           },
           "50%": {
             transform: "translate(-50%, -50%) scale(0.9)",
+          },
+        },
+        "border-beam": {
+          "100%": {
+            "offset-distance": "100%",
+          },
+        },
+        "shine-pulse": {
+          "0%": {
+            "background-position": "0% 0%",
+          },
+          "50%": {
+            "background-position": "100% 100%",
+          },
+          to: {
+            "background-position": "0% 0%",
           },
         },
       },
