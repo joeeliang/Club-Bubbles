@@ -64,6 +64,7 @@ const BrowseMy = () => {
     const [filteredClubs, setFilteredClubs] = useState([]);
 
     useEffect(() => {
+        if (user) {
         fetch('/api/myclubs', {
             method: "POST",
             headers: {
@@ -78,6 +79,7 @@ const BrowseMy = () => {
             })
            .catch((error) => console.error('error fetching: ', error ));
         console.log("WE ARE DOING SOMETHING");
+        }
     }, [])
 
 
