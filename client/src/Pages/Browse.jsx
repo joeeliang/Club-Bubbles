@@ -43,63 +43,63 @@ const colorMap = {
     "Athletics": "rgb(255, 0, 0)" // red
   };
 
-// const Browse = () => {
-//     const [searchTerm, setSearchTerm] = useState('');
-//     const [clubDatabase, setClubs] = useState([]);
-//     const [filteredClubs, setFilteredClubs] = useState([]);
-
-//     useEffect(() => {
-//         fetch('/api/clubs')
-//            .then((response) => response.json())
-//            .then((data) => {
-//                 setClubs(data);
-//                 setFilteredClubs(data);
-//             })
-//            .catch((error) => console.error('error fetching: ', error ));
-//         console.log("WE ARE DOING SOMETHING");
-//     }, [])
-
-//     const handleSearch = (e) => {
-//         const term = e.target.value;
-//         setSearchTerm(term);
-//         setFilteredClubs(
-//             clubDatabase.filter(club =>
-//                 club.name.toLowerCase().includes(term.toLowerCase())
-//             )
-//         );
-//     };
-
 const Browse = () => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [filteredClubs, setFilteredClubs] = useState(clubsData);
-    const [selectedClub, setSelectedClub] = useState(null);  // State to track selected club
-    const [showModal, setShowModal] = useState(false);       // Modal state
+    const [clubDatabase, setClubs] = useState([]);
+    const [filteredClubs, setFilteredClubs] = useState([]);
 
     useEffect(() => {
-        // Disable horizontal scrolling
-        document.body.style.overflowX = 'hidden';
-        document.body.style.overflowY = 'auto'; // Allow vertical scrolling
-
-        return () => {
-            document.body.style.overflowX = 'auto';
-            document.body.style.overflowY = 'auto';
-        };
-    }, []);
+        fetch('/api/clubs')
+           .then((response) => response.json())
+           .then((data) => {
+                setClubs(data);
+                setFilteredClubs(data);
+            })
+           .catch((error) => console.error('error fetching: ', error ));
+        console.log("WE ARE DOING SOMETHING");
+    }, [])
 
     const handleSearch = (e) => {
         const term = e.target.value;
         setSearchTerm(term);
         setFilteredClubs(
-            clubsData.filter(club =>
+            clubDatabase.filter(club =>
                 club.name.toLowerCase().includes(term.toLowerCase())
             )
         );
     };
 
-    const handleClubClick = (club) => {
-        setSelectedClub(club);  // Set the clicked club
-        setShowModal(true);     // Show the modal
-    };
+// const Browse = () => {
+//     const [searchTerm, setSearchTerm] = useState('');
+//     const [filteredClubs, setFilteredClubs] = useState(clubsData);
+//     const [selectedClub, setSelectedClub] = useState(null);  // State to track selected club
+//     const [showModal, setShowModal] = useState(false);       // Modal state
+
+//     useEffect(() => {
+//         // Disable horizontal scrolling
+//         document.body.style.overflowX = 'hidden';
+//         document.body.style.overflowY = 'auto'; // Allow vertical scrolling
+
+//         return () => {
+//             document.body.style.overflowX = 'auto';
+//             document.body.style.overflowY = 'auto';
+//         };
+//     }, []);
+
+//     const handleSearch = (e) => {
+//         const term = e.target.value;
+//         setSearchTerm(term);
+//         setFilteredClubs(
+//             clubsData.filter(club =>
+//                 club.name.toLowerCase().includes(term.toLowerCase())
+//             )
+//         );
+//     };
+
+    // const handleClubClick = (club) => {
+    //     setSelectedClub(club);  // Set the clicked club
+    //     setShowModal(true);     // Show the modal
+    // };
 
     const handleClose = () => setShowModal(false);  // Close the modal
 
@@ -155,35 +155,6 @@ const Browse = () => {
                 )}
             </div>
 
-            {/* Modal using React-Bootstrap */}
-            {selectedClub && (
-                <Modal show={showModal} onHide={handleClose} centered>
-                    <Modal.Header closeButton>
-                        <Modal.Title>{selectedClub.name}</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <p><strong>Category:</strong> {selectedClub.category}</p>
-                        <p><strong>Description:</strong> {selectedClub.description}</p>
-                        {/* Display the severity rating (authenticity) only in the modal */}
-                        <p><strong>Authenticity:</strong> {selectedClub.severity}</p>
-                    </Modal.Body>
-                    <Modal.Footer className="tw-flex tw-justify-between">
-                        <ShinyButton
-                            type="button"
-                            onClick={() => alert(`Joined ${selectedClub.name}!`)}  // Example action for the button
-                        >
-                            Join
-                        </ShinyButton>
-                        <button
-                            onClick={handleClose}
-                            className="tw-bg-gray-600 tw-text-white tw-px-4 tw-py-2 tw-rounded-md hover:tw-bg-gray-700"
-                        >
-                            Close
-                        </button>
-                        {/* Shiny Join Button */}
-                    </Modal.Footer>
-                </Modal>
-            )}
         </>
     );
 };
