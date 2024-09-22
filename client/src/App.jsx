@@ -15,21 +15,22 @@ import Browse from './Pages/Browse.jsx';
 import Join from './Pages/Join.jsx';
 import Login from './Pages/Login.jsx';
 import ClubProposal from "./Pages/ClubProposal.jsx";
+import Confirm from "./Pages/Confirm.jsx"
 
 function App() {
     return (
         <Router>
             <div className="tw-bg-gradient-to-r tw-from-blue-950 tw-to-blue-200 tw-min-h-screen tw-w-screen tw-scrollbar-hidden">
                 <NavbarComponent/>
-
                 <Routes>
-                    <Route path="/" element={<Login />} />
-                    <Route path="/home" element={<PageWrapper/>}/>
-                    <Route path="/browse" element={<Browse/>}/>
+                <Route path="/" element={<Login />} />
+                <Route path="/home" element={<PageWrapper/>}/>
+                <Route path="/browse" element={<Browse/>}/>
                 <Route path="/join" element={<Join/>}/>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/Signup" element = {<Signup />} />
                 <Route path="/proposal" element={<ClubProposal/>}/>
+                <Route path="/confirmproposal" element={<Confirm/>}/>
                 </Routes>
             </div>
         </Router>

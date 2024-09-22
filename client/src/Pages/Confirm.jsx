@@ -3,19 +3,10 @@ import React, { useState } from 'react';
 const ClubProposal = () => {
     const [proposalContent, setProposalContent] = useState('');
     const [authenticityScore, setAuthenticityScore] = useState(null);
-    const [category, setCategory] = useState(null);
-    const [selectedCategory, setSelectedCategory] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const categories = [
-        'Humanities',
-        'STEM',
-        'Entertainment',
-        'Arts',
-        'Athletics',
-    ];
-
+    // This function sends the proposal to the backend and retrieves the authenticity score.
     const sendProposal = async () => {
         setLoading(true);
         setError(null); // Reset error state before making request
@@ -56,10 +47,9 @@ const ClubProposal = () => {
             }
 
             const cate = await response.json();
-            setCategory(cate.category);
-            setSelectedCategory(cate.category); // Set default selected category
+            console.log(cate.category)
         } catch (error) {
-            setError("Failed to fetch category. Please try again.");
+            setError("Failed to fetch authenticity score. Please try again.");
             console.error("Error:", error);
         }
     };
@@ -97,40 +87,19 @@ const ClubProposal = () => {
                     >
                         {loading ? 'Submitting...' : 'Submit Proposal'}
                     </button>
-
-                    {/* Display category dropdown */}
-                    {category && (
-                        <div className="tw-mt-4">
-                            <label className="tw-block tw-text-gray-300 tw-mb-2" htmlFor="category">
-                                Category
-                            </label>
-                            <select
-                                id="category"
-                                className="tw-w-full tw-p-3 tw-border tw-border-gray-300 tw-rounded-lg focus:tw-border-blue-500 focus:outline-none"
-                                value={selectedCategory}
-                                onChange={(e) => setSelectedCategory(e.target.value)}
-                            >
-                                {categories.map((category) => (
-                                    <option key={category} value={category}>
-                                        {category}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                    )}
-
-                    {/* Display authenticity score or error */}
-                    {authenticityScore !== null && (
-                        <p className="tw-mt-4 tw-text-center tw-text-green-500">
-                            Authenticity Score: {authenticityScore}
-                        </p>
-                    )}
-                    {error && (
-                        <p className="tw-mt-4 tw-text-center tw-text-red-500">
-                            {error}
-                        </p>
-                    )}
                 </form>
+
+                {/* Display authenticity score or error */}
+                {authenticityScore !== null && (
+                    <p className="tw-mt-4 tw-text-center tw-text-green-500">
+                        Fat: {authenticityScore}
+                    </p>
+                )}
+                {error && (
+                    <p className="tw-mt-4 tw-text-center tw-text-red-500">
+                        {error}
+                    </p>
+                )}
             </div>
         </div>
     );

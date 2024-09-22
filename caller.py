@@ -1,7 +1,7 @@
 import requests
-content = '''very authentic club'''
+content = '''Basketball club'''
 
-response = requests.post("http://127.0.0.1:8000/", json={"text": content})
+response = requests.post("http://127.0.0.1:8000/categorize", json={"text": content})
 
 # Print the response from the FastAPI backend
 if response.status_code == 200:
