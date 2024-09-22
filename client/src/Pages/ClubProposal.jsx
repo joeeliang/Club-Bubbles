@@ -60,9 +60,9 @@ const ClubProposal = () => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             }
-
             const data = await response.json();
             setAuthenticityScore(data.authenticity_score);
+            
         } catch (error) {
             setError("Failed to fetch authenticity score. Please try again.");
             console.error("Error:", error);
@@ -266,9 +266,9 @@ const ClubProposal = () => {
                             <ShinyButton
                                 type="submit"
                                 className="tw-w-full tw-p-3 tw-rounded-lg tw-bg-zinc-300 tw-border-2 tw-border-zinc-600"
-                                disabled={loading}
+                                disabled={loading || authenticityScore == "Undefined."}
                             >
-                                {loading ? 'Analyzing...' : 'Submit Club'}
+                                {authenticityScore == "Undefined" ? (loading ? 'Analyzing...' : 'Submit Club') : 'Authenticity too low.'}
                             </ShinyButton>
                         </form>
 
