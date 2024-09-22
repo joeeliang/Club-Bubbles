@@ -35,7 +35,7 @@ const ClubProposal = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-<<<<<<< HEAD
+
     const categories = [
         'Humanities',
         'STEM',
@@ -43,9 +43,6 @@ const ClubProposal = () => {
         'Arts',
         'Athletics',
     ];
-
-=======
->>>>>>> 7b09ab93e25287fc6771e460f8af5dbfbbd87f4b
     const sendProposal = async () => {
         setLoading(true);
         setError(null); // Reset error state before making request
