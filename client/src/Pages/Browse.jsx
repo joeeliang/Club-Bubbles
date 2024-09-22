@@ -101,7 +101,7 @@ const Browse = () => {
     //     setShowModal(true);     // Show the modal
     // };
 
-    const handleClose = () => setShowModal(false);  // Close the modal
+    // const handleClose = () => setShowModal(false);  // Close the modal
 
     return (
         <>

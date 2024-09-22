@@ -84,7 +84,7 @@ app.get('/api/clubs', async (req, res) => {
   }
 })
 
-app.post('/api/myclubs/', async (req, res) => {
+app.post('/api/myclubs', async (req, res) => {
     await client.connect();
     const database = client.db('infinTreadData');
     const clubs = database.collection('clubs');
@@ -181,17 +181,17 @@ app.post('/api/userToClub', async (req, res) => {
     const clubs = database.collection('clubs');
     
     const { user, club } = req.body;
-    const userQuery = { email: user.username, password: user.password };
+    const userQuery = { _id: ObjectId.createFromHexString(user._id)};
     const userFound = await users.findOne(userQuery);
 
     if (userFound !== null) {
-      const clubQuery = { name: club.name };
+      const clubQuery = { _id: ObjectId.createFromHexString(club._id) };
       const clubFound = await clubs.findOne(clubQuery);
 
       if (clubFound !== null) {
         // Add user to club's members list
         const updateResult = await clubs.updateOne(
-          { _id: clubFound._id },
+          { _id: ObjectId.createFromHexString(clubFound._id) },
           { $addToSet: { members: userFound._id } } // Ensure no duplicates
         );
 
@@ -219,7 +219,8 @@ app.post('/api/user', async (req, res) => {
     const database = client.db('infinTreadData');
     const users = database.collection('users');
     
-    const userID = req.body.userID;
+    const userID = req.body._id;
+    console.log(userID);
     const user = await users.findOne({_id: ObjectId.createFromHexString(userID)});
 
     if (user != null) {
@@ -258,6 +259,27 @@ app.post('/api/user', async (req, res) => {
       }
     });
 
+
+app.post('/api/clubToUser', async (req, res) => {
+  try {
+    await client.connect();
+    const database = client.db('infinTreadData');
+    const users = database.collection('users');
+
+    const {user, club} = req.body;
+
+    const userQuery = {_id: ObjectId.createFromHexString(user._id)};
+
+    const userFound = await users.findOne(userQuery);
+
+    if (userFound != null)
+    {
+      
+    }
+  } catch (error) {
+
+  }
+})
 
 
 // app.post('/api/makeClub', async (req, res) => {
