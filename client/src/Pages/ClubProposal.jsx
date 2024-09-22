@@ -34,9 +34,19 @@ const ClubProposal = () => {
 
     const [proposalContent, setProposalContent] = useState('');
     const [authenticityScore, setAuthenticityScore] = useState(null);
+    const [category, setCategory] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
+
+    const categories = [
+        'Humanities',
+        'STEM',
+        'Entertainment',
+        'Arts',
+        'Athletics',
+    ];
     const sendProposal = async () => {
         setLoading(true);
         setError(null); // Reset error state before making request
@@ -62,6 +72,27 @@ const ClubProposal = () => {
         } finally {
             setLoading(false);
         }
+
+        try {
+            const response = await fetch("http://127.0.0.1:8000/categorize", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ text: proposalContent }),
+            });
+
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+
+            const cate = await response.json();
+            setCategory(cate.category);
+            setSelectedCategory(cate.category); // Set default selected category
+        } catch (error) {
+            setError("Failed to fetch category. Please try again.");
+            console.error("Error:", error);
+        }
     };
 
     const handleSubmit = (e) => {
@@ -70,6 +101,7 @@ const ClubProposal = () => {
     };
 
     return (
+
         <div className="tw-overflow-hidden tw-bg-cover tw-bg-fixed tw-bg-center tw-flex tw-items-center tw-justify-center tw-h-screen tw-bg-gradient-to-r tw-from-blue-950 tw-to-blue-200">
             <FlickeringGrid
                 className="tw-z-0 tw-absolute tw-inset-0 tw-h-screen tw-w-screen"
@@ -116,18 +148,6 @@ const ClubProposal = () => {
                             </div>
                             {loading ? 'Submitting...' : 'Submit Proposal'}
                     </form>
-
-                    {/* Display authenticity score or error */}
-                    {authenticityScore !== null && (
-                        <p className="tw-mt-4 tw-text-center tw-text-green-500">
-                            Authenticity Score: {authenticityScore}
-                        </p>
-                    )}
-                    {error && (
-                        <p className="tw-mt-4 tw-text-center tw-text-red-500">
-                            {error}
-                        </p>
-                    )}
             </div>
         </BlurFade>
 </div>

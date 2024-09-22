@@ -2,13 +2,39 @@ import React, { useEffect, useState, useRef } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import TypingAnimation from "@/components/magicui/typing-animation";
+import { useNavigate } from 'react-router-dom';
 import '../index.css';
 import BlurFade from "@/components/magicui/blur-fade";
 import FlickeringGrid from "@/components/magicui/flickering-grid.jsx";
 
 function Signup() {
+    const navigate = useNavigate();
     const [isVisible, setIsVisible] = useState(false);
     const formRef = useRef(null);
+
+    useEffect(() => {
+        // Disable horizontal scrolling
+        document.body.style.overflowX = 'hidden';
+        document.body.style.overflowY = 'auto'; // Allow vertical scrolling
+
+        // Intersection Observer for fade-in effect
+        const observer = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting) {
+                setIsVisible(true);
+                observer.disconnect(); // Stop observing after it becomes visible
+            }
+        }, { threshold: 0.1 }); // Adjust threshold as needed
+
+        if (formRef.current) {
+            observer.observe(formRef.current);
+        }
+
+        // Cleanup function to reset the overflow properties on unmount
+        return () => {
+            document.body.style.overflowX = 'auto';
+            document.body.style.overflowY = 'auto';
+        };
+    }, []);
 
     useEffect(() => {
         // Disable horizontal scrolling
@@ -68,10 +94,37 @@ function Signup() {
     };
 
     const handleSubmit = async e => {
+        
         e.preventDefault();
         if (password === confirmPassword && Object.values(passwordRequirements).every(Boolean)) {
-
-            console.log("Signup successful!");
+            const newUser = {
+                _id: "",
+                name: name,
+                email: email,
+                school: school,
+                password: password,
+                clubs: {}
+            };
+            try {
+                const response = await fetch('/api/makeUser', {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(newUser),
+                });
+          
+                const data = await response.json();
+                if (response.ok) {
+                  console.log('User added:', data);
+                  navigate('/login');
+                } else {
+                  console.error('Error:', data);
+                }
+            } catch (error) {
+                console.error('Error sending user data:', error);
+            }
+            
         }
     };
 

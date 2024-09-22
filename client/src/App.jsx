@@ -16,12 +16,12 @@ import Login from './Pages/Login.jsx';
 import ClubProposal from "@/Pages/ClubProposal.jsx";
 
 
+
 function App() {
     return (
         <Router>
             <div className="tw-bg-gradient-to-r tw-from-blue-950 tw-to-blue-200 tw-min-h-screen tw-w-screen tw-scrollbar-hidden">
                 <NavbarComponent/>
-
                 <Routes>
                     <Route path="/" element={<PageWrapper/>}/>
                     <Route path="/browse" element={<Browse/>}/>
