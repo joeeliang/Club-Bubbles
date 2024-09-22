@@ -137,7 +137,7 @@ function Signup() {
                 color="#6B7280"
                 maxOpacity={0.5}
                 flickerChance={0.1}
-                height={914}
+                height={60}
                 width={2000}
             />
             <div ref={formRef} className="tw-z-10 tw-bg-blue-900 tw-shadow-lg tw-rounded-lg tw-p-8 tw-max-w-sm tw-w-full">
@@ -158,6 +158,7 @@ function Signup() {
                                     id="name"
                                     className="tw-w-full tw-p-3 tw-border tw-border-gray-300 tw-rounded-lg focus:tw-border-blue-500 focus:outline-none"
                                     placeholder="Your Name"
+                                    onChange={(e) => setName(e.target.value)}
                                     required
                                 />
                             </div>
@@ -170,6 +171,7 @@ function Signup() {
                                     id="email"
                                     className="tw-w-full tw-p-3 tw-border tw-border-gray-300 tw-rounded-lg focus:tw-border-blue-500 focus:outline-none"
                                     placeholder="you@example.com"
+                                    onChange={(e) => setEmail(e.target.value)}
                                     required
                                 />
                             </div>
@@ -198,6 +200,19 @@ function Signup() {
                                     placeholder="********"
                                     value={confirmPassword}
                                     onChange={handleConfirmPasswordChange}
+                                    required
+                                />
+                            </div>
+                            <div className="tw-mb-6">
+                                <label className="tw-block tw-text-gray-300 tw-mb-2" htmlFor="school">
+                                    School Code
+                                </label>
+                                <input
+                                    type="text"
+                                    id="school"
+                                    className="tw-w-full tw-p-3 tw-border tw-border-gray-300 tw-rounded-lg focus:tw-border-blue-500 focus:outline-none"
+                                    placeholder="Provided School Code"
+                                    onChange={(e) => setSchool(e.target.value)}
                                     required
                                 />
                             </div>

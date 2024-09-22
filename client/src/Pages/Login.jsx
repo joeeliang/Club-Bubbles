@@ -7,10 +7,15 @@ import { UserContext } from './userContext';
 
 const Login = () => {
     const { setUser } = useContext(UserContext);
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     const [isVisible, setIsVisible] = useState(false);
     const ref = useRef(null);
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
+
+
 
     // useEffect should be outside of handleSubmit
     useEffect(() => {

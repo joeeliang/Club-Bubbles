@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from 'react';
 import { cn } from "@/lib/utils";
 import DotPattern from "@/components/magicui/dot-pattern";
 import { UserProvider } from './Pages/userContext'; // Add this line
@@ -18,6 +19,8 @@ import ClubProposal from "@/Pages/ClubProposal.jsx";
 import BrowseMy from "./Pages/BrowseMyClubs.jsx";
 
 function App() {
+    
+
     return (
         <UserProvider> {}
             <Router>
@@ -42,6 +45,10 @@ import PropTypes from 'prop-types';
 
 function PageWrapper({content}) {
     const location = useLocation();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, [location]);
 
     return (
         <>
