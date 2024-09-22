@@ -103,7 +103,7 @@ const ClubProposal = () => {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        _id: user
+                        _id: user.id
                     }),
                 });
 
