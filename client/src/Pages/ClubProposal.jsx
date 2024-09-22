@@ -108,7 +108,7 @@ const ClubProposal = () => {
                 color="#6B7280"
                 maxOpacity={0.5}
                 flickerChance={0.1}
-                height={1000}
+                height={830}
                 width={2000}
             />
             <div ref={formRef} className="tw-bg-blue-900 tw-shadow-lg tw-rounded-lg tw-p-8 tw-max-w-lg tw-w-full tw-z-10 tw-h-screen">
