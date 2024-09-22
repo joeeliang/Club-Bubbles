@@ -48,20 +48,38 @@ const BrowseMy = () => {
 
     useEffect(() => {
         if (user) {
-        fetch('/api/myclubs', {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({_id: user.id})
-        })
-           .then((response) => response.json())
-           .then((data) => {
-                setClubs(data);
-                setFilteredClubs(data);
-            })
-           .catch((error) => console.error('error fetching: ', error ));
-        console.log("WE ARE DOING SOMETHING");
+            if (filteredClubs.length === 0) {
+                fetch('/api/myclubs', {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({_id: user.id})
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                        setClubs(data);
+                        setFilteredClubs(data);
+                    })
+                .catch((error) => console.error('error fetching: ', error ));
+                console.log("WE ARE DOING SOMETHING");
+            }
+            else
+            {
+                fetch('/api/myclubs', {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({_id: user.id})
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    setClubs(data);
+                })
+                .catch((error) => console.error('error fetching: ', error ));
+                console.log("WE ARE DOING SOMETHING");
+            }
         }
     })
 
