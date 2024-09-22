@@ -2,30 +2,8 @@ import React, { useState, useEffect } from 'react';
 import BlurFade from "@/components/magicui/blur-fade";
 import SeverityIndicator from '@/components/severity';
 import Ripple from "../components/magicui/ripple.jsx";
+import ShinyButton from "@/components/magicui/shiny-button";
 // import { response } from 'express';
-
-const clubsData = [
-    { id: 1, name: "Coding Club", description: "A club for coding enthusiasts.", category: "STEM", severity: 3 },
-    { id: 2, name: "Art Club", description: "Explore your artistic side.", category: "Humanities", severity: 2 },
-    { id: 3, name: "Music Club", description: "For music lovers and musicians.", category: "Humanities", severity: 4 },
-    { id: 4, name: "Book Club", description: "Read and discuss great books.", category: "Humanities", severity: 1 },
-    { id: 5, name: "Sports Club", description: "For sports and fitness activities.", category: "Athletics", severity: 10 },
-    { id: 6, name: "Robotics Club", description: "Design and build robots.", category: "Stem", severity: 5 },
-    { id: 7, name: "Debate Club", description: "Develop your public speaking skills.", category: "Humanities", severity: 6 },
-    { id: 8, name: "Drama Club", description: "Act, direct, and produce plays.", category: "Humanities", severity: 7 },
-    { id: 9, name: "Photography Club", description: "Capture life's moments through photography.", category: "Humanities", severity: 8 },
-    { id: 10, name: "Gaming Club", description: "Compete and socialize through gaming.", category: "Athletics", severity: 9 },
-    { id: 11, name: "Environmental Club", description: "Promote sustainability and conservation.", category: "Stem", severity: 11 },
-    { id: 12, name: "Language Club", description: "Explore languages and cultures.", category: "Humanities", severity: 12 },
-    { id: 13, name: "Business Club", description: "Develop entrepreneurial skills.", category: "Stem", severity: 13 },
-    { id: 14, name: "Culinary Club", description: "Explore the world of cooking.", category: "Humanities", severity: 14 },
-    { id: 15, name: "Fashion Club", description: "Design and create fashion.", category: "Humanities", severity: 15 },
-    { id: 16, name: "Film Club", description: "Watch and discuss movies.", category: "Humanities", severity: 16 },
-    { id: 17, name: "Theater Club", description: "Act, direct, and produce plays.", category: "Humanities", severity: 17 },
-    { id: 18, name: "Volunteer Club", description: "Give back to the community.", category: "Humanities", severity: 18 },
-    { id: 19, name: "Outdoor Club", description: "Explore nature and the outdoors.", category: "Athletics", severity: 19 },
-    { id: 20, name: "Wellness Club", description: "Promote physical and mental well-being.", category: "Athletics", severity: 20 },
-  ];
 
 const gradients = [
     "tw-bg-gradient-to-r tw-from-blue-400 tw-to-blue-600",
@@ -34,38 +12,75 @@ const gradients = [
     "tw-bg-gradient-to-r tw-from-yellow-400 tw-to-yellow-600",
     "tw-bg-gradient-to-r tw-from-red-400 tw-to-red-600",
 ];
+const clubsData = [
+    { id: 1, name: "Coding Club", description: "A club for coding enthusiasts who want to learn, share, and collaborate on coding projects. We'll explore various programming languages, frameworks, and technologies, and work on building real-world projects together.", category: "STEM", severity: 3 },
+    { id: 2, name: "Art Club", description: "Explore your artistic side and express yourself through various forms of art, including painting, drawing, sculpture, photography, and more. We'll have regular workshops, critiques, and exhibitions to showcase our work.", category: "Humanities", severity: 2 },
+    { id: 3, name: "Music Club", description: "For music lovers and musicians who want to share their passion for music. We'll have jam sessions, music theory classes, and performances, and collaborate on music projects and events.", category: "Humanities", severity: 4 },
+    { id: 4, name: "Book Club", description: "Read and discuss great books from various genres, including fiction, non-fiction, classics, and contemporary works. We'll have book reviews, author talks, and literary-themed events to foster a love for reading and literature.", category: "Humanities", severity: 1 },
+    { id: 5, name: "Sports Club", description: "For sports and fitness enthusiasts who want to stay active and competitive. We'll have regular sports tournaments, fitness classes, and recreational activities, and collaborate on sports-related projects and events.", category: "Athletics", severity: 10 },
+    { id: 6, name: "Robotics Club", description: "Design and build robots to solve real-world problems and participate in robotics competitions. We'll learn about robotics engineering, programming, and design, and work on projects that combine technology and creativity.", category: "STEM", severity: 5 },
+    { id: 7, name: "Debate Club", description: "Develop your public speaking skills and learn to argue and persuade effectively. We'll have regular debates, mock trials, and speech competitions, and work on topics from politics to social justice.", category: "Humanities", severity: 6 },
+    { id: 8, name: "Drama Club", description: "Act, direct, and produce plays to showcase your creativity and talent. We'll have regular rehearsals, performances, and workshops to develop your acting, directing, and production skills.", category: "Humanities", severity: 7 },
+    { id: 9, name: "Photography Club", description: "Capture life's moments through photography and learn about the art and technique of photography. We'll have regular photo shoots, workshops, and exhibitions to showcase our work.", category: "Humanities", severity: 8 },
+    { id: 10, name: "Gaming Club", description: "Compete and socialize through gaming and learn about the latest gaming trends and technologies. We'll have regular gaming tournaments, LAN parties, and game development workshops.", category: "Athletics", severity: 9 },
+    { id: 11, name: "Environmental Club", description: "Promote sustainability and conservation through environmental projects and initiatives. We'll have regular clean-up events, recycling drives, and workshops on sustainable living.", category: "STEM", severity: 11 },
+    { id: 12, name: "Language Club", description: "Explore languages and cultures through language exchange, cultural events, and language learning activities. We'll have regular language meetups, cultural festivals, and language-themed events.", category: "Humanities", severity: 12 },
+    { id: 13, name: "Business Club", description: "Develop entrepreneurial skills and learn about business management, marketing, and finance. We'll have regular business plan competitions, startup workshops, and networking events.", category: "STEM", severity: 13 },
+    { id: 14, name: "Culinary Club", description: "Explore the world of cooking and learn about different cuisines and cooking techniques. We'll have regular cooking classes, food festivals, and culinary-themed events.", category: "Humanities", severity: 14 },
+    { id: 15, name: "Fashion Club", description: "Design and create fashion through fashion design, sewing, and styling. We'll have regular fashion shows, workshops, and fashion-themed events.", category: "Humanities", severity: 15 },
+    { id: 16, name: "Film Club", description: "Watch and discuss movies from various genres and learn about film production, direction, and criticism. We'll have regular film screenings, director talks, and film-themed events.", category: "Humanities", severity: 16 },
+    { id: 17, name: "Theater Club", description: "Act, direct, and produce plays to showcase your creativity and talent. We'll have regular rehearsals, performances, and workshops to develop your acting, directing, and production skills.", category: "Humanities", severity: 17 },
+    { id: 18, name: "Volunteer Club", description: "Give back to the community through volunteer work and community service projects. We'll have regular volunteer events, charity drives, and community service initiatives.", category: "Humanities", severity: 18 },
+    { id: 19, name: "Outdoor Club", description: "Explore nature and the outdoors through hiking, camping, and outdoor activities. We'll have regular outdoor trips, camping trips, and outdoor-themed events.", category: "Athletics", severity: 19 },
+    { id: 20, name: "Wellness Club", description: "Promote physical and mental well-being through fitness classes, yoga, and mindfulness activities. We'll have regular wellness workshops, meditation sessions, and fitness classes.", category: "Athletics", severity: 20 },
+  ];
 
 const colorMap = {
-    "STEM": "tw-bg-gradient-to-r tw-from-blue-400 tw-to-blue-600",
-    "Humanities": "tw-bg-gradient-to-r tw-from-purple-400 tw-to-purple-600",
-    "Athletics": "tw-bg-gradient-to-r tw-from-red-400 tw-to-red-600",
+    "STEM": "rgb(0, 0, 255)", // blue
+    "Humanities": "rgb(128, 0, 128)", // purple
+    "Athletics": "rgb(255, 0, 0)" // red
   };
+
+// const Browse = () => {
+//     const [searchTerm, setSearchTerm] = useState('');
+//     const [clubDatabase, setClubs] = useState([]);
+//     const [filteredClubs, setFilteredClubs] = useState([]);
+
+//     useEffect(() => {
+//         fetch('/api/clubs')
+//            .then((response) => response.json())
+//            .then((data) => {
+//                 setClubs(data);
+//                 setFilteredClubs(data);
+//             })
+//            .catch((error) => console.error('error fetching: ', error ));
+//         console.log("WE ARE DOING SOMETHING");
+//     }, [])
+
+//     const handleSearch = (e) => {
+//         const term = e.target.value;
+//         setSearchTerm(term);
+//         setFilteredClubs(
+//             clubDatabase.filter(club =>
+//                 club.name.toLowerCase().includes(term.toLowerCase())
+//             )
+//         );
+//     };
 
 const Browse = () => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [clubDatabase, setClubs] = useState([]);
-    const [filteredClubs, setFilteredClubs] = useState([]);
-
-    useEffect(() => {
-        fetch('/api/clubs')
-           .then((response) => response.json())
-           .then((data) => {
-                setClubs(data);
-                setFilteredClubs(data);
-            })
-           .catch((error) => console.error('error fetching: ', error ));
-        console.log("WE ARE DOING SOMETHING");
-    }, [])
+    const [filteredClubs, setFilteredClubs] = useState(clubsData);
 
     const handleSearch = (e) => {
         const term = e.target.value;
         setSearchTerm(term);
         setFilteredClubs(
-            clubDatabase.filter(club =>
+            clubsData.filter(club =>
                 club.name.toLowerCase().includes(term.toLowerCase())
             )
         );
     };
+
 
     return (
         <>
@@ -88,17 +103,28 @@ const Browse = () => {
             </BlurFade>
             <div className="tw-mb-6"></div>
             {/* Margin between search bar and clubs */}
-            <div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 tw-gap-4">
+            <div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 tw-gap-4"style={{padding:'10%'}}>
                 {filteredClubs.length > 0 ? (
                     filteredClubs.map((club, index) => (
                         <BlurFade key={club._id} delay={0.25 + club._id * 0.05} inView>
                             <div
                                 key={club.id}
-                                className={`${colorMap[club.category]} tw-shadow-lg tw-rounded-lg tw-p-3 tw-m-3 tw-transition-transform hover:tw-transform hover:tw-scale-105`}
+                                className={`tw-bg-white tw-shadow-lg tw-rounded-lg tw-p-3 tw-m-3 tw-transition-transform hover:tw-transform hover:tw-scale-105`}
+                                style={{padding:'10%'}}
                             >
-                                <h2 className="tw-text-lg tw-font-semibold">{club.name}</h2>
+                                <h2 className="tw-text-3xl tw-font-semibold">{club.name}</h2>
                                 <p className="tw-text-gray-600">{club.description}</p>
                                 <SeverityIndicator value={club.authenticity} />
+                            <ShinyButton
+                                    type="submit"
+                                    className="w-1/2 rounded-10 bg-white border-4"
+                                    style={{
+                                      borderRadius: '40px',
+                                      borderColor: `${colorMap[club.category]}`
+                                    }}
+                                >
+                                    {`${club.category}`}
+                            </ShinyButton>
                             </div>
                         </BlurFade>
                     ))
