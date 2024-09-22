@@ -19,8 +19,6 @@ import ClubProposal from "@/Pages/ClubProposal.jsx";
 import BrowseMy from "./Pages/BrowseMyClubs.jsx";
 
 function App() {
-    
-
     return (
         <UserProvider> {}
             <Router>

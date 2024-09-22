@@ -4,9 +4,11 @@ import BlurFade from "@/components/magicui/blur-fade";
 import '../index.css';
 import GradualSpacing from "@/components/magicui/gradual-spacing";
 import { UserContext } from './userContext';
+// import { l } from 'vite/dist/node/types.d-aGj9QkWt';
+// import { User } from 'lucide-react';
 
 const Login = () => {
-    const { setUser } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -45,6 +47,20 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         // Handle form submission logic here
+        const loggedInUser = { username, password };
+        const result = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(loggedInUser)
+        });
+        if (result.status === 200) {
+            const data = await result.json();
+            setUser(data.user);
+        }
+        // result.then((response) => response.json()).then((data) => setUser(data.user)).catch((error) => console.error('error fetching: ', error));
+        console.log("User:", user);
         console.log("Form submitted:", { username, password });
     };
 
@@ -102,9 +118,11 @@ const Login = () => {
                             >
                                 Login
                             </button>
+                            
                         </form>
+                        {user != null ? (<p className="tw-text-center tw-text-green-400 tw-mt-4">Logged in successfully as {username}</p>) : (<div></div>)}
                         <p className="tw-mt-4 tw-text-center tw-text-gray-300">
-                            Don't have an account? <a href="/Signup" className="tw-text-blue-400 hover:tw-underline">Sign up here.</a>
+                            Don&apos;t have an account? <a href="/Signup" className="tw-text-blue-400 hover:tw-underline">Sign up here.</a>
                         </p>
                     </div>
                 </BlurFade>
