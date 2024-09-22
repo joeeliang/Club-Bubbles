@@ -3,7 +3,6 @@
 import { cn } from "@/lib/utils";
 import DotPattern from "@/components/magicui/dot-pattern";
 
-import Ripple from "./components/magicui/ripple.jsx";
 import NavbarComponent from './components/NavbarComponent.jsx';
 import { MarqueeDemo } from "./components/MarqueeDemo.jsx";
 import GradualSpacing from "@/components/magicui/gradual-spacing";
@@ -14,34 +13,34 @@ import Signup from './Pages/Signup.jsx';
 import Browse from './Pages/Browse.jsx';
 import Join from './Pages/Join.jsx';
 import Login from './Pages/Login.jsx';
-import ClubProposal from "./Pages/ClubProposal.jsx";
+import ClubProposal from "@/Pages/ClubProposal.jsx";
+
+
 
 function App() {
     return (
         <Router>
             <div className="tw-bg-gradient-to-r tw-from-blue-950 tw-to-blue-200 tw-min-h-screen tw-w-screen tw-scrollbar-hidden">
                 <NavbarComponent/>
-
                 <Routes>
-                    <Route path="/" element={<Login />} />
-                    <Route path="/home" element={<PageWrapper/>}/>
+                    <Route path="/" element={<PageWrapper/>}/>
                     <Route path="/browse" element={<Browse/>}/>
-                <Route path="/join" element={<Join/>}/>
-                <Route path="/login" element={<Login/>}/>
-                <Route path="/Signup" element = {<Signup />} />
-                <Route path="/proposal" element={<ClubProposal/>}/>
+                    <Route path="/join" element={<Join/>}/>
+                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/signup" element = {<Signup />} />
+                    <Route path="/proposal" element={<ClubProposal/>}/>
                 </Routes>
             </div>
         </Router>
     );
 }
 
-function PageWrapper() {
+function PageWrapper({content}) {
     const location = useLocation();
 
     return (
         <>
-            {location.pathname === '/home' && (
+            {location.pathname === '/' && (
                 <>
                     <DotPattern
                         className={cn(
@@ -55,10 +54,8 @@ function PageWrapper() {
                 <MarqueeDemo />
                 </>
             )}
-            {location.pathname === '/browse' && (
-                <Ripple />
-            )}
-            
+            {content}
+
         </>
     );
 }

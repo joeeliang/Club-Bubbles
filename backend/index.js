@@ -28,6 +28,8 @@ const port = 3000;
 // }
 // run().catch(console.dir);
 
+app.use(express.json());
+
 app.get('/api/club', async (req, res) => {
   try {
     await client.connect();
@@ -127,39 +129,92 @@ app.post('/api/myclubs/', async (req, res) => {
   }
 })
 
+app.post('/api/myclubs/', async (req, res) => {
+  try {
+    await client.connect();
+    const database = client.db('infinTreadData');
+    const clubs = database.collection('clubs');
+    const users = database.collection('users');
+    console.log(req.body._id);
+    const id = ObjectId.createFromHexString(req.body._id);
+      const clubListQuery = {
+        _id : (id)
+      }
+
+      console.log(clubListQuery._id);
+
+      const userClubList = await users.findOne(clubListQuery);
+      console.log("THE USER CLUB LIST: " + userClubList);
+
+
+      const clubsCircular = await clubs.find({})
+      const clubsData = [];
+      for await (const club of clubsCircular)
+      {
+        if (userClubList.clubs[club._id.toHexString()])
+        {
+          clubsData.push(club);
+        }
+      }
+
+    if (clubsData.length > 0)
+    {
+      res.json(clubsData);
+      console.log(clubsData);
+    }
+    else
+    {
+      res.status(405).json({error: "Clubs not returning or no clubs exist"});
+    }
+  } catch (error) {
+    console.error("error fetching clubs: ", error);
+    res.status(500).json({error: 'Internal Server Error'});
+  } finally {
+    // await client.close();
+  }
+})
+
 app.post('/api/makeUser', async (req, res) => {
   try {
     const database = client.db('infinTreadData');
     const users = database.collection('users');
     
     const newUser = req.body;
-    newUser._id = new ObjectId(new UUID().toString());
-
-    res.send(newUser);
-  } catch (error) {
-    console.error("error making user: ", error);
-    res.status(500).json({error: 'Internal Server Error'});
-  } finally {
-    // await client.close();
-  }
-})
-
-app.post('/api/makeClub', async (req, res) => {
-  try {
-    const database = client.db('infinTreadData');
-    const users = database.collection('users');
     
-    const newUser = req.body;
     newUser._id = new ObjectId();
+    const result = await users.insertOne(newUser);
 
-    res.send(newUser);
+    if (result.acknowledged) {
+      console.log('User inserted with _id:', result.insertedId);
+      res.status(200).json({ message: 'User created successfully', user: newUser });
+    } else {
+      console.error('Failed to insert user');
+      res.status(500).json({ error: 'Failed to insert user' });
+    }
   } catch (error) {
     console.error("error making user: ", error);
     res.status(500).json({error: 'Internal Server Error'});
   } finally {
-    // await client.close();
+    await client.close();
   }
 })
+
+// app.post('/api/makeClub', async (req, res) => {
+//   try {
+//     const database = client.db('infinTreadData');
+//     const users = database.collection('users');
+    
+//     const newUser = req.body;
+//     newUser._id = new ObjectId();
+
+//     res.send(newUser);
+//   } catch (error) {
+//     console.error("error making user: ", error);
+//     res.status(500).json({error: 'Internal Server Error'});
+//   } finally {
+//     // await client.close();
+//   }
+// })
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

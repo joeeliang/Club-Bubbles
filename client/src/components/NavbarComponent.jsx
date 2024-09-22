@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 function NavbarComponent() {
     return (
-        <Navbar expand="lg" className="tw-bg-gradient-to-r tw-from-blue-800 tw-to-blue-950 tw-shadow-lg" data-bs-theme="dark">
+        <Navbar expand="lg" className="tw-z-10 tw-bg-gradient-to-r tw-from-blue-800 tw-to-blue-950 tw-shadow-lg" data-bs-theme="dark">
             <Container>
                 <Navbar.Brand as={Link} to="/">Club Club</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
