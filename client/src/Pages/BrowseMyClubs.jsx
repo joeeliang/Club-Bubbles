@@ -3,6 +3,9 @@ import SparklesText from "@/components/magicui/sparkles-text";
 import AnimatedGridPattern from "@/components/magicui/animated-grid-pattern";import { useState, useEffect, useContext } from 'react';
 import BlurFade from "@/components/magicui/blur-fade";
 import SeverityIndicator from '@/components/severity';
+import ShinyButton from "@/components/magicui/shiny-button";
+import { Modal, Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { UserContext } from './userContext'; // Correct import
 import { data } from 'autoprefixer';
 // import { response } from 'express';
@@ -47,7 +50,9 @@ const colorMap = {
 const BrowseMy = () => {
     const { user } = useContext(UserContext);
     const [searchTerm, setSearchTerm] = useState('');
+    const [showModal, setShowModal] = useState(false);       // Modal stat
     const [clubDatabase, setClubs] = useState([]);
+    const [selectedClub, setSelectedClub] = useState(null); 
 
     useEffect(() => {
          // Disable horizontal scrolling
@@ -81,6 +86,12 @@ const BrowseMy = () => {
         }
     }, [])
 
+    const handleClubClick = (club) => {
+        setSelectedClub(club);  // Set the clicked club
+        setShowModal(true);     // Show the modal
+    };
+
+    const handleClose = () => setShowModal(false);  // Close the modal
 
     const handleSearch = (e) => {
         const term = e.target.value;
@@ -122,26 +133,65 @@ const BrowseMy = () => {
                         />
                     </div>
                 </BlurFade>
-                <div className="tw-mb-4"></div>
-                <div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 tw-gap-4 tw-z-10">
-                    {filteredClubs.length > 0 ? (
-                        filteredClubs.map((club) => (
-                            <BlurFade key={club._id} delay={0.25 + club._id * 0.05} inView>
-                                <div
-                                    key={club.id}
-                                    className={`${colorMap[club.category]} tw-shadow-lg tw-rounded-lg tw-p-3 tw-m-3 tw-transition-transform hover:tw-transform hover:tw-scale-105`}
+                <div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 tw-gap-4" style={{ padding: '3% 10%' }}>
+                {filteredClubs.length > 0 ? (
+                    filteredClubs.map((club, index) => (
+                        <BlurFade key={club.id} delay={0.1 + index * 0.05} inView>
+                            {/* Make the entire card clickable */}
+                            <div
+                                onClick={() => handleClubClick(club)}  // Pass the club to the handler
+                                className={`tw-bg-white tw-shadow-lg tw-rounded-lg tw-p-6 tw-m-4 tw-transition-transform tw-duration-300 hover:tw-transform hover:tw-scale-105`}
+                                style={{ cursor: 'pointer' }}  // Add cursor pointer to indicate clickability
+                            >
+                                <h2 className="tw-text-3xl tw-font-semibold tw-m-2">{club.name}</h2>
+                                <p className="tw-text-gray-600 tw-mb-4 tw-m-2">{club.description}</p>
+                                <ShinyButton
+                                    type="button"
+                                    className="tw-w-1/2 tw-rounded-lg tw-bg-white tw-border-4"
+                                    style={{
+                                        borderRadius: '40px',
+                                        borderColor: `${colorMap[club.category]}`
+                                    }}
                                 >
-                                    <h2 className="tw-text-lg tw-font-semibold">{club.name}</h2>
-                                    <p className="tw-text-gray-600">{club.description}</p>
-                                    <SeverityIndicator value={club.authenticity}/>
-                                </div>
-                            </BlurFade>
-                        ))
-                    ) : (
-                        <p className="tw-text-gray-500 tw-text-center">No clubs found.</p>
-                    )}
-                </div>
+                                    {`${club.category}`}
+                                </ShinyButton>
+                            </div>
+                        </BlurFade>
+                    ))
+                ) : (
+                    <p className="tw-text-gray-500 tw-text-center">No clubs found. Womp Womp</p>
+                )}
             </div>
+{/* Modal using React-Bootstrap */}
+            {selectedClub ? (
+                <Modal show={showModal} onHide={handleClose} centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>{selectedClub.name}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p><strong>Category:</strong> {selectedClub.category}</p>
+                        <p><strong>Description:</strong> {selectedClub.description}</p>
+                        {/* Display the severity rating (authenticity) only in the modal */}
+                        <p><strong>Authenticity:</strong> {selectedClub.authenticityScore}</p>
+                    </Modal.Body>
+                    <Modal.Footer className="tw-flex tw-justify-between">
+                        <ShinyButton
+                            type="button"
+                            onClick={() => handleJoin(selectedClub._id)}  // Example action for the button
+                        >
+                            Unjoin
+                        </ShinyButton>
+                        <button
+                            onClick={handleClose}
+                            className="tw-bg-gray-600 tw-text-white tw-px-4 tw-py-2 tw-rounded-md hover:tw-bg-gray-700"
+                        >
+                            Close
+                        </button>
+                        {/* Shiny Join Button */}
+                    </Modal.Footer>
+                </Modal>
+            ) : <div></div>} 
+        </div>
         </div>
     );
 };
