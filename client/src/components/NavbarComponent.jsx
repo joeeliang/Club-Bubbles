@@ -12,6 +12,7 @@ function NavbarComponent() {
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/browse">Browse</Nav.Link>
                         <Nav.Link as={Link} to="/proposal">Proposal</Nav.Link>
+                        <Nav.Link as={Link} to="/myclubs">My Clubs</Nav.Link>
                     </Nav>
                     <Nav className="ms-auto">
                         <Nav.Link as={Link} to="/login">Login</Nav.Link>
