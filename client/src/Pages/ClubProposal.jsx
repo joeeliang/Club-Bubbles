@@ -147,10 +147,10 @@ const ClubProposal = () => {
                             headers: {
                                 'Content-Type': 'application/json',
                             },
-                            body: JSON.stringify({user: user.id, club: response.club._id})
+                            body: JSON.stringify({user: user.id, club: data.club._id})
                         })
                         const data2 = await userClubDatabaseResponse.json();
-                        if (userClubDatabaseResponse.status() == 200)
+                        if (userClubDatabaseResponse.status == 200)
                         {
                             console.log('Club added to user database: ', data2);
                         }
