@@ -1,35 +1,34 @@
 import React, { useEffect, useState, useRef, useContext } from 'react';
+
 import FlickeringGrid from "../components/magicui/flickering-grid";
 import BlurFade from "@/components/magicui/blur-fade";
 import '../index.css';
 import GradualSpacing from "@/components/magicui/gradual-spacing";
 import ShinyButton from "@/components/magicui/shiny-button.jsx";
 import { UserContext } from './userContext';
-// import { l } from 'vite/dist/node/types.d-aGj9QkWt';
-// import { User } from 'lucide-react';
 
 const Login = () => {
     const { user, setUser } = useContext(UserContext);
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
-  
+
     const [isVisible, setIsVisible] = useState(false);
     const ref = useRef(null);
-    const [username, setUserName] = useState();
-    const [password, setPassword] = useState();
+    const [username, setUserName] = useState("");
+    const [password, setPassword] = useState("");
+    const [loginError, setLoginError] = useState(null);
 
-    // useEffect should be outside of handleSubmit
     useEffect(() => {
         // Disable scrolling
         document.body.style.overflow = 'hidden';
 
-        // Intersection Observer to determine when the login box is in view
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     setIsVisible(true);
-                    observer.disconnect(); // Stop observing once it has appeared
+                    observer.disconnect();
                 }
             });
         });
@@ -38,7 +37,6 @@ const Login = () => {
             observer.observe(ref.current);
         }
 
-        // Cleanup function to reset the overflow property on unmount
         return () => {
             document.body.style.overflow = 'auto';
         };
@@ -46,22 +44,31 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle form submission logic here
         const loggedInUser = { username, password };
-        const result = await fetch('/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(loggedInUser)
-        });
-        if (result.status === 200) {
-            const data = await result.json();
-            setUser(data.user);
+
+        try {
+            const result = await fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(loggedInUser)
+            });
+
+            if (result.ok) {
+                const data = await result.json();
+                setUser(data.user);
+                setLoginError(null);
+                console.log("User:", data.user); // Successfully logged in
+            } else {
+                const errorData = await result.json();
+                setLoginError(errorData.error || "Login failed. Please check your credentials.");
+                setUser(null); // Clear user if login fails
+            }
+        } catch (error) {
+            console.error("Error during login:", error);
+            setLoginError("An error occurred during login.");
         }
-        // result.then((response) => response.json()).then((data) => setUser(data.user)).catch((error) => console.error('error fetching: ', error));
-        console.log("User:", user);
-        console.log("Form submitted:", { username, password });
     };
 
     return (
@@ -119,9 +126,17 @@ const Login = () => {
                                 Login
                             </ShinyButton>
                         </form>
-                        {user != null ? (<p className="tw-text-center tw-text-green-400 tw-mt-4">Logged in successfully as {username}</p>) : (<div></div>)}
+
+                        {loginError && (
+                            <p className="tw-text-center tw-text-red-400 tw-mt-4">{loginError}</p>
+                        )}
+
+                        {user && (
+                            <p className="tw-text-center tw-text-green-400 tw-mt-4">Logged in successfully as {username}</p>
+                        )}
+
                         <p className="tw-mt-4 tw-text-center tw-text-gray-300">
-                            Don&apos;t have an account? <a href="/Signup" className="tw-text-blue-400 hover:tw-underline">Sign up here.</a>
+                            Don't have an account? <a href="/Signup" className="tw-text-blue-400 hover:tw-underline">Sign up here.</a>
                         </p>
                     </div>
                 </BlurFade>
