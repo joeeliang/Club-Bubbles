@@ -15,6 +15,7 @@ const gradients = [
     "tw-bg-gradient-to-r tw-from-yellow-400 tw-to-yellow-600",
     "tw-bg-gradient-to-r tw-from-red-400 tw-to-red-600",
 ];
+
 export const clubsData = [
     { id: 1, name: "Coding Club", description: "A club for coding enthusiasts who want to learn, share, and collaborate on coding projects. We'll explore various programming languages, frameworks, and technologies, and work on building real-world projects together.", category: "STEM", severity: 3 },
     { id: 2, name: "Art Club", description: "Explore your artistic side and express yourself through various forms of art, including painting, drawing, sculpture, photography, and more. We'll have regular workshops, critiques, and exhibitions to showcase our work.", category: "Humanities", severity: 2 },
@@ -51,6 +52,7 @@ const Browse = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [clubDatabase, setClubs] = useState([]);
     const [filteredClubs, setFilteredClubs] = useState([]);
+    const [selectedClub, setSelectedClub] = useState(null);  // State to track selected club
 
     useEffect(() => {
         fetch('/api/clubs')
@@ -101,7 +103,6 @@ const Browse = () => {
 // const Browse = () => {
 //     const [searchTerm, setSearchTerm] = useState('');
 //     const [filteredClubs, setFilteredClubs] = useState(clubsData);
-//     const [selectedClub, setSelectedClub] = useState(null);  // State to track selected club
 //     const [showModal, setShowModal] = useState(false);       // Modal state
 
 //     useEffect(() => {
@@ -154,7 +155,7 @@ const Browse = () => {
             <div className="tw-mb-6"></div>
 
             {/* Clubs Grid */}
-            <div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 tw-gap-4" style={{ padding: '10%' }}>
+            <div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 tw-gap-4" style={{ padding: '3% 10%' }}>
                 {filteredClubs.length > 0 ? (
                     filteredClubs.map((club, index) => (
                         <BlurFade key={club.id} delay={0.1 + index * 0.05} inView>
@@ -164,8 +165,8 @@ const Browse = () => {
                                 className={`tw-bg-white tw-shadow-lg tw-rounded-lg tw-p-6 tw-m-4 tw-transition-transform tw-duration-300 hover:tw-transform hover:tw-scale-105`}
                                 style={{ cursor: 'pointer' }}  // Add cursor pointer to indicate clickability
                             >
-                                <h2 className="tw-text-3xl tw-font-semibold">{club.name}</h2>
-                                <p className="tw-text-gray-600 tw-mb-4">{club.description}</p>
+                                <h2 className="tw-text-3xl tw-font-semibold tw-m-2">{club.name}</h2>
+                                <p className="tw-text-gray-600 tw-mb-4 tw-m-2">{club.description}</p>
                                 <ShinyButton
                                     type="button"
                                     className="tw-w-1/2 tw-rounded-lg tw-bg-white tw-border-4"

@@ -8,7 +8,7 @@ const ReviewCard = ({ img = "", name = "", username = "", body = "", onClick }) 
         <figure onClick={onClick} className="tw-relative tw-w-64 tw-cursor-pointer tw-overflow-hidden tw-rounded-xl tw-border tw-p-4 tw-border-gray-950/[.1] 
             tw-bg-gray-950/[.01] tw-hover:bg-gray-950/[.05] 
             tw-dark:border-gray-50/[.1] tw-dark:bg-gray-50/[.10] tw-dark:hover:bg-gray-50/[.15] tw-mr-4 tw-bg-zinc-300
-            tw-bg-opacity-45">
+            tw-bg-opacity-95">
             <div className="tw-flex tw-flex-row tw-items-center tw-gap-2 tw-shadow-2xl">
                 <img className="tw-rounded-full" width="32" height="32" alt="" src={img} />
                 <div className="tw-flex tw-flex-col">
@@ -104,7 +104,7 @@ export function MarqueeEffect() {
             {/* Modal for zoomed-in card */}
             {activeCard && (
                 <div className="tw-fixed tw-inset-0 tw-flex tw-items-center tw-justify-center tw-bg-black tw-bg-opacity-70">
-                    <div className="tw-relative tw-w-full tw-max-w-lg tw-bg-white tw-rounded-lg tw-p-4 tw-shadow-lg">
+                    <div className="tw-relative tw-w-full tw-max-w-lg tw-bg-white tw-rounded-lg tw-p-10 tw-shadow-lg">
                         <button
                             className="tw-absolute tw-top-2 tw-right-2 tw-bg-transparent tw-border-none tw-text-black tw-text-2xl"
                             onClick={handleCloseModal}

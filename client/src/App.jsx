@@ -56,7 +56,7 @@ function PageWrapper({content}) {
                         )}
                     />
                 <GradualSpacing
-                    className="tw-font-display tw-text-center tw-text-6xl tw-font-bold tw-tracking-[-0.1em] tw-text-zinc-300 tw-dark:text-white tw-md:text-7xl tw-md:leading-[5rem] tw-my-4"
+                    className="tw-font-display tw-text-center tw-text-6xl tw-font-bold tw-tracking-[-0.1em] tw-text-zinc-300 tw-dark:text-white tw-my-20"
                     text="Home"
                 />
                 <MarqueeEffect />
