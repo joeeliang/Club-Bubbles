@@ -22,7 +22,7 @@ function NavbarComponent() {
     return (
         <Navbar expand="lg" className="tw-bg-transparent tw-shadow-2xl tw-z-20 tw-border-b-accent tw-border-b-2 tw-border-zinc-400" data-bs-theme="dark">
             <Container>
-                <Navbar.Brand as={Link} to="/">Club Club</Navbar.Brand>
+                <Navbar.Brand as={Link} to="/">Club Bubbles</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
