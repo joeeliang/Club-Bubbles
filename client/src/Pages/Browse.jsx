@@ -126,7 +126,7 @@ const Browse = () => {
             <div className="tw-mb-6"></div>
 
             {/* Clubs Grid */}
-            <div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 tw-gap-4" style={{ padding: '10%' }}>
+            <div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 tw-gap-4" style={{ padding: '3% 10%' }}>
                 {filteredClubs.length > 0 ? (
                     filteredClubs.map((club, index) => (
                         <BlurFade key={club.id} delay={0.1 + index * 0.05} inView>
@@ -136,8 +136,8 @@ const Browse = () => {
                                 className={`tw-bg-white tw-shadow-lg tw-rounded-lg tw-p-6 tw-m-4 tw-transition-transform tw-duration-300 hover:tw-transform hover:tw-scale-105`}
                                 style={{ cursor: 'pointer' }}  // Add cursor pointer to indicate clickability
                             >
-                                <h2 className="tw-text-3xl tw-font-semibold">{club.name}</h2>
-                                <p className="tw-text-gray-600 tw-mb-4">{club.description}</p>
+                                <h2 className="tw-text-3xl tw-font-semibold tw-m-2">{club.name}</h2>
+                                <p className="tw-text-gray-600 tw-mb-4 tw-m-2">{club.description}</p>
                                 <ShinyButton
                                     type="button"
                                     className="tw-w-1/2 tw-rounded-lg tw-bg-white tw-border-4"
