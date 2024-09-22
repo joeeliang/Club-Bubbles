@@ -174,6 +174,45 @@ app.post('/api/makeClub', async (req, res) => {
   }
 }),
 
+app.post('/api/userToClub', async (req, res) => { 
+  try {
+    const database = client.db('infinTreadData');
+    const users = database.collection('users');
+    const clubs = database.collection('clubs');
+    
+    const { user, club } = req.body;
+    const userQuery = { email: user.username, password: user.password };
+    const userFound = await users.findOne(userQuery);
+
+    if (userFound !== null) {
+      const clubQuery = { name: club.name };
+      const clubFound = await clubs.findOne(clubQuery);
+
+      if (clubFound !== null) {
+        // Add user to club's members list
+        const updateResult = await clubs.updateOne(
+          { _id: clubFound._id },
+          { $addToSet: { members: userFound._id } } // Ensure no duplicates
+        );
+
+        if (updateResult.modifiedCount > 0) {
+          res.status(200).json({ message: 'User added to club successfully' });
+        } else {
+          res.status(400).json({ error: 'User already a member of the club or update failed' });
+        }
+      } else {
+        res.status(404).json({ error: 'Club not found' });
+      }
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  } catch (error) {
+    console.error("Error during adding user to club: ", error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
 app.post('/api/user', async (req, res) => { 
   try {
     await client.connect();
