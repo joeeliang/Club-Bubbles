@@ -35,7 +35,7 @@ const BrowseMy = () => {
 
     useEffect(() => {
          // Disable horizontal scrolling
-         document.body.style.overflowX = 'hidden';
+         document.body.style.overflowX = 'auto';
          document.body.style.overflowY = 'auto'; // Allow vertical scrolling
 
          return () => {
