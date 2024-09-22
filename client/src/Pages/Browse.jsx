@@ -47,7 +47,6 @@ const colorMap = {
 
 const Browse = () => {
     const {user} = useContext(UserContext);
-    const [selectedClub, setSelectedClub] = useState(null);  // State to track selected club
     const [showModal, setShowModal] = useState(false);       // Modal stat
     const [searchTerm, setSearchTerm] = useState('');
     const [clubDatabase, setClubs] = useState([]);
