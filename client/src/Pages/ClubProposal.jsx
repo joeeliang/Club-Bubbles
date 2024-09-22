@@ -40,6 +40,7 @@ const ClubProposal = () => {
     const [clubRoom, setClubRoom] = useState('');
     const [proposalContent, setProposalContent] = useState('');
     const [authenticityScore, setAuthenticityScore] = useState(null);
+    const [category, setCategory] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -67,6 +68,26 @@ const ClubProposal = () => {
             console.error("Error:", error);
         } finally {
             setLoading(false);
+        }
+
+        try {
+            const response = await fetch("http://127.0.0.1:8000/categorize", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ text: proposalContent }),
+            });
+
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+
+            const data = await response.json();
+            setCategory(data.category);
+        } catch (error) {
+            setError("Failed to fetch authenticity score. Please try again.");
+            console.error("Error:", error);
         }
     };
 
@@ -100,6 +121,7 @@ const ClubProposal = () => {
                     proposal: proposalContent,
                     authenticityScore: authenticityScore,
                     studentLeader: user,
+                    category: category,
                     members: {}
                 };
                 newClub.members[user] = data.name;
@@ -191,6 +213,25 @@ const ClubProposal = () => {
                                     onChange={(e) => setProposalContent(e.target.value)}
                                     required
                                 />
+                            </div>
+                            <div className="tw-mb-4">
+                            <label className="tw-block tw-text-gray-300 tw-mb-2" htmlFor="category">
+                                Category
+                            </label>
+                            <select
+                            id="category"
+                            className="tw-w-full tw-p-3 tw-border tw-border-gray-300 tw-rounded-lg focus:tw-border-blue-500 focus:outline-none"
+                            value={category}
+                            onChange={(e) => setCategory(e.target.value)}
+                            required
+                            >
+                            <option value="">Let AI select!</option>
+                            <option value="STEM">STEM</option>
+                            <option value="Athletics">Athletics</option>
+                            <option value="Humanities">Humanities</option>
+                            <option value="Arts">Arts</option>
+                            <option value="Entertainment">Entertainment</option>
+                            </select>
                             </div>
                             <ShinyButton
                                 type="analyze"
