@@ -149,7 +149,31 @@ app.post('/api/makeUser', async (req, res) => {
   } finally {
     // await client.close();
   }
-})
+}),
+
+app.post('/api/makeClub', async (req, res) => { 
+  try {
+    const database = client.db('infinTreadData');
+    const clubs = database.collection('clubs');
+    
+    const newClub = req.body;
+    newClub._id = new ObjectId();
+    const result = await clubs.insertOne(newClub);
+
+    if (result.acknowledged) {
+      console.log('Club inserted with _id:', result.insertedId);
+      res.status(200).json({ message: 'Club created successfully', club: newClub });
+    } else {
+      console.error('Failed to insert club');
+      res.status(500).json({ error: 'Failed to insert club' });
+    }
+  } catch (error) {
+    console.error("error making club: ", error);
+  } finally {
+    // await client.close();
+  }
+}),
+
 
 app.post('/api/login', async (req, res) => {
   try {
@@ -176,7 +200,9 @@ app.post('/api/login', async (req, res) => {
   } finally {
     // await client.close();
   }
-})
+}),
+
+
 // app.post('/api/makeClub', async (req, res) => {
 //   try {
 //     const database = client.db('infinTreadData');
