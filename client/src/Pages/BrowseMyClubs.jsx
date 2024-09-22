@@ -1,4 +1,6 @@
-import { useState, useEffect, useContext } from 'react';
+import { cn } from "@/lib/utils";
+import SparklesText from "@/components/magicui/sparkles-text";
+import AnimatedGridPattern from "@/components/magicui/animated-grid-pattern";import { useState, useEffect, useContext } from 'react';
 import BlurFade from "@/components/magicui/blur-fade";
 import SeverityIndicator from '@/components/severity';
 import { UserContext } from './userContext'; // Correct import
@@ -46,6 +48,16 @@ const BrowseMy = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredClubs, setFilteredClubs] = useState('');
     const [clubDatabase, setClubs] = useState([]);
+    useEffect(() => {
+         // Disable horizontal scrolling
+         document.body.style.overflowX = 'hidden';
+         document.body.style.overflowY = 'auto'; // Allow vertical scrolling
+
+         return () => {
+             document.body.style.overflowX = 'auto';
+             document.body.style.overflowY = 'auto';
+         };
+     }, []);
 
     const handleSearch = (e) => {
         const term = e.target.value;
@@ -61,7 +73,7 @@ const BrowseMy = () => {
         fetch('/api/myclubs', {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'                    
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({_id: user})
         })
@@ -72,44 +84,56 @@ const BrowseMy = () => {
     }, [])
 
     return (
-        <>
-            <BlurFade delay={0.25 * 0.05} inView>
-                <h1 className="tw-text-4xl tw-font-bold tw-text-center tw-text-gray-800 tw-my-8">
-                    Browse Clubs
-                </h1>
-            </BlurFade>
-            <BlurFade delay={0.15} inView>
-                <div className="tw-flex tw-justify-center tw-mb-6 tw-text-white">
-                    <input
-                        type="text"
-                        value={searchTerm}
-                        onChange={handleSearch}
-                        className="tw-p-3 tw-w-1/2 tw-border-b tw-border-gray-300 tw-bg-transparent focus:tw-outline-none focus:tw-ring-0"
-                        placeholder="Search for clubs..."
-                    />
-                </div>
-            </BlurFade>
-            <div className="tw-mb-6"></div>
-            {/* Margin between search bar and clubs */}
-            <div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 tw-gap-4">
-                {filteredClubs.length > 0 ? (
-                    filteredClubs.map((club) => (
-                        <BlurFade key={club._id} delay={0.25 + club._id * 0.05} inView>
-                            <div
-                                key={club.id}
-                                className={`${colorMap[club.category]} tw-shadow-lg tw-rounded-lg tw-p-3 tw-m-3 tw-transition-transform hover:tw-transform hover:tw-scale-105`}
-                            >
-                                <h2 className="tw-text-lg tw-font-semibold">{club.name}</h2>
-                                <p className="tw-text-gray-600">{club.description}</p>
-                                <SeverityIndicator value={club.authenticity} />
-                            </div>
-                        </BlurFade>
-                    ))
-                ) : (
-                    <p className="tw-text-gray-500 tw-text-center">No clubs found.</p>
+        <div className="tw-relative tw-w-full tw-h-screen tw-flex tw-flex-col tw-items-center tw-justify-start tw-overflow-hidden">
+            {/* Animated Grid Pattern as Background */}
+            <AnimatedGridPattern
+                numSquares={30}
+                maxOpacity={0.1}
+                duration={3}
+                repeatDelay={1}
+                className={cn(
+                    "tw-fixed tw-inset-0 tw-h-full tw-w-full tw-skew-y-12", // tw-fixed ensures it covers the entire screen behind the navbar
+                    "[tw-mask-image:radial-gradient(500px_circle_at_center,white,transparent)]"
                 )}
+            />
+            <div className="tw-relative tw-z-10 tw-w-full tw-pt-10"> {/* Added padding to push content slightly down */}
+                <BlurFade delay={0.25 * 0.05} inView>
+                    <div className="tw-text-4xl tw-font-bold tw-text-center tw-text-zinc-300 tw-mt-2"> {/* Reduced margin to bring text higher */}
+                        <SparklesText text="My Clubs" />
+                    </div>
+                </BlurFade>
+                <BlurFade delay={0.15} inView>
+                    <div className="tw-flex tw-justify-center tw-mt-2 tw-mb-4 tw-text-white"> {/* Reduced margin-top and margin-bottom */}
+                        <input
+                            type="text"
+                            value={searchTerm}
+                            onChange={handleSearch}
+                            className="tw-p-3 tw-w-1/2 tw-border-b tw-border-gray-300 tw-bg-transparent focus:tw-outline-none focus:tw-ring-0"
+                            placeholder="Search for clubs..."
+                        />
+                    </div>
+                </BlurFade>
+                <div className="tw-mb-4"></div>
+                <div className="tw-grid tw-grid-cols-1 md:tw-grid-cols-3 tw-gap-4 tw-z-10">
+                    {filteredClubs.length > 0 ? (
+                        filteredClubs.map((club) => (
+                            <BlurFade key={club._id} delay={0.25 + club._id * 0.05} inView>
+                                <div
+                                    key={club.id}
+                                    className={`${colorMap[club.category]} tw-shadow-lg tw-rounded-lg tw-p-3 tw-m-3 tw-transition-transform hover:tw-transform hover:tw-scale-105`}
+                                >
+                                    <h2 className="tw-text-lg tw-font-semibold">{club.name}</h2>
+                                    <p className="tw-text-gray-600">{club.description}</p>
+                                    <SeverityIndicator value={club.authenticity}/>
+                                </div>
+                            </BlurFade>
+                        ))
+                    ) : (
+                        <p className="tw-text-gray-500 tw-text-center">No clubs found.</p>
+                    )}
+                </div>
             </div>
-        </>
+        </div>
     );
 };
 

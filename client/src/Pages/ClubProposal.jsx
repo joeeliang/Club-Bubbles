@@ -128,14 +128,14 @@ const ClubProposal = () => {
         }
         else
         {
-            console.log("You are not logged in")
+            alert("You are not logged in");
         }
         
         
     };
 
     return (
-        <div className="tw-flex tw-items-center tw-justify-center tw-min-h-screen tw-bg-gradient-to-r tw-from-blue-950 tw-to-blue-200 tw-py-8">
+        <div className="tw-overflow-hidden tw-bg-cover tw-bg-fixed tw-bg-center tw-flex tw-items-center tw-justify-center tw-bg-gradient-to-r tw-from-dark-blue tw-to-aqua tw-min-h-screen tw-w-screen tw-scrollbar-hidden tw-py-8">
             <FlickeringGrid
                 className="tw-z-0 tw-absolute tw-inset-0 tw-h-screen tw-w-screen"
                 squareSize={3}
@@ -146,7 +146,7 @@ const ClubProposal = () => {
                 height={830}
                 width={2000}
             />
-            <div ref={formRef} className="tw-bg-blue-900 tw-shadow-lg tw-rounded-lg tw-p-8 tw-max-w-lg tw-w-full tw-z-10 tw-h-screen">
+            <div ref={formRef} className="tw-bg-gradient-to-r tw-from-dark-blue tw-to-marine tw-shadow-lg tw-rounded-lg tw-p-8 tw-max-w-lg tw-w-full tw-z-10 tw-h-screen">
                 <BlurFade inView={isVisible}>
                     <div>
                         <LetterPullup words={"Submit Your Club Proposal"} delay={0.05} className="tw-text-2xl tw-font-bold tw-text-center tw-text-white tw-mb-6"/>
@@ -199,6 +199,7 @@ const ClubProposal = () => {
                             >
                                 {loading ? 'Analyzing...' : 'Analyze Proposal'}
                             </ShinyButton>
+                            <p>⠀</p>
                             <ShinyButton
                                 type="submit"
                                 className="tw-w-full tw-p-3 tw-rounded-lg tw-bg-zinc-300 tw-border-2 tw-border-zinc-600"
