@@ -129,51 +129,6 @@ app.post('/api/myclubs/', async (req, res) => {
   }
 })
 
-app.post('/api/myclubs/', async (req, res) => {
-  try {
-    await client.connect();
-    const database = client.db('infinTreadData');
-    const clubs = database.collection('clubs');
-    const users = database.collection('users');
-    console.log(req.body._id);
-    const id = ObjectId.createFromHexString(req.body._id);
-      const clubListQuery = {
-        _id : (id)
-      }
-
-      console.log(clubListQuery._id);
-
-      const userClubList = await users.findOne(clubListQuery);
-      console.log("THE USER CLUB LIST: " + userClubList);
-
-
-      const clubsCircular = await clubs.find({})
-      const clubsData = [];
-      for await (const club of clubsCircular)
-      {
-        if (userClubList.clubs[club._id.toHexString()])
-        {
-          clubsData.push(club);
-        }
-      }
-
-    if (clubsData.length > 0)
-    {
-      res.json(clubsData);
-      console.log(clubsData);
-    }
-    else
-    {
-      res.status(405).json({error: "Clubs not returning or no clubs exist"});
-    }
-  } catch (error) {
-    console.error("error fetching clubs: ", error);
-    res.status(500).json({error: 'Internal Server Error'});
-  } finally {
-    // await client.close();
-  }
-})
-
 app.post('/api/makeUser', async (req, res) => {
   try {
     const database = client.db('infinTreadData');
