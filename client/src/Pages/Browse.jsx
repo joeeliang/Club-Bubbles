@@ -52,7 +52,6 @@ const Browse = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [clubDatabase, setClubs] = useState([]);
     const [filteredClubs, setFilteredClubs] = useState([]);
-    const [selectedClub, setSelectedClub] = useState(null);  // State to track selected club
 
     useEffect(() => {
         fetch('/api/clubs')
@@ -194,7 +193,7 @@ const Browse = () => {
                         <p><strong>Category:</strong> {selectedClub.category}</p>
                         <p><strong>Description:</strong> {selectedClub.description}</p>
                         {/* Display the severity rating (authenticity) only in the modal */}
-                        <p><strong>Authenticity:</strong> {selectedClub.authenticity}</p>
+                        <p><strong>Authenticity:</strong> {selectedClub.authenticityScore}</p>
                     </Modal.Body>
                     <Modal.Footer className="tw-flex tw-justify-between">
                         <ShinyButton

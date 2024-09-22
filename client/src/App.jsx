@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { cn } from "@/lib/utils";
 import DotPattern from "@/components/magicui/dot-pattern";
-import { UserProvider } from './Pages/userContext'; // Add this line
+import { UserContext, UserProvider } from './Pages/userContext'; // Add this line
 
 import NavbarComponent from './components/NavbarComponent.jsx';
 import { MarqueeEffect } from "./components/MarqueeEffect.jsx";
@@ -20,19 +20,18 @@ import BrowseMy from "./Pages/BrowseMyClubs.jsx";
 function App() {
     return (
         <UserProvider> {/* Add this line */}
-        <Router>
-            <div className="tw-bg-gradient-to-r tw-from-dark-blue tw-to-aqua tw-min-h-screen tw-w-screen tw-scrollbar-hidden">
-                <NavbarComponent/>
-                <Routes>
-                    <Route path="/" element={<PageWrapper/>}/>
-                    <Route path="/browse" element={<Browse/>}/>
-                    <Route path="/login" element={<Login/>}/>
-                    <Route path="/signup" element = {<Signup />} />
-                    <Route path="/proposal" element={<ClubProposal/>}/>
-                    <Route path="/myclubs" element={<BrowseMy/>}/>
-                </Routes>
-            </div>
-        </Router>
+            <Router>
+                <div className="tw-bg-gradient-to-r tw-from-dark-blue tw-to-aqua tw-min-h-screen tw-w-screen tw-scrollbar-hidden">
+                    <Routes>
+                        <Route path="/" element={<PageWrapper/>}/>
+                        <Route path="/browse" element={<Browse/>}/>
+                        <Route path="/login" element={<Login/>}/>
+                        <Route path="/signup" element = {<Signup />} />
+                        <Route path="/proposal" element={<ClubProposal/>}/>
+                        <Route path="/myclubs" element={<BrowseMy/>}/>
+                    </Routes>
+                </div>
+            </Router>
         </UserProvider>
     );
 }
