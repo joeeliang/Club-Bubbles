@@ -1,10 +1,12 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useContext } from 'react';
 import FlickeringGrid from "../components/magicui/flickering-grid";
 import BlurFade from "@/components/magicui/blur-fade";
 import '../index.css';
 import GradualSpacing from "@/components/magicui/gradual-spacing";
+import { UserContext } from './userContext';
 
 const Login = () => {
+    const { setUser } = useContext(UserContext);
     const [isVisible, setIsVisible] = useState(false);
     const ref = useRef(null);
     const [username, setUserName] = useState();

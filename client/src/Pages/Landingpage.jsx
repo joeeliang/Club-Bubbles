@@ -1,4 +1,3 @@
-import React from 'react';
 import '../components/css/bootstrap.min.css'
 import '../components/css/flexslider.css';
 import '../components/css/animsition.min.css';

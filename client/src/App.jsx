@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import DotPattern from "@/components/magicui/dot-pattern";
+import { UserProvider } from './Pages/userContext'; // Add this line
 
 import NavbarComponent from './components/NavbarComponent.jsx';
 import { MarqueeDemo } from "./components/MarqueeDemo.jsx";
@@ -16,26 +17,28 @@ import Login from './Pages/Login.jsx';
 import ClubProposal from "@/Pages/ClubProposal.jsx";
 import BrowseMy from "./Pages/BrowseMyClubs.jsx";
 
-
-
 function App() {
     return (
-        <Router>
-            <div className="tw-bg-gradient-to-r tw-from-blue-950 tw-to-blue-200 tw-min-h-screen tw-w-screen tw-scrollbar-hidden">
-                <NavbarComponent/>
-                <Routes>
-                    <Route path="/" element={<PageWrapper/>}/>
-                    <Route path="/browse" element={<Browse/>}/>
-                    <Route path="/join" element={<Join/>}/>
-                    <Route path="/login" element={<Login/>}/>
-                    <Route path="/signup" element = {<Signup />} />
-                    <Route path="/proposal" element={<ClubProposal/>}/>
-                    <Route path="/myclubs" element={<BrowseMy/>}/>
-                </Routes>
-            </div>
-        </Router>
+        <UserProvider> {}
+            <Router>
+                <div className="tw-bg-gradient-to-r tw-from-blue-950 tw-to-blue-200 tw-min-h-screen tw-w-screen tw-scrollbar-hidden">
+                    <NavbarComponent/>
+                    <Routes>
+                        <Route path="/" element={<PageWrapper/>}/>
+                        <Route path="/browse" element={<Browse/>}/>
+                        <Route path="/join" element={<Join/>}/>
+                        <Route path="/login" element={<Login/>}/>
+                        <Route path="/signup" element = {<Signup />} />
+                        <Route path="/proposal" element={<ClubProposal/>}/>
+                        <Route path="/myclubs" element={<BrowseMy/>}/>
+                    </Routes>
+                </div>
+            </Router>
+        </UserProvider>
     );
 }
+
+import PropTypes from 'prop-types';
 
 function PageWrapper({content}) {
     const location = useLocation();
@@ -61,5 +64,9 @@ function PageWrapper({content}) {
         </>
     );
 }
+
+PageWrapper.propTypes = {
+    content: PropTypes.node,
+};
 
 export default App;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import BlurFade from "@/components/magicui/blur-fade";
 import FlickeringGrid from "../components/magicui/flickering-grid";
 import LetterPullup from "@/components/magicui/letter-pullup";
