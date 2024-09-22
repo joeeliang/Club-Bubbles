@@ -14,6 +14,7 @@ import Browse from './Pages/Browse.jsx';
 import Join from './Pages/Join.jsx';
 import Login from './Pages/Login.jsx';
 import ClubProposal from "@/Pages/ClubProposal.jsx";
+import BrowseMy from "./Pages/BrowseMyClubs.jsx";
 
 
 
@@ -29,6 +30,7 @@ function App() {
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/signup" element = {<Signup />} />
                     <Route path="/proposal" element={<ClubProposal/>}/>
+                    <Route path="/myclubs" element={<BrowseMy/>}/>
                 </Routes>
             </div>
         </Router>

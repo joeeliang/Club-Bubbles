@@ -59,7 +59,7 @@ const BrowseMy = () => {
         fetch('/api/myclubs', {
             method: "POST",
             headers: {
-                'TYPE': 'MINE'                    
+                'Content-Type': 'application/json'                    
             },
             body: JSON.stringify({_id: '66ee5462c160cac49cf111c7'})
         })
