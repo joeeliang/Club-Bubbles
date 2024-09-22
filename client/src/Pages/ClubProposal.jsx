@@ -82,7 +82,7 @@ const ClubProposal = () => {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        _id: user
+                        _id: user.id
                     }),
                 });
 
@@ -99,10 +99,10 @@ const ClubProposal = () => {
                     clubRoom: clubRoom,
                     proposal: proposalContent,
                     authenticityScore: authenticityScore,
-                    studentLeader: user,
+                    studentLeader: user.id,
                     members: {}
                 };
-                newClub.members[user] = data.name;
+                newClub.members[user.id] = data.name;
 
                 try {
                     const response = await fetch('/api/makeClub', {

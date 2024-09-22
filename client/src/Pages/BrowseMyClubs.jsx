@@ -63,7 +63,13 @@ const BrowseMy = () => {
     const [filteredClubs, setFilteredClubs] = useState([]);
 
     useEffect(() => {
-        fetch('/api/myclubs')
+        fetch('/api/myclubs', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({_id: user.id})
+        })
            .then((response) => response.json())
            .then((data) => {
                 setClubs(data);

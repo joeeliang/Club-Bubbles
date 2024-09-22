@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import BlurFade from "@/components/magicui/blur-fade";
 import SeverityIndicator from '@/components/severity';
 import Ripple from "../components/magicui/ripple.jsx";
 import ShinyButton from "@/components/magicui/shiny-button";
 import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { UserContext } from './userContext.jsx';
 // import { response } from 'express';
 
 const gradients = [
@@ -44,6 +45,9 @@ const colorMap = {
   };
 
 const Browse = () => {
+    const {user} = useContext(UserContext);
+    const [selectedClub, setSelectedClub] = useState(null);  // State to track selected club
+    const [showModal, setShowModal] = useState(false);       // Modal stat
     const [searchTerm, setSearchTerm] = useState('');
     const [clubDatabase, setClubs] = useState([]);
     const [filteredClubs, setFilteredClubs] = useState([]);
@@ -68,6 +72,31 @@ const Browse = () => {
             )
         );
     };
+    
+    const handleJoin = (e) => {
+        try
+        {
+            const result = fetch('/api/userToClub', {
+                method: "POST",
+                headers:
+                {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({_id: user.id, club: e})
+            });
+            
+            const result2 = fetch('/api/clubToUser', {
+                method: "POST",
+                headers:
+                {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({_id: user.id, club: e})
+            });
+        } catch (error) {
+            console.log("Database failure: " + error);
+        }
+    }
 
 // const Browse = () => {
 //     const [searchTerm, setSearchTerm] = useState('');
@@ -96,12 +125,12 @@ const Browse = () => {
 //         );
 //     };
 
-    // const handleClubClick = (club) => {
-    //     setSelectedClub(club);  // Set the clicked club
-    //     setShowModal(true);     // Show the modal
-    // };
+    const handleClubClick = (club) => {
+        setSelectedClub(club);  // Set the clicked club
+        setShowModal(true);     // Show the modal
+    };
 
-    // const handleClose = () => setShowModal(false);  // Close the modal
+    const handleClose = () => setShowModal(false);  // Close the modal
 
     return (
         <>
@@ -154,7 +183,35 @@ const Browse = () => {
                     <p className="tw-text-gray-500 tw-text-center">No clubs found. Womp Womp</p>
                 )}
             </div>
-
+{/* Modal using React-Bootstrap */}
+            {selectedClub ? (
+                <Modal show={showModal} onHide={handleClose} centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>{selectedClub.name}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p><strong>Category:</strong> {selectedClub.category}</p>
+                        <p><strong>Description:</strong> {selectedClub.description}</p>
+                        {/* Display the severity rating (authenticity) only in the modal */}
+                        <p><strong>Authenticity:</strong> {selectedClub.authenticity}</p>
+                    </Modal.Body>
+                    <Modal.Footer className="tw-flex tw-justify-between">
+                        <ShinyButton
+                            type="button"
+                            onClick={() => handleJoin(selectedClub._id)}  // Example action for the button
+                        >
+                            Join
+                        </ShinyButton>
+                        <button
+                            onClick={handleClose}
+                            className="tw-bg-gray-600 tw-text-white tw-px-4 tw-py-2 tw-rounded-md hover:tw-bg-gray-700"
+                        >
+                            Close
+                        </button>
+                        {/* Shiny Join Button */}
+                    </Modal.Footer>
+                </Modal>
+            ) : <div></div>} 
         </>
     );
 };
