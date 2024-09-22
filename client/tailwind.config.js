@@ -91,6 +91,10 @@ module.exports = {
         },
       },
       colors: {
+        "dark-blue": "#03283f",
+        "marine": "#014e62",
+        "aqua": "#5393a0",
+        "beach": "#fbaa8d",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
