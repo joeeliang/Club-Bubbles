@@ -129,13 +129,7 @@ const clubsData = [
         </div>
     );
 }
-ReviewCard.propTypes = {
-    img: PropTypes.string,
-    name: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired,
-    body: PropTypes.string.isRequired,
-    onClick: PropTypes.func
-};
+
 
 const ReviewCard = ({ img = "", name = "", username = "", body = "", onClick }) => {
     return (
@@ -156,3 +150,11 @@ const ReviewCard = ({ img = "", name = "", username = "", body = "", onClick }) 
         </figure>
     );
 }
+
+ReviewCard.propTypes = {
+    img: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+    body: PropTypes.string.isRequired,
+    onClick: PropTypes.func
+};
