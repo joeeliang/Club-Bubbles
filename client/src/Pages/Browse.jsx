@@ -43,8 +43,17 @@ const colorMap = {
 
 const Browse = () => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [filteredClubs, setFilteredClubs] = useState('');
     const [clubDatabase, setClubs] = useState([]);
+
+    useEffect(() => {
+        fetch('/api/clubs')
+            .then((response) => response.json())
+            .then((data) => setClubs(data))
+            .catch((error) => console.error('error fetching: ', error ));
+        console.log("WE ARE DOING SOMETHING");
+    }, [])
+
+    const [filteredClubs, setFilteredClubs] = useState(clubDatabase);
 
     const handleSearch = (e) => {
         const term = e.target.value;
@@ -55,14 +64,6 @@ const Browse = () => {
             )
         );
     };
-
-    useEffect(() => {
-        fetch('/api/clubs')
-            .then((response) => response.json())
-            .then((data) => setClubs(data))
-            .catch((error) => console.error('error fetching: ', error ));
-        console.log("WE ARE DOING SOMETHING");
-    }, [])
 
     return (
         <>

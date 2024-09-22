@@ -30,7 +30,7 @@ function App() {
                 <Route path="/browse" element={<Browse/>}/>
                 <Route path="/join" element={<Join/>}/>
                 <Route path="/login" element={<Login/>}/>
-                <Route path="/Signup" element = {<Signup />} />
+                <Route path="/Signup" element = {<Signup/>} />
                 <Route path="/proposal" element={<ClubProposal/>}/>
                 <Route path="/confirmproposal" element={<Confirm/>}/>
                 </Routes>
