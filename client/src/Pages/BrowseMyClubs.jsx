@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils";
 import SparklesText from "@/components/magicui/sparkles-text";
-import AnimatedGridPattern from "@/components/magicui/animated-grid-pattern";
-import { useState, useEffect, useContext } from 'react';
+import AnimatedGridPattern from "@/components/magicui/animated-grid-pattern";import { useState, useEffect, useContext } from 'react';
 import BlurFade from "@/components/magicui/blur-fade";
 import SeverityIndicator from '@/components/severity';
 import { UserContext } from './userContext'; // Correct import
