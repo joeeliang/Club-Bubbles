@@ -100,6 +100,7 @@ const ClubProposal = () => {
                     proposal: proposalContent,
                     authenticityScore: authenticityScore,
                     studentLeader: user,
+                    members: {}
                 };
                 newClub.members[user] = data.name;
 

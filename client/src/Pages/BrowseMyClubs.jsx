@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import BlurFade from "@/components/magicui/blur-fade";
 import SeverityIndicator from '@/components/severity';
 import { UserContext } from './userContext'; // Correct import
+import { data } from 'autoprefixer';
 // import { response } from 'express';
 
 // const clubsData = [
@@ -44,8 +45,19 @@ const colorMap = {
 const BrowseMy = () => {
     const { user } = useContext(UserContext);
     const [searchTerm, setSearchTerm] = useState('');
-    const [filteredClubs, setFilteredClubs] = useState('');
     const [clubDatabase, setClubs] = useState([]);
+    const [filteredClubs, setFilteredClubs] = useState([]);
+
+    useEffect(() => {
+        fetch('/api/myclubs')
+           .then((response) => response.json())
+           .then((data) => {
+                setClubs(data);
+                setFilteredClubs(data);
+            })
+           .catch((error) => console.error('error fetching: ', error ));
+        console.log("WE ARE DOING SOMETHING");
+    }, [])
 
     const handleSearch = (e) => {
         const term = e.target.value;
@@ -56,20 +68,7 @@ const BrowseMy = () => {
             )
         );
     };
-
-    useEffect(() => {
-        fetch('/api/myclubs', {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'                    
-            },
-            body: JSON.stringify({_id: user})
-        })
-            .then((response) => response.json())
-            .then((data) => setClubs(data))
-            .catch((error) => console.error('error fetching: ', error));
-        console.log("WE ARE DOING SOMETHING");
-    }, [])
+    
 
     return (
         <>
