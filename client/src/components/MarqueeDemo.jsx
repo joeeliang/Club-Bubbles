@@ -8,7 +8,7 @@ const ReviewCard = ({ img = "", name = "", username = "", body = "", onClick }) 
             tw-bg-gray-950/[.01] tw-hover:bg-gray-950/[.05] 
             tw-dark:border-gray-50/[.1] tw-dark:bg-gray-50/[.10] tw-dark:hover:bg-gray-50/[.15] tw-mr-4 tw-bg-zinc-300
             tw-bg-opacity-35">
-            <div className="tw-flex tw-flex-row tw-items-center tw-gap-2">
+            <div className="tw-flex tw-flex-row tw-items-center tw-gap-2 tw-shadow-2xl">
                 <img className="tw-rounded-full" width="32" height="32" alt="" src={img} />
                 <div className="tw-flex tw-flex-col">
                     <figcaption className="tw-text-sm tw-font-medium tw-dark:text-white">
