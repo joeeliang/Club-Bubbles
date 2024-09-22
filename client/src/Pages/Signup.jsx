@@ -138,14 +138,14 @@ function Signup() {
                 color="#6B7280"
                 maxOpacity={0.5}
                 flickerChance={0.1}
-                height={60}
+                height={1010}
                 width={2000}
             />
             <div ref={formRef} className="tw-z-10 tw-bg-gradient-to-r tw-from-dark-blue tw-to-marine tw-shadow-lg tw-rounded-lg tw-p-8 tw-max-w-sm tw-w-full">
                 <BlurFade inView={isVisible}>
                     <div>
                         <TypingAnimation
-                            duration={50}
+                            duration={30}
                             className="tw-text-2xl tw-font-bold tw-text-center tw-text-white tw-mb-6"
                             text="Create an Account"
                         />
