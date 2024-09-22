@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import FlickeringGrid from "../components/magicui/flickering-grid";
 import BlurFade from "@/components/magicui/blur-fade";
 import '../index.css';
