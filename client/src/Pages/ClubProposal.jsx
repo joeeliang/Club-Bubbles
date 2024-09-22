@@ -135,14 +135,38 @@ const ClubProposal = () => {
                     });
             
                     const data = await response.json();
-                    if (response.ok) {
+                    if (response.status == 200) {
                     console.log('Club added:', data);
                     } else {
                     console.error('Error:', data);
                     }
+
+                    try {
+                        const userClubDatabaseResponse = await fetch('/api/clubToUser', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({user: user.id, club: response.club._id})
+                        })
+                        const data2 = await userClubDatabaseResponse.json();
+                        if (userClubDatabaseResponse.status() == 200)
+                        {
+                            console.log('Club added to user database: ', data2);
+                        }
+                        else
+                        {
+                            console.log('Club failed to be added to database: ', data2);
+                        }
+                    }
+                    catch (error)
+                    {
+                        console.error('Error in adding club to user database: ', error);
+                    }
                 } catch (error) {
                     console.error('Error sending user data:', error);
                 }
+
             } catch (error) {
                 console.error('Error sending user data:', error);
                 
