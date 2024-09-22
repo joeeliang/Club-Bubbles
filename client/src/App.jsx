@@ -17,8 +17,6 @@ import Login from './Pages/Login.jsx';
 import ClubProposal from "./Pages/ClubProposal.jsx";
 import Confirm from "./Pages/Confirm.jsx"
 
-import Signup from "@/Pages/Signup.jsx";
-import ClubProposal from "@/Pages/ClubProposal.jsx";
 
 
 function App() {
